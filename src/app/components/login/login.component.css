@@ -1,0 +1,26 @@
+.card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.logo{
+
+    height: 170px;
+    width: 360px;
+}
+.body{
+width: 100%;
+margin: auto;
+text-align: center;
+}
+
+.card-header{
+    background-color: white;
+    opacity: 0.9;
+}
+.card-background {
+    background-image: url('../../../assets/img/MicrosoftTeams-image.png');
+    background-size: cover;
+    background-position: center;
+}
