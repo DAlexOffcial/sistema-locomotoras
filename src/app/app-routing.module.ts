@@ -4,21 +4,11 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { 
-    path: '', redirectTo: 'login' , pathMatch: 'full' 
-  },
-  { 
-    path: 'login' , component: LoginComponent 
-  },
-  { 
-    path: 'dashboard' , component: DashboardComponent
-  },
-  { 
-    path: 'dashboard' , loadChildren: () => import('./mainPage/mainPage.module').then(m => m.mainPageModule )
-  },
-  { 
-    path: '**' , redirectTo: 'login' , pathMatch: 'full'
-  }
+  { path: '', redirectTo: 'login' , pathMatch: 'full' },
+  { path: 'login' , component: LoginComponent },
+  { path: 'dashboard' , component: DashboardComponent },
+
+  { path: '**' , redirectTo: 'login' , pathMatch: 'full'}
 ];
 
 @NgModule({

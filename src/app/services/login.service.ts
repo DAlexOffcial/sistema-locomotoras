@@ -18,9 +18,8 @@ export class LoginService {
     }
     const url = '/server/login/authenticate' 
 
-    return this.http.post(url , body) 
+    return this.http.post(url , body)
   }
-  
 
   guardarToken(token : string):void{
     console.log(token)
