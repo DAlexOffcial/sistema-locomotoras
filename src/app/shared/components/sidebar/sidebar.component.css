@@ -8,3 +8,8 @@
 .dropdown-menu{
     width: 100% 
 }
+@media (max-width: 767px) {
+    .sidebar {
+        height: auto; /* Cambiar la altura a automático para permitir que el contenido determine la altura */
+    }
+}

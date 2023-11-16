@@ -1,4 +1,7 @@
-.container{
-    /*       up-down   sizes  */
-    margin:    10%     20%;
-}
+table {
+    width: 100%;
+  }
+  .mat-table-responsive {
+    overflow-x: auto;
+    max-width: 100%;
+  }

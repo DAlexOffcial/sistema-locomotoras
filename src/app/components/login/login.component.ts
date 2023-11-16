@@ -31,27 +31,19 @@ export class LoginComponent {
       this._loginService.guardarToken(data.token)
       this.router.navigate(['/dashboard'])
     },(error) => {
+      Swal.fire({  
+        icon: 'error',  
+        title: 'Oops...',  
+        text: 'contraseña incorrecta',
+        padding: 0,
+      }) 
       console.log(error)
-     this.errorAlert('Usuario o contraseña')
+    
     })
-
-    /*this._loginService.getDataCil('cil').subscribe(data => {
-        console.log('inicia la suscripcion en login' , data)
-        this._loginService.setDataCil(data.Catalog.datos)
-    })*/
-
   }
 
   IrLick() : void {
     this.router.navigateByUrl('recover')
   }
 
-  errorAlert( error : string ): any {
-    Swal.fire({  
-      icon: 'error',  
-      title: 'Oops...',  
-      text: '',
-      padding: 0,
-    }) 
-  }
 }

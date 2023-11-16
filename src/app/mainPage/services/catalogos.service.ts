@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, map } from 'rxjs';
-import { Catalog, CatalogoCil, Cil } from '../interfaces/catalogos-cil';
+import { Observable, Subject, catchError, map, of } from 'rxjs';
+import { Catalog, CatalogCil, Cil } from '../interfaces/catalogos-cil';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,7 @@ export class CatalogosService {
 
   constructor(private http: HttpClient) { }
   
-
-  public data: Cil[] = [];
-
-  public getDataCil(catalogo: string): Observable<Catalog> {
+  public getDataCil(catalogo: string): Observable<CatalogCil> {
 
     const apiUrl = '/server/getCatalogData?catalog=' + catalogo
 
@@ -21,16 +18,17 @@ export class CatalogosService {
     console.log(token)
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token })
     console.log(headers)
-    return this.http.post<CatalogoCil>(`${apiUrl}`, null, { headers }).pipe(
-      map(data => {
-        this.data = data.Catalog.datos;
-        console.log("se cargo en el servicio");
-        console.log(this.data)
-        //this.setDataCil(this.data)
-
-        /*this.actulizarVariable(this.data)*/
-        return data.Catalog
-      })
+    return this.http.post<CatalogCil>(`${apiUrl}`, null, { headers }).pipe(
+      map(data => ({
+        ...data,
+        Catalog: {
+          ...data.Catalog,
+          cil: data.Catalog.cil.map(cil => ({
+            ...cil,
+            activo: cil.activo === '1' ? 'Activo' : 'NoActivo'
+          }))
+        }
+      }))
     )
   }
 

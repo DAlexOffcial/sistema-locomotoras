@@ -5,8 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AddTableComponent } from './components/add-table/add-table.component';
 
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -17,8 +16,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   imports: [
     CommonModule,
     RouterModule,
-    MatTableModule,
-    MatPaginatorModule
   ],
   exports: [
     NavbarComponent,

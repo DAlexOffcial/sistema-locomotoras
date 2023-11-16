@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { CatalogoCliComponent } from './pages/catalogo-cil/catalogo-cli.component';
 import { CatalogoInspeccionesComponent } from './pages/catalogo-inspecciones/catalogo-inspecciones.component';
 import { CatalogoEntregasComponent } from './pages/catalogo-entregas/catalogo-entregas.component';
@@ -11,6 +12,9 @@ import { mainPageRoutingModule } from './mainPage-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import { FormatoFechaPipe } from './formato-fecha.pipe';
 
 
 @NgModule({
@@ -18,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
         CommonModule,
         mainPageRoutingModule,
         SharedModule,
-        HttpClientModule
+        HttpClientModule,
+        MatPaginatorModule,
+        MatTableModule
     ],
     exports: [
 
@@ -30,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
       CatalogoAccionesComponent,
       CatalogoBaniosComponent,
       CatalogoEmpleadosComponent,
+      FormatoFechaPipe,
     ],
 })
 export class mainPageModule { }
