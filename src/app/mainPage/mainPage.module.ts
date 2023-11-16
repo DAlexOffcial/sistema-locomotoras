@@ -5,15 +5,24 @@ import { CatalogoEntregasComponent } from './pages/catalogo-entregas/catalogo-en
 import { CatalogoAccionesComponent } from './pages/catalogo-acciones/catalogo-acciones.component';
 import { CatalogoBaniosComponent } from './pages/catalogo-banios/catalogo-banios.component';
 import { CatalogoEmpleadosComponent } from './pages/catalogo-empleados/catalogo-empleados.component';
+
 import { CommonModule } from '@angular/common';
 import { mainPageRoutingModule } from './mainPage-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 @NgModule({
     imports: [
         CommonModule,
-        mainPageRoutingModule
+        mainPageRoutingModule,
+        SharedModule,
+        HttpClientModule
     ],
-    exports: [],
+    exports: [
+
+    ],
     declarations: [
       CatalogoCliComponent,
       CatalogoInspeccionesComponent,

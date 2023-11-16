@@ -1,1 +1,18 @@
-<p>catalogo-cli works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <shared-add-table></shared-add-table>
+        </div>
+    </div>
+
+    
+        <h1>Catalogo CLI</h1>
+        <button>Actualizar Datos</button>
+        <ul *ngIf="t != 0" else template>
+            <li *ngFor="let item of CatalogoCLI">
+                {{ item.PUESTO_TRABAJO }} - {{ item.desc_cil }} - {{ item.PUESTO_TRABAJO }}
+            </li>
+        </ul>
+        <ng-template #template>Content to render when condition is false.</ng-template>
+        
+</div>

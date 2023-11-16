@@ -1,14 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subject, map } from 'rxjs';
 import Swal from 'sweetalert2';
+import { CatalogoCil, Cil } from '../mainPage/interfaces/catalogos-cil';
+import { CatalogosService } from '../mainPage/services/catalogos.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  //login 
 
-  constructor(private http:HttpClient ) { }
+  constructor(private http:HttpClient ,private _catalogServices : CatalogosService) { }
   
   postDatos(  NoEmpleado:number , Password:string): Observable<any> {
     
@@ -19,20 +22,32 @@ export class LoginService {
     const url = '/server/login/authenticate' 
 
     return this.http.post(url , body) 
+
+
   }
   
 
   guardarToken(token : string):void{
     console.log(token)
+    
      localStorage.setItem('token' , token )
+
+     this._catalogServices.getDataCil('cil').subscribe()
   }
 
-  errorAlert( error : string ): any {
-    Swal.fire({  
-      icon: 'error',  
-      title: 'Oops...',  
-      text: error,
-      padding: 0,
-    }) 
-  }
+  
+  // catalogo cil
+
+
+
+  /*public get datos() : Cil[] {
+    return [...this.data]
+  }*/
+  
+ /* private subject = new BehaviorSubject(this.data)
+  catalogos: Observable<Cil[]> = this.subject.asObservable()
+
+  public actulizarVariable( nuevoValor : Cil[]) : void {
+   this.subject.next(nuevoValor)
+  }*/
 }
