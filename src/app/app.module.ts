@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SharedModule } from './shared/shared.module';
-import { ShowPagesComponent } from './components/show-pages/show-pages.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { RecoverPasswordComponent } from './components/recover-password/recover-
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    ShowPagesComponent,
     RecoverPasswordComponent,
   ],
   imports: [

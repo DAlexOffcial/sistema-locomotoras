@@ -1,48 +1,11 @@
 <div class="container">
-        <div class="col-md-10">
-            <shared-add-table></shared-add-table>
-        </div>
-    <h1>Catalogo CLI</h1>
+    <div class="col-md-10">
+        <shared-add-table></shared-add-table>
+    </div>
+    <h1>Catalogo CIL</h1>
     <div class="row">
         <div class="conteiner mt-5">
-            <!-- tu-componente.component.html -->
-            <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mat-table-responsive">
-
-                <ng-container matColumnDef="id_cil">
-                    <mat-header-cell *matHeaderCellDef>ID CIL</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{ element.id_cil }}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="desc_cil">
-                    <mat-header-cell *matHeaderCellDef>Descripción CIL</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{ element.desc_cil }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="activo">
-                    <mat-header-cell *matHeaderCellDef>Activo</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{ element.activo }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="fecha_registro">
-                    <mat-header-cell *matHeaderCellDef>Fecha de Registro</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{ element.fecha_registro | formatoFecha}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="fecha_actualizacion">
-                    <mat-header-cell *matHeaderCellDef>Fecha de Actualización</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{ element.fecha_actualizacion | formatoFecha}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="PUESTO_TRABAJO">
-                    <mat-header-cell *matHeaderCellDef>Puesto de Trabajo</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{ element.PUESTO_TRABAJO || 'N/A' }}</mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-            </mat-table>
-
-            <mat-paginator  [pageSizeOptions]="[10, 25, 50 , 100]" showFirstLastButtons class="mb-5"></mat-paginator>
-
+            <tabla-main-page></tabla-main-page>
         </div>
     </div>
 </div>

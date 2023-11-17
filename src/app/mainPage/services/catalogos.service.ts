@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, catchError, map, of } from 'rxjs';
-import { Catalog, CatalogCil, Cil } from '../interfaces/catalogos-cil';
+import { Catalog, Catalogos, Cil, Inspecciones } from '../interfaces/catalogos-cil';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class CatalogosService {
 
   constructor(private http: HttpClient) { }
   
-  public getDataCil(catalogo: string): Observable<CatalogCil> {
+  /*public getDataCil(catalogo: string): Observable<Catalogos> {
 
     const apiUrl = '/server/getCatalogData?catalog=' + catalogo
 
@@ -18,7 +18,7 @@ export class CatalogosService {
     console.log(token)
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token })
     console.log(headers)
-    return this.http.post<CatalogCil>(`${apiUrl}`, null, { headers }).pipe(
+    return this.http.post<Catalogos>(`${apiUrl}`, null, { headers }).pipe(
       map(data => ({
         ...data,
         Catalog: {
@@ -30,21 +30,66 @@ export class CatalogosService {
         }
       }))
     )
+  } */
+
+  getDataCil(catalogo: string): Observable<any> {
+    const apiUrl = `/server/getCatalogData?catalog=${catalogo}`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+
+    return this.http.post<any>(apiUrl, null, { headers }).pipe(
+      map(data => this.mapData(data, catalogo))
+    );
   }
 
-
-
-/*  private dataCatalogoCil = new Subject<Cil[]> 
-
-  setDataCil(data: Cil[]){
-    //console.log('SE GUARDA LA DATA EN EL SERVICIO' , data)
-    this.dataCatalogoCil.next(data)
+  private mapData(data: any, tipo: string): any {
+    switch (tipo) {
+      case 'cil':
+        return this.mapCilData(data);
+      case 'inspecciones':
+        return this.mapInspeccionesData(data);
+      case 'entregas':
+        return this.mapEntregasData(data);
+      case 'acciones':
+        return this.mapAccionesData(data);
+      case 'banios':
+        return this.mapBaniosData(data);
+      // Agrega más casos según sea necesario para otros tipos de información
+      default:
+        throw new Error(`Tipo de catálogo no válido: ${tipo}`);
+    }
   }
 
-   getDataCatalogCil(){
-    //console.log('SE OBTIENE LA DATA DEL SERVICIO')
-    return this.dataCatalogoCil.asObservable();
-   }
-*/
+  private mapCilData(data: any): any {
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        cil: data.Catalog.cil.map((cil: Cil) => ({ ...cil }))
+      }
+    };
+  }
+
+  private mapInspeccionesData(data: any): any {
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        inspecciones: data.Catalog.inspecciones.map((inspecciones: Inspecciones) => ({ ...inspecciones }))
+      }
+    };
+  }
+
+  private mapEntregasData(data: any): any {
+ 
+  }
+
+  private mapAccionesData(data: any): any {
+    
+  }
+
+  private mapBaniosData(data: any): any {
+    
+  }
    
 }

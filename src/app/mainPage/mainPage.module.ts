@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { FormatoFechaPipe } from './formato-fecha.pipe';
+import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { FormatoFechaPipe } from './formato-fecha.pipe';
       CatalogoBaniosComponent,
       CatalogoEmpleadosComponent,
       FormatoFechaPipe,
+      TablaMainPageComponent,
     ],
 })
 export class mainPageModule { }
