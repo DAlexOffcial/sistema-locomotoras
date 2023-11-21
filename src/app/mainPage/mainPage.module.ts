@@ -14,8 +14,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
+
 import { FormatoFechaPipe } from './formato-fecha.pipe';
 import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
+import { AddModalMainPageComponent } from './components/add-modal-main-page/add-modal-main-page.component';
+
 
 
 @NgModule({
@@ -25,7 +29,8 @@ import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-
         SharedModule,
         HttpClientModule,
         MatPaginatorModule,
-        MatTableModule
+        MatTableModule,
+        MatDialogModule
     ],
     exports: [
 
@@ -39,6 +44,7 @@ import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-
       CatalogoEmpleadosComponent,
       FormatoFechaPipe,
       TablaMainPageComponent,
+      AddModalMainPageComponent,
     ],
 })
 export class mainPageModule { }

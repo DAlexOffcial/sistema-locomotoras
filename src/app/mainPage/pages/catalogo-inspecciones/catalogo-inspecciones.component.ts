@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CatalogosService } from '../../services/catalogos.service';
 
 @Component({
   selector: 'app-catalogo-inspecciones',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./catalogo-inspecciones.component.css']
 })
 export class CatalogoInspeccionesComponent {
-
+ 
+  constructor (private _catalogoServices: CatalogosService){}
+  ngOnInit(): void {
+    this._catalogoServices.getCatlogo('inspecciones')
+  }
 }

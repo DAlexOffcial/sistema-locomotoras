@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, map, of } from 'rxjs';
-import { Catalog, Catalogos, Cil, Inspecciones } from '../interfaces/catalogos-cil';
+import { Observable, Subject, map } from 'rxjs';
+import { Acciones, Banio, Catalog, Catalogos, Cil, Entregas, Inspecciones } from '../interfaces/catalogos-cil';
+import { MatDialog } from '@angular/material/dialog';
+import { AddModalMainPageComponent } from '../components/add-modal-main-page/add-modal-main-page.component';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +33,20 @@ export class CatalogosService {
       }))
     )
   } */
+  
+  // obtener catalogos y generar tablas 
 
-  getDataCil(catalogo: string): Observable<any> {
+  private dataCatalog: Subject<string> = new Subject<string>()
+  
+  getCatlogo(catalogo : string) {
+   this.dataCatalog.next(catalogo)
+  }
+
+  setCatalogo(){
+    return this.dataCatalog.asObservable()
+  }
+    
+  getDataCatalogos(catalogo: string): Observable<any> {
     const apiUrl = `/server/getCatalogData?catalog=${catalogo}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
@@ -81,15 +95,37 @@ export class CatalogosService {
   }
 
   private mapEntregasData(data: any): any {
- 
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        entregas: data.Catalog.entregas.map((entregas: Entregas) => ({ ...entregas }))
+      }
+    };
   }
 
   private mapAccionesData(data: any): any {
-    
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        acciones: data.Catalog.acciones.map((acciones: Acciones) => ({ ...acciones }))
+      }
+    };
   }
 
   private mapBaniosData(data: any): any {
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        banios: data.Catalog.banios.map((banios: Banio) => ({ ...banios }))
+      }
+    };    
+  } 
+
+  /*openAddDialog() : void {
+    this.matDialog.open(AddModalMainPageComponent)
+  }*/
     
-  }
-   
 }

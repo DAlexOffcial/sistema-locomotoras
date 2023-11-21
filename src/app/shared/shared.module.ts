@@ -3,15 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { AddTableComponent } from './components/add-table/add-table.component';
 
 
 
 @NgModule({
   declarations: [
      NavbarComponent,
-     SidebarComponent,
-     AddTableComponent
+     SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -19,8 +17,7 @@ import { AddTableComponent } from './components/add-table/add-table.component';
   ],
   exports: [
     NavbarComponent,
-    SidebarComponent,
-    AddTableComponent
+    SidebarComponent
   ]
 })
 export class SharedModule { }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -10,29 +10,34 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class TablaMainPageComponent implements OnInit , AfterViewInit{
 
-  @Output() mensaje
-   
   dataSource = new MatTableDataSource<any>();
-  
-  tipoCatalogo: string = ''
 
   catalogoData: any[] = []
 
-  displayedColumns : string[] = []
-   
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null;
+  tipoCatalogo: string = ''
 
-  constructor(private _catalogosServices : CatalogosService) {}
+  displayedColumns : string[] = []
+
+  
+   
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  constructor(private _catalogosServices : CatalogosService) {
+    this._catalogosServices.setCatalogo().subscribe(tipoCatalogo => {
+      this.tipoCatalogo = tipoCatalogo
+      console.log(this.tipoCatalogo)
+    })
+  }
 
   ngOnInit(): void {
-  
-    this.tipoCatalogo = 'inspecciones';
+
     this.configurarColumnas();
-    console.log(this.displayedColumns)
-    this._catalogosServices.getDataCil(this.tipoCatalogo).subscribe(data => {
+
+    this._catalogosServices.getDataCatalogos(this.tipoCatalogo).subscribe(data => {
       this.catalogoData = data.Catalog[this.tipoCatalogo];
       console.log(this.catalogoData)   
       this.dataSource.data = this.catalogoData
+      this.dataSource.paginator = this.paginator
     });
   }
 
@@ -41,6 +46,9 @@ export class TablaMainPageComponent implements OnInit , AfterViewInit{
   }
 
   public configurarColumnas(): void {
+    
+    const columnaAdicional = 'columna_adicional';
+
     switch (this.tipoCatalogo) {
       case 'cil':
         this.displayedColumns = ['id_cil', 'desc_cil', 'activo', 'fecha_registro', 'fecha_actualizacion', 'PUESTO_TRABAJO'];
@@ -49,17 +57,20 @@ export class TablaMainPageComponent implements OnInit , AfterViewInit{
         this.displayedColumns = ['id_tipo_inspeccion', 'tipo_inspeccion', 'desc_tipo_inspeccion' , 'tiempo_meta' , 'activo' , 'fecha_registro' , 'fecha_actualizacion'];
         break;
       case 'entregas':
-        this.displayedColumns = ['id_tipo_entrega', 'desc_tipo_entrega', ];
+        this.displayedColumns = ['id_tipo_entrega', 'desc_tipo_entrega', 'activo', 'fecha_registro' , 'fecha_actualizacion'];
         break;
       case 'acciones':
-        this.displayedColumns = ['id_accion', 'desc_accion',];
+        this.displayedColumns = ['id_accion', 'desc_accion', 'activo' , 'fecha_registro' , 'fecha_actualizacion'];
         break;
       case 'banios':
-        this.displayedColumns = ['id_banio', 'desc_banio', ];
+        this.displayedColumns = ['id_banio', 'desc_banio', 'activo' , 'fecha_registro' , 'fecha_actualizacion'];
         break;
       default:
         throw new Error(`Tipo de catálogo no válido: ${this.tipoCatalogo}`);
     }
+    /*if (!this.displayedColumns.includes(columnaAdicional)) {
+      this.displayedColumns.push(columnaAdicional);
+    }*/
   }
 
 }

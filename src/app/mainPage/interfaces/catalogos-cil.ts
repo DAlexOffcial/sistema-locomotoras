@@ -8,7 +8,7 @@ export interface Catalog {
   cil: Cil[];
   inspecciones : Inspecciones[];
   entregas: Entregas[];
-  acciones: Accione[];
+  acciones: Acciones[];
   banios: Banio[];
 }  
 
@@ -39,7 +39,7 @@ export interface Entregas {
   fecha_actualizacion: string;
 }
 
-export interface Accione {
+export interface Acciones {
   id_accion:           number;
   desc_accion:         string;
   activo:              string;
