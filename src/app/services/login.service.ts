@@ -9,7 +9,7 @@ import { CatalogosService } from '../mainPage/services/catalogos.service';
 export class LoginService {
   //login 
 
-  constructor(private http:HttpClient ,private _catalogServices : CatalogosService) { }
+  constructor(private http:HttpClient) { }
   
   postDatos(  NoEmpleado:number , Password:string): Observable<any> {
     
@@ -22,7 +22,7 @@ export class LoginService {
     return this.http.post(url , body) 
   }
   
-  guardarToken(token : string):void{
+  guardarToken(token : string) :void{
     console.log(token)
      localStorage.setItem('token' , token )
   }

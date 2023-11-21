@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-catalogo-cli',
@@ -13,7 +14,7 @@ export class CatalogoCliComponent implements OnInit{
     this._catalogoServices.getCatlogo('cil')
   }
 
- /* openDialogCil(): void{
+  openDialogCil(): void{
      this._catalogoServices.openAddDialog()
-  }*/
+  }
 }

@@ -19,6 +19,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { FormatoFechaPipe } from './formato-fecha.pipe';
 import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
 import { AddModalMainPageComponent } from './components/add-modal-main-page/add-modal-main-page.component';
+import { CatalogosService } from './services/catalogos.service';
 
 
 
@@ -46,5 +47,8 @@ import { AddModalMainPageComponent } from './components/add-modal-main-page/add-
       TablaMainPageComponent,
       AddModalMainPageComponent,
     ],
+    providers: [
+      CatalogosService
+    ]
 })
 export class mainPageModule { }

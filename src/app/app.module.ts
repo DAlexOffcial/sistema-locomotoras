@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SharedModule } from './shared/shared.module';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { RecoverPasswordComponent } from './components/recover-password/recover-
     HttpClientModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

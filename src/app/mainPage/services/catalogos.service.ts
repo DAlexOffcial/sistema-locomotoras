@@ -10,7 +10,7 @@ import { AddModalMainPageComponent } from '../components/add-modal-main-page/add
 })
 export class CatalogosService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient ,  private matDialog:MatDialog) { }
   
   /*public getDataCil(catalogo: string): Observable<Catalogos> {
 
@@ -124,8 +124,8 @@ export class CatalogosService {
     };    
   } 
 
-  /*openAddDialog() : void {
+  openAddDialog() : void {
     this.matDialog.open(AddModalMainPageComponent)
-  }*/
+  }
     
 }
