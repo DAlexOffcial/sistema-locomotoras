@@ -43,7 +43,8 @@ export class CatalogosService {
   }
 
   setCatalogo(){
-    return this.dataCatalog.asObservable()
+    console.log(this.dataCatalog)
+    return this.dataCatalog
   }
     
   getDataCatalogos(catalogo: string): Observable<any> {
@@ -59,6 +60,8 @@ export class CatalogosService {
   private mapData(data: any, tipo: string): any {
     switch (tipo) {
       case 'cil':
+      console.log(data);
+      
         return this.mapCilData(data);
       case 'inspecciones':
         return this.mapInspeccionesData(data);
@@ -124,6 +127,8 @@ export class CatalogosService {
     };    
   } 
 
+
+  //modals
   openAddDialog() : void {
     this.matDialog.open(AddModalMainPageComponent , {
       width: '60%',

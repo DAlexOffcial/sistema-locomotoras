@@ -18,9 +18,7 @@ export class TablaMainPageComponent implements OnInit , AfterViewInit{
 
   displayedColumns : string[] = []
 
-  
-   
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private _catalogosServices : CatalogosService) {
     this._catalogosServices.setCatalogo().subscribe(tipoCatalogo => {
@@ -31,18 +29,20 @@ export class TablaMainPageComponent implements OnInit , AfterViewInit{
 
   ngOnInit(): void {
 
+  }
+
+  ngAfterViewInit(): void {
+    
     this.configurarColumnas();
 
     this._catalogosServices.getDataCatalogos(this.tipoCatalogo).subscribe(data => {
       this.catalogoData = data.Catalog[this.tipoCatalogo];
       console.log(this.catalogoData)   
       this.dataSource.data = this.catalogoData
-      this.dataSource.paginator = this.paginator
+      
     });
-  }
-
-  ngAfterViewInit(): void {
-
+    this.dataSource.paginator = this.paginator
+    console.log(this.paginator)
   }
 
   public configurarColumnas(): void {
@@ -52,6 +52,7 @@ export class TablaMainPageComponent implements OnInit , AfterViewInit{
     switch (this.tipoCatalogo) {
       case 'cil':
         this.displayedColumns = ['id_cil', 'desc_cil', 'activo', 'fecha_registro', 'fecha_actualizacion', 'PUESTO_TRABAJO'];
+        this.dataSource.paginator = this.paginator
         break;
       case 'inspecciones':
         this.displayedColumns = ['id_tipo_inspeccion', 'tipo_inspeccion', 'desc_tipo_inspeccion' , 'tiempo_meta' , 'activo' , 'fecha_registro' , 'fecha_actualizacion'];

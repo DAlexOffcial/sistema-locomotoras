@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,10 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
+  @Input() sideNavStatus: boolean = false
+
   
   constructor(private router : Router) {}
 
   IrLick(route : string) : void {
     this.router.navigateByUrl('dashboard/dashboard/' + route)
   }
+
+
 }

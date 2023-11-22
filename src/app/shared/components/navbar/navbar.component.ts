@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'shared-navbar',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  @Output() sideNavToggled = new EventEmitter<boolean>()
+  menuStatus:boolean = false
 
+  sideNavToggle(){
+    this.menuStatus = !this.menuStatus
+    this.sideNavToggled.emit(this.menuStatus)
+  }
 }

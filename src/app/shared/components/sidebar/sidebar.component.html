@@ -1,37 +1,46 @@
-<div class="sidebar border-rigth">
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
-      id="dropdownMenuButton1">
-      catalogos
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" (click)="IrLick('cil')">cil
-        </a></li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li><a class="dropdown-item" (click)="IrLick('inspecciones')">inspecciones
-        </a></li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li><a class="dropdown-item" (click)="IrLick('entregas')">entregas
-        </a></li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li><a class="dropdown-item" (click)="IrLick('acciones')">acciones
-        </a></li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li><a class="dropdown-item" (click)="IrLick('banios')">baños
-        </a></li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li><a class="dropdown-item" (click)="IrLick('empleados')">empleados
-        </a></li>
-    </ul>
-  </div>
-</div>
+<div class="side-nav-content">
+  <ul class="nav-list" [ngClass]="{'nav-list-open': sideNavStatus}">
+    <li (click)="IrLick('cil')" class="nav-list-item">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="train"></mat-icon>
+       </i>
+       <span>
+        <a>CIL</a>
+       </span>
+    </li>
+    <li (click)="IrLick('inspecciones')" class="nav-list-item">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="manage_search"></mat-icon>
+       </i>
+       <span>
+        <a >Inspecciones</a>
+       </span>
+    </li>
+    <li (click)="IrLick('entregas')" class="nav-list-item ">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="markunread_mailbox"></mat-icon>
+       </i>
+       <span>
+        <a >Entregas</a>
+       </span>
+    </li>
+    <li (click)="IrLick('acciones')" class="nav-list-item ">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="check_box"></mat-icon>
+       </i>
+       <span>
+        <a>Acciones</a>
+       </span>
+    </li>
+    <li (click)="IrLick('banios')" class="nav-list-item ">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="wc"></mat-icon>
+       </i>
+       <span>
+        <a>Baños</a>
+       </span>
+    </li>
+    <li (click)="IrLick('empleados')" class="nav-list-item">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="badge"></mat-icon>
+       </i>
+       <span>
+        <a>Empleados</a>
+       </span>
+    </li>
+  </ul>
+</div>  
