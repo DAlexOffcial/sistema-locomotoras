@@ -125,7 +125,10 @@ export class CatalogosService {
   } 
 
   openAddDialog() : void {
-    this.matDialog.open(AddModalMainPageComponent)
+    this.matDialog.open(AddModalMainPageComponent , {
+      width: '60%',
+      height : '800px'
+    })
   }
     
 }

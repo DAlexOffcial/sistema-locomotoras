@@ -12,6 +12,8 @@ import { SharedModule } from './shared/shared.module';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { LoginService } from './services/login.service';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { LoginService } from './services/login.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    MatSidenavModule
   ],
   providers: [
     LoginService

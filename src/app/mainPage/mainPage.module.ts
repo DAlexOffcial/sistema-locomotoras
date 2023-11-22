@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 import { FormatoFechaPipe } from './formato-fecha.pipe';
 import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
@@ -31,7 +32,8 @@ import { CatalogosService } from './services/catalogos.service';
         HttpClientModule,
         MatPaginatorModule,
         MatTableModule,
-        MatDialogModule
+        MatDialogModule,
+        MatIconModule
     ],
     exports: [
 
