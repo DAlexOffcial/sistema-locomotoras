@@ -8,10 +8,11 @@ shared-sidebar {
     border-top: 1px solid white;
     overflow-x: hidden;
     white-space: nowrap;
+    z-index: 1;
 }
 
 .app-side-nav-open{
-    width: 250px;
+    width: 290px;
 }
 
 /*.display-area-shrink{

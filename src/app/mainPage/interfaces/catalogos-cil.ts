@@ -10,6 +10,9 @@ export interface Catalog {
   entregas: Entregas[];
   acciones: Acciones[];
   banios: Banio[];
+  iniciales_locos: InicialesLoco[];
+  locomotoras: Locomotora[];
+  mantenedores: Mantenedore[];
 }  
 
 export interface Cil {
@@ -55,6 +58,27 @@ export interface Banio {
   fecha_actualizacion: string;
 }
 
+export interface InicialesLoco {
+  id_inicial_loco:     number;
+  desc_inicial_loco:   string;
+  activo:              string;
+  fecha_registro:      string;
+  fecha_actualizacion: string;
+}
 
+export interface Locomotora {
+  id_loco:             number;
+  desc_loco:           string;
+  fk_mantenedor:       number;
+  activo:              string;
+  fecha_registro:      string;
+  fecha_actualizacion: string;
+}
 
-
+export interface Mantenedore {
+  id_mantenedor:       number;
+  desc_mantenedor:     string;
+  activo:              string;
+  fecha_registro:      string;
+  fecha_actualizacion: string;
+}

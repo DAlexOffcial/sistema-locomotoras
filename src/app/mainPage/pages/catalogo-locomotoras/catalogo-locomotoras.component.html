@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div class="col-10">
-        <h1>Catalogo CIL</h1>
+        <h1>Catalogo LOCOMOTORA</h1>
     </div>
     <div class="d-flex justify-content-between">
         <div class="col-md-9">
@@ -19,35 +19,35 @@
         <div class="mat-elevation-z8 mat-table-responsive">
             <table mat-table [dataSource]="dataSource" matSort>
                 
-                <ng-container matColumnDef="id_cil">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID CIL</th>
-                    <td mat-cell *matCellDef="let element">{{ element.id_cil }}</td>
+                <ng-container matColumnDef="id_loco">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Locomotora</th>
+                    <td mat-cell *matCellDef="let element">{{ element.id_loco }}</td>
                 </ng-container>
 
-                <ng-container matColumnDef="desc_cil">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción CIL</th>
-                    <td mat-cell *matCellDef="let element">{{ element.desc_cil }}</td>
+                <ng-container matColumnDef="desc_loco">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción Locomotora</th>
+                    <td mat-cell *matCellDef="let element">{{ element.desc_loco }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="fk_mantenedor">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Mantenedor</th>
+                    <td mat-cell *matCellDef="let element">{{ element.fk_mantenedor }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="activo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Activo</th>
-                    <td mat-cell *matCellDef="let element">{{ element.activo }}</td>
+                    <th mat-header-cell *matHeaderCellDef> Estatus </th>
+                    <td mat-cell *matCellDef="let element">{{ element.activo}}
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="fecha_registro">
                     <th mat-header-cell *matHeaderCellDef>Fecha de Registro</th>
-                    <td mat-cell *matCellDef="let element">{{ element.fecha_registro | date: 'dd/MM/yyyy HH:mm'}}
-                    </td>
+                    <td mat-cell *matCellDef="let element">{{ element.fecha_registro | date: 'dd/MM/yyyy HH:mm' }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="fecha_actualizacion">
-                    <th mat-header-cell *matHeaderCellDef>Fecha de Actualización</th>
-                    <td mat-cell *matCellDef="let element">{{ element.fecha_actualizacion | date: 'dd/MM/yyyy HH:mm' }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="PUESTO_TRABAJO">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Puesto de Trabajo</th>
-                    <td mat-cell *matCellDef="let element">{{ element.PUESTO_TRABAJO }}</td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Actualización</th>
+                    <td mat-cell *matCellDef="let element">{{ element.fecha_actualizacion | date: 'dd/MM/yyyy HH:mm'}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="acciones">

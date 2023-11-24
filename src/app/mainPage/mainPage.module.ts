@@ -16,11 +16,20 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 import { FormatoFechaPipe } from './formato-fecha.pipe';
 import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
 import { AddModalMainPageComponent } from './components/add-modal-main-page/add-modal-main-page.component';
 import { CatalogosService } from './services/catalogos.service';
+import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-locos/catalogo-iniciales-locos.component';
+import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
+import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/catalogo-mantenedores.component';
+
+
 
 
 
@@ -33,7 +42,11 @@ import { CatalogosService } from './services/catalogos.service';
         MatPaginatorModule,
         MatTableModule,
         MatDialogModule,
-        MatIconModule
+        MatIconModule,
+        MatTooltipModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatInputModule
     ],
     exports: [
 
@@ -48,6 +61,10 @@ import { CatalogosService } from './services/catalogos.service';
       FormatoFechaPipe,
       TablaMainPageComponent,
       AddModalMainPageComponent,
+      CatalogoInicialesLocosComponent,
+      CatalogoLocomotorasComponent,
+      CatalogoMantenedoresComponent,
+
     ],
     providers: [
       CatalogosService

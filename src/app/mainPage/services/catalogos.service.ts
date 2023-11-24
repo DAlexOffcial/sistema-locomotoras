@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, map } from 'rxjs';
-import { Acciones, Banio, Catalog, Catalogos, Cil, Entregas, Inspecciones } from '../interfaces/catalogos-cil';
+import { Acciones, Banio, Catalog, Catalogos, Cil, Entregas, InicialesLoco, Inspecciones, Locomotora, Mantenedore } from '../interfaces/catalogos-cil';
 import { MatDialog } from '@angular/material/dialog';
 import { AddModalMainPageComponent } from '../components/add-modal-main-page/add-modal-main-page.component';
 
@@ -36,7 +36,7 @@ export class CatalogosService {
   
   // obtener catalogos y generar tablas 
 
-  private dataCatalog: Subject<string> = new Subject<string>()
+  /*private dataCatalog: Subject<string> = new Subject<string>()
   
   getCatlogo(catalogo : string) {
    this.dataCatalog.next(catalogo)
@@ -45,7 +45,7 @@ export class CatalogosService {
   setCatalogo(){
     console.log(this.dataCatalog)
     return this.dataCatalog
-  }
+  }*/
     
   getDataCatalogos(catalogo: string): Observable<any> {
     const apiUrl = `/server/getCatalogData?catalog=${catalogo}`;
@@ -60,8 +60,6 @@ export class CatalogosService {
   private mapData(data: any, tipo: string): any {
     switch (tipo) {
       case 'cil':
-      console.log(data);
-      
         return this.mapCilData(data);
       case 'inspecciones':
         return this.mapInspeccionesData(data);
@@ -71,6 +69,12 @@ export class CatalogosService {
         return this.mapAccionesData(data);
       case 'banios':
         return this.mapBaniosData(data);
+      case 'iniciales_locos':
+        return this.mapInicialesLocoData(data);
+      case 'locomotoras':
+        return this.mapLocomotorasData(data);
+      case 'mantenedores':
+        return this.mapMantenedoresData(data);
       // Agrega más casos según sea necesario para otros tipos de información
       default:
         throw new Error(`Tipo de catálogo no válido: ${tipo}`);
@@ -82,7 +86,9 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        cil: data.Catalog.cil.map((cil: Cil) => ({ ...cil }))
+        cil: data.Catalog.cil.map((cil: Cil) => ({ ...cil,
+        activo: cil.activo === '1' ? 'ACTIVO' : 'INACTIVO'
+        }))
       }
     };
   }
@@ -92,7 +98,8 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        inspecciones: data.Catalog.inspecciones.map((inspecciones: Inspecciones) => ({ ...inspecciones }))
+        inspecciones: data.Catalog.inspecciones.map((inspecciones: Inspecciones) => ({ ...inspecciones,
+        activo: inspecciones.activo === '1' ? 'ACTIVO' : 'INACTIVO' }))
       }
     };
   }
@@ -102,7 +109,8 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        entregas: data.Catalog.entregas.map((entregas: Entregas) => ({ ...entregas }))
+        entregas: data.Catalog.entregas.map((entregas: Entregas) => ({ ...entregas,
+        activo: entregas.activo === '1' ?  'ACTIVO' : 'INACTIVO'}))
       }
     };
   }
@@ -112,7 +120,8 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        acciones: data.Catalog.acciones.map((acciones: Acciones) => ({ ...acciones }))
+        acciones: data.Catalog.acciones.map((acciones: Acciones) => ({ ...acciones,
+        activo: acciones.activo === '1' ? 'ACTIVO' : 'INACTIVO' }))
       }
     };
   }
@@ -122,10 +131,46 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        banios: data.Catalog.banios.map((banios: Banio) => ({ ...banios }))
+        banios: data.Catalog.banios.map((banios: Banio) => ({ ...banios,
+        activo: banios.activo === '1' ? 'ACTIVO' : 'INACTIVO'}))
       }
     };    
   } 
+
+  private mapInicialesLocoData(data: any): any {
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        iniciales_locos: data.Catalog.iniciales_locos.map((iniciales_locos: InicialesLoco) => ({ ...iniciales_locos,
+        activo: iniciales_locos.activo === '1' ? 'ACTIVO' : 'INACTIVO'
+        }))
+      }
+    };
+  }
+  private mapLocomotorasData(data: any): any {
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        locomotoras: data.Catalog.locomotoras.map((locomotoras: Locomotora) => ({ ...locomotoras,
+        activo: locomotoras.activo === '1' ? 'ACTIVO' : 'INACTIVO'
+        }))
+      }
+    };
+  }
+
+  private mapMantenedoresData(data: any): any {
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        mantenedores: data.Catalog.mantenedores.map((mantenedores: Mantenedore) => ({ ...mantenedores,
+        activo: mantenedores.activo === '1' ? 'ACTIVO' : 'INACTIVO'
+        }))
+      }
+    };
+  }
 
 
   //modals

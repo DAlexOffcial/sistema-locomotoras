@@ -32,6 +32,7 @@ li{
     display: flex;
     align-items: center;
     height: 60px;
+    width: 115%;
 }
 
 .nav-list-open .nav-list-item:hover{

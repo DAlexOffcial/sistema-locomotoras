@@ -8,9 +8,9 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './tabla-main-page.component.html',
   styleUrls: ['./tabla-main-page.component.css']
 })
-export class TablaMainPageComponent implements OnInit , AfterViewInit{
+export class TablaMainPageComponent {
 
-  dataSource = new MatTableDataSource<any>();
+  /*dataSource = new MatTableDataSource<any>();
 
   catalogoData: any[] = []
 
@@ -69,9 +69,6 @@ export class TablaMainPageComponent implements OnInit , AfterViewInit{
       default:
         throw new Error(`Tipo de catálogo no válido: ${this.tipoCatalogo}`);
     }
-    /*if (!this.displayedColumns.includes(columnaAdicional)) {
-      this.displayedColumns.push(columnaAdicional);
-    }*/
-  }
-
+    
+  }*/
 }

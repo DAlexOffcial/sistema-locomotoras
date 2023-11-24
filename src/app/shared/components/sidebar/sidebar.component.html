@@ -1,7 +1,7 @@
 <div class="side-nav-content">
   <ul class="nav-list" [ngClass]="{'nav-list-open': sideNavStatus}">
     <li (click)="IrLick('cil')" class="nav-list-item">
-       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="train"></mat-icon>
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="gite"></mat-icon>
        </i>
        <span>
         <a>CIL</a>
@@ -40,6 +40,27 @@
        </i>
        <span>
         <a>Empleados</a>
+       </span>
+    </li>
+    <li (click)="IrLick('iniciales-locos')" class="nav-list-item">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="train"></mat-icon>
+       </i>
+       <span>
+        <a>Locomotoras</a>
+       </span>
+    </li>
+    <li (click)="IrLick('locomotoras')" class="nav-list-item">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="directions_railway"></mat-icon>
+       </i>
+       <span>
+        <a>Locomotoras Externas</a>
+       </span>
+    </li>
+    <li (click)="IrLick('mantenedores')" class="nav-list-item">
+       <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="subway"></mat-icon>
+       </i>
+       <span>
+        <a>Mantenedores</a>
        </span>
     </li>
   </ul>

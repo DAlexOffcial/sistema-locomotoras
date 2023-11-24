@@ -1,30 +1,29 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { CatalogosService } from '../../services/catalogos.service';
-import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Inspecciones } from '../../interfaces/catalogos-cil';
+import { CatalogosService } from '../../services/catalogos.service';
+import { Locomotora } from '../../interfaces/catalogos-cil';
 
 @Component({
-  selector: 'app-catalogo-inspecciones',
-  templateUrl: './catalogo-inspecciones.component.html',
-  styleUrls: ['./catalogo-inspecciones.component.css']
+  selector: 'app-catalogo-locomotoras',
+  templateUrl: './catalogo-locomotoras.component.html',
+  styleUrls: ['./catalogo-locomotoras.component.css']
 })
-export class CatalogoInspeccionesComponent implements AfterViewInit{
- 
- 
-  displayedColumns : string[] = ['id_tipo_inspeccion', 'tipo_inspeccion', 'desc_tipo_inspeccion' , 'tiempo_meta' , 'activo' , 'fecha_registro' , 'fecha_actualizacion' , 'acciones'];
+export class CatalogoLocomotorasComponent implements AfterViewInit{
+   
+  displayedColumns : string[] = ['id_loco', 'desc_loco', 'fk_mantenedor', 'activo' , 'fecha_registro', 'fecha_actualizacion','acciones']
 
   dataSource = new MatTableDataSource<any>();
 
-  catalogoData: Inspecciones[] = []
+  catalogoData: Locomotora[] = []
 
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor (private _catalogoServices: CatalogosService){
-     _catalogoServices.getDataCatalogos('inspecciones').subscribe(data =>{
-      this.catalogoData = data.Catalog.inspecciones
+     _catalogoServices.getDataCatalogos('locomotoras').subscribe(data =>{
+      this.catalogoData = data.Catalog.locomotoras
       this.dataSource.data = this.catalogoData
       console.log(this.catalogoData)
      })
@@ -32,7 +31,7 @@ export class CatalogoInspeccionesComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.paginator._intl.itemsPerPageLabel = 'Inspecciones por pagina: '
+    this.paginator._intl.itemsPerPageLabel = 'Locomotoras por pagina: '
     this.dataSource.sort = this.sort
   }
 

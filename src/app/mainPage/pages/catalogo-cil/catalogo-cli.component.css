@@ -1,7 +1,16 @@
 table {
-    width: 100%;
-  }
-  .mat-table-responsive {
-    overflow-x: auto;
-    max-width: 100%;
-  }
+  width: 100%;
+}
+
+.mat-table-responsive {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+.mat-mdc-form-field {
+  font-size: 20px;
+  width: 90%;
+}

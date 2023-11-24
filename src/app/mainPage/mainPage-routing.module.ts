@@ -8,6 +8,9 @@ import { CatalogoAccionesComponent } from './pages/catalogo-acciones/catalogo-ac
 import { CatalogoBaniosComponent } from './pages/catalogo-banios/catalogo-banios.component';
 import { CatalogoEmpleadosComponent } from './pages/catalogo-empleados/catalogo-empleados.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
+import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-locos/catalogo-iniciales-locos.component';
+import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
+import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/catalogo-mantenedores.component';
 
 const routes: Routes = [
     {
@@ -31,6 +34,15 @@ const routes: Routes = [
             },
             {
                 path: 'empleados', component: CatalogoEmpleadosComponent 
+            },
+            {
+                path: 'iniciales-locos', component: CatalogoInicialesLocosComponent
+            },
+            {
+                path: 'locomotoras', component: CatalogoLocomotorasComponent
+            },
+            {
+                path: 'mantenedores', component: CatalogoMantenedoresComponent
             },
             {
                 path: '**',
