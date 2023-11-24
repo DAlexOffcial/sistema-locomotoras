@@ -28,6 +28,7 @@ import { CatalogosService } from './services/catalogos.service';
 import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-locos/catalogo-iniciales-locos.component';
 import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
 import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/catalogo-mantenedores.component';
+import { FormatoEstadoPipe } from './formato-status.pipe';
 
 
 
@@ -59,6 +60,7 @@ import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/cat
       CatalogoBaniosComponent,
       CatalogoEmpleadosComponent,
       FormatoFechaPipe,
+      FormatoEstadoPipe,
       TablaMainPageComponent,
       AddModalMainPageComponent,
       CatalogoInicialesLocosComponent,

@@ -86,9 +86,7 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        cil: data.Catalog.cil.map((cil: Cil) => ({ ...cil,
-        activo: cil.activo === '1' ? 'ACTIVO' : 'INACTIVO'
-        }))
+        cil: data.Catalog.cil.map((cil: Cil) => ({ ...cil}))
       }
     };
   }
@@ -98,8 +96,7 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        inspecciones: data.Catalog.inspecciones.map((inspecciones: Inspecciones) => ({ ...inspecciones,
-        activo: inspecciones.activo === '1' ? 'ACTIVO' : 'INACTIVO' }))
+        inspecciones: data.Catalog.inspecciones.map((inspecciones: Inspecciones) => ({ ...inspecciones }))
       }
     };
   }
@@ -109,8 +106,7 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        entregas: data.Catalog.entregas.map((entregas: Entregas) => ({ ...entregas,
-        activo: entregas.activo === '1' ?  'ACTIVO' : 'INACTIVO'}))
+        entregas: data.Catalog.entregas.map((entregas: Entregas) => ({ ...entregas }))
       }
     };
   }
@@ -120,8 +116,7 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        acciones: data.Catalog.acciones.map((acciones: Acciones) => ({ ...acciones,
-        activo: acciones.activo === '1' ? 'ACTIVO' : 'INACTIVO' }))
+        acciones: data.Catalog.acciones.map((acciones: Acciones) => ({ ...acciones }))
       }
     };
   }
@@ -131,8 +126,7 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        banios: data.Catalog.banios.map((banios: Banio) => ({ ...banios,
-        activo: banios.activo === '1' ? 'ACTIVO' : 'INACTIVO'}))
+        banios: data.Catalog.banios.map((banios: Banio) => ({ ...banios}))
       }
     };    
   } 
@@ -142,9 +136,7 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        iniciales_locos: data.Catalog.iniciales_locos.map((iniciales_locos: InicialesLoco) => ({ ...iniciales_locos,
-        activo: iniciales_locos.activo === '1' ? 'ACTIVO' : 'INACTIVO'
-        }))
+        iniciales_locos: data.Catalog.iniciales_locos.map((iniciales_locos: InicialesLoco) => ({ ...iniciales_locos}))
       }
     };
   }
@@ -153,9 +145,7 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        locomotoras: data.Catalog.locomotoras.map((locomotoras: Locomotora) => ({ ...locomotoras,
-        activo: locomotoras.activo === '1' ? 'ACTIVO' : 'INACTIVO'
-        }))
+        locomotoras: data.Catalog.locomotoras.map((locomotoras: Locomotora) => ({ ...locomotoras }))
       }
     };
   }
@@ -165,13 +155,10 @@ export class CatalogosService {
       ...data,
       Catalog: {
         ...data.Catalog,
-        mantenedores: data.Catalog.mantenedores.map((mantenedores: Mantenedore) => ({ ...mantenedores,
-        activo: mantenedores.activo === '1' ? 'ACTIVO' : 'INACTIVO'
-        }))
+        mantenedores: data.Catalog.mantenedores.map((mantenedores: Mantenedore) => ({ ...mantenedores}))
       }
     };
   }
-
 
   //modals
   openAddDialog() : void {

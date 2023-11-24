@@ -1,4 +1,4 @@
-<<div class="container mt-5">
+<div class="container mt-5">
     <div class="col-10">
         <h1>Catalogo ACCIONES</h1>
     </div>
@@ -30,8 +30,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="activo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Activo</th>
-                    <td mat-cell *matCellDef="let element">{{ element.activo }}</td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</th>
+                    <td mat-cell *matCellDef="let element">{{ element.activo | estado }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="fecha_registro">
@@ -45,17 +45,12 @@
                     <td mat-cell *matCellDef="let element">{{ element.fecha_actualizacion | date: 'dd/MM/yyyy HH:mm' }}</td>
                 </ng-container>
 
-                <ng-container matColumnDef="PUESTO_TRABAJO">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Puesto de Trabajo</th>
-                    <td mat-cell *matCellDef="let element">{{ element.PUESTO_TRABAJO }}</td>
-                </ng-container>
-
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-icon *ngIf="element.activo === 'ACTIVO'" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
-                        <mat-icon *ngIf="element.activo === 'ACTIVO'" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
-                        <mat-icon *ngIf="element.activo === 'INACTIVO'"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
+                    <td mat-cell *matCellDef="let element;">
+                        <mat-icon *ngIf="element.activo === '1'" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
+                        <mat-icon (click)="cambiarEstatus(element, '0')" *ngIf="element.activo === '1'" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
+                        <mat-icon (click)="cambiarEstatus(element, '1')" *ngIf="element.activo === '0'"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
                     </td>
                 </ng-container>
 

@@ -30,8 +30,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="activo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Activo</th>
-                    <td mat-cell *matCellDef="let element">{{ element.activo }}</td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</th>
+                    <td mat-cell *matCellDef="let element">{{ element.activo | estado }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="fecha_registro">
@@ -48,9 +48,9 @@
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef>Acciones</th>
                     <td mat-cell *matCellDef="let element">
-                        <mat-icon *ngIf="element.activo === 'ACTIVO'" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
-                        <mat-icon *ngIf="element.activo === 'ACTIVO'" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
-                        <mat-icon *ngIf="element.activo === 'INACTIVO'"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
+                        <mat-icon *ngIf="element.activo === '1'" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
+                        <mat-icon *ngIf="element.activo === '1'" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
+                        <mat-icon *ngIf="element.activo === '0'"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
                     </td>
                 </ng-container>
 
