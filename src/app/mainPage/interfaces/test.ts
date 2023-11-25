@@ -15,3 +15,4 @@ export interface Mantenedore {
     fecha_registro:      string;
     fecha_actualizacion: string;
 }
+

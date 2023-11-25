@@ -29,6 +29,8 @@ import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-loco
 import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
 import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/catalogo-mantenedores.component';
 import { FormatoEstadoPipe } from './formato-status.pipe';
+import { HabilitarService } from './services/Habilitar.service';
+import { EditModalMainPageComponent } from './components/edit-modal-main-page/edit-modal-main-page.component';
 
 
 
@@ -66,10 +68,12 @@ import { FormatoEstadoPipe } from './formato-status.pipe';
       CatalogoInicialesLocosComponent,
       CatalogoLocomotorasComponent,
       CatalogoMantenedoresComponent,
+      EditModalMainPageComponent,
 
     ],
     providers: [
-      CatalogosService
+      CatalogosService,
+      HabilitarService
     ]
 })
 export class mainPageModule { }

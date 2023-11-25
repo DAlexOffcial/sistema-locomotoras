@@ -45,9 +45,14 @@ export class CatalogoAccionesComponent implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
-  //crear acciones
+  //modals
+  openEditDialog(): void {
+    this._habilitarServices.openEditDialog()
+  }
+
+     
   openDialogCil(): void{
-     this._catalogoServices.openAddDialog()
+     this._habilitarServices.openAddDialog()
   }
 
   //cambio de estatus
@@ -85,4 +90,7 @@ export class CatalogoAccionesComponent implements AfterViewInit {
       }
     });
   }
+
+
+
 }

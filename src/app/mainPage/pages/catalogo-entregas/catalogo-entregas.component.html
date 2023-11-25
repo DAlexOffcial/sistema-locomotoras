@@ -47,10 +47,10 @@
 
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-icon *ngIf="element.activo === '1'" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
-                        <mat-icon *ngIf="element.activo === '1'" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
-                        <mat-icon *ngIf="element.activo === '0'"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
+                    <td mat-cell *matCellDef="let element;">
+                        <mat-icon (click)="openEditDialog()" *ngIf="element.activo === '1'" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
+                        <mat-icon (click)="cambiarEstatus(element, '0')" *ngIf="element.activo === '1'" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
+                        <mat-icon (click)="cambiarEstatus(element, '1')" *ngIf="element.activo === '0'"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
                     </td>
                 </ng-container>
 
