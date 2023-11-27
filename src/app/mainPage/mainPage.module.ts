@@ -20,6 +20,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 import { FormatoFechaPipe } from './formato-fecha.pipe';
 import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
@@ -30,9 +31,16 @@ import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catal
 import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/catalogo-mantenedores.component';
 import { FormatoEstadoPipe } from './formato-status.pipe';
 import { HabilitarService } from './services/Habilitar.service';
-import { EditModalMainPageComponent } from './components/edit-modal-main-page/edit-modal-main-page.component';
-
-
+import { EditCilComponent } from './components/edit-forms-modals/edit-cil/edit-cil.component';
+import { EditInspeccionesComponent } from './components/edit-forms-modals/edit-inspecciones/edit-inspecciones.component';
+import { EditEntregasComponent } from './components/edit-forms-modals/edit-entregas/edit-entregas.component';
+import { EditAccionesComponent } from './components/edit-forms-modals/edit-acciones/edit-acciones.component';
+import { EditBaniosComponent } from './components/edit-forms-modals/edit-banios/edit-banios.component';
+import { EditEmpleadosComponent } from './components/edit-forms-modals/edit-empleados/edit-empleados.component';
+import { EditInicialesLocosComponent } from './components/edit-forms-modals/edit-iniciales-locos/edit-iniciales-locos.component';
+import { EditLocomotorasComponent } from './components/edit-forms-modals/edit-locomotoras/edit-locomotoras.component';
+import { EditMantenedoresComponent } from './components/edit-forms-modals/edit-mantenedores/edit-mantenedores.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -49,7 +57,10 @@ import { EditModalMainPageComponent } from './components/edit-modal-main-page/ed
         MatTooltipModule,
         MatSortModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        FormsModule
     ],
     exports: [
 
@@ -68,8 +79,16 @@ import { EditModalMainPageComponent } from './components/edit-modal-main-page/ed
       CatalogoInicialesLocosComponent,
       CatalogoLocomotorasComponent,
       CatalogoMantenedoresComponent,
-      EditModalMainPageComponent,
-
+      EditCilComponent,
+      EditInspeccionesComponent,
+      EditEntregasComponent,
+      EditAccionesComponent,
+      EditBaniosComponent,
+      EditEmpleadosComponent,
+      EditInicialesLocosComponent,
+      EditLocomotorasComponent,
+      EditMantenedoresComponent,
+      
     ],
     providers: [
       CatalogosService,

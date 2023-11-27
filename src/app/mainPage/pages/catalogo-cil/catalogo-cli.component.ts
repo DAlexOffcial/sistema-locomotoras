@@ -48,8 +48,9 @@ export class CatalogoCliComponent implements AfterViewInit{
   }
 
   //modals
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(elements: Cil ): void {
+    console.log(elements.id_cil)
+    this._habilitarServices.openEditDialog('cil' , elements)
   }
 
   openDialogCil(): void{
@@ -60,18 +61,18 @@ export class CatalogoCliComponent implements AfterViewInit{
     cambiarEstatus(acciones : Cil , estatus : string): void {
       console.log(acciones.id_cil)
       Swal.fire({
-        title: (acciones.activo === '1') ? "¿quieres habilitar esta accion?" : "¿quieres desahabilitar esta accion?",
+        title: (acciones.activo === '1') ? "¿Quieres habilitar este Cil?" : "¿Quieres desahabilitar este Cil?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
+        text: (acciones.activo === '1') ? `Se habilitara : ${acciones.id_cil}` : `Se desahabilitara : ${acciones.id_cil}`,
         confirmButtonText: (acciones.activo === '1') ? "habilitar" : "desahabilitar",
         cancelButtonText: "Cancelar"
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title:(acciones.activo === '1') ? "tu accion esta habilitar" : "tu accion esta desahabilitar",
-            text: "Your file has been deleted.",
+            title:(acciones.activo === '1') ? "Tu Cil esta habilitado" : "Tu Cil esta desahabilitado",
             icon: "success"
           });
           //va al servicio

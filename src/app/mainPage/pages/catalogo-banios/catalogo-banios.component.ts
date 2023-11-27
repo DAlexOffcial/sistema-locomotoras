@@ -14,7 +14,7 @@ import { HabilitarService } from '../../services/Habilitar.service';
 })
 export class CatalogoBaniosComponent implements AfterViewInit{
   
-  displayedColumns : string[] = ['id_banio', 'desc_banio', 'activo' , 'fecha_registro' , 'fecha_actualizacion','acciones']
+  displayedColumns : string[] = [ 'desc_banio', 'activo' , 'fecha_registro' , 'fecha_actualizacion','acciones']
 
   dataSource = new MatTableDataSource<any>();
 
@@ -50,8 +50,8 @@ export class CatalogoBaniosComponent implements AfterViewInit{
   openDialogCil(): void{
      this._habilitarServices.openAddDialog()
   }
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(element : Banio): void {
+    this._habilitarServices.openEditDialog('banios' , element)
   }
 
 

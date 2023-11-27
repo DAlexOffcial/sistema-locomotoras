@@ -47,8 +47,8 @@ export class CatalogoMantenedoresComponent implements AfterViewInit{
   }
 
   //modals
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(element : Mantenedore): void {
+    this._habilitarServices.openEditDialog('mantenedores' , element)
   }
   
   openDialogCil(): void{

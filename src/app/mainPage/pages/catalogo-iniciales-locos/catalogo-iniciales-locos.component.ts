@@ -47,8 +47,8 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit{
   }
 
   //modals
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(element : InicialesLoco): void {
+    this._habilitarServices.openEditDialog('iniciales_locos', element)
   }
 
   openDialogCil(): void{

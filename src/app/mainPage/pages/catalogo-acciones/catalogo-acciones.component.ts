@@ -46,8 +46,8 @@ export class CatalogoAccionesComponent implements AfterViewInit {
   }
   
   //modals
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(element : Acciones): void {
+    this._habilitarServices.openEditDialog('acciones' , element)
   }
 
      

@@ -2,19 +2,30 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddModalMainPageComponent } from '../components/add-modal-main-page/add-modal-main-page.component';
+
 import { MatDialog } from '@angular/material/dialog';
-import { EditModalMainPageComponent } from '../components/edit-modal-main-page/edit-modal-main-page.component';
+
+import { EditCilComponent } from '../components/edit-forms-modals/edit-cil/edit-cil.component';
+import { EditInspeccionesComponent } from '../components/edit-forms-modals/edit-inspecciones/edit-inspecciones.component';
+import { EditAccionesComponent } from '../components/edit-forms-modals/edit-acciones/edit-acciones.component';
+import { EditBaniosComponent } from '../components/edit-forms-modals/edit-banios/edit-banios.component';
+import { EditEmpleadosComponent } from '../components/edit-forms-modals/edit-empleados/edit-empleados.component';
+import { EditInicialesLocosComponent } from '../components/edit-forms-modals/edit-iniciales-locos/edit-iniciales-locos.component';
+import { EditLocomotorasComponent } from '../components/edit-forms-modals/edit-locomotoras/edit-locomotoras.component';
+import { EditMantenedoresComponent } from '../components/edit-forms-modals/edit-mantenedores/edit-mantenedores.component';
+import { EditEntregasComponent } from '../components/edit-forms-modals/edit-entregas/edit-entregas.component';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HabilitarService {
 
-  constructor(private http : HttpClient  ,  private matDialog:MatDialog) { }
-  
+  constructor(private http: HttpClient, private matDialog: MatDialog) { }
 
-  cambiarEstatus(catalogo: string , element: any):Observable<any>{
-    const body = this.getBody(catalogo  , element)
+
+  cambiarEstatus(catalogo: string, element: any): Observable<any> {
+    const body = this.getBody(catalogo, element)
 
     const apiUrl = '/server/saveCatalogData';
     const token = localStorage.getItem('token');
@@ -23,14 +34,12 @@ export class HabilitarService {
     return this.http.post<any>(apiUrl, body, { headers })
   }
 
-  private getBody( catalo: string , element: any): any {
+  private getBody(catalo: string, element: any): any {
+    console.log(element);
+    
     switch (catalo) {
       case 'cil':
-        console.log(element.id_cil);
-        console.log(element.desc_cil);
-        console.log(element.activo)
-        console.log(element.PUESTO_TRABAJO);
-        return {          
+        return {
           "Id": element.id_cil,
           "Catalog": "cil",
           "CatalogConcepts": [
@@ -48,7 +57,7 @@ export class HabilitarService {
             },
             {
               "Key": "PUESTO_TRABAJO",
-              "Value": (element.PUESTO_TRABAJO == null) ? "null" : element.PUESTO_TRABAJO
+              "Value": element.PUESTO_TRABAJO 
             }
           ]
         };
@@ -79,25 +88,25 @@ export class HabilitarService {
             }
           ]
         };
-        case 'entregas':
-          return {
-            "Id": element.id_tipo_entrega,
-            "Catalog": "entregas",
-            "CatalogConcepts": [
-              {
-                "Key": "id_tipo_entrega",
-                "Value": element.id_tipo_entrega
-              },
-              {
-                "Key": "desc_tipo_entrega",
-                "Value": element.desc_tipo_entrega
-              },
-              {
-                "Key": "activo",
-                "Value": element.activo
-              }
-            ]
-          };
+      case 'entregas':
+        return {
+          "Id": element.id_tipo_entrega,
+          "Catalog": "entregas",
+          "CatalogConcepts": [
+            {
+              "Key": "id_tipo_entrega",
+              "Value": element.id_tipo_entrega
+            },
+            {
+              "Key": "desc_tipo_entrega",
+              "Value": element.desc_tipo_entrega
+            },
+            {
+              "Key": "activo",
+              "Value": element.activo
+            }
+          ]
+        };
       case 'acciones':
         return {
           "Id": element.id_accion,
@@ -203,18 +212,75 @@ export class HabilitarService {
         throw new Error(`Tipo de catálogo no válido: ${catalo}`);
     }
   }
-    //modals
-    openAddDialog() : void {
-      this.matDialog.open(AddModalMainPageComponent , {
-        width: '60%',
-        height : '80%'
-      })
+  //modals
+  openAddDialog(): void {
+    this.matDialog.open(AddModalMainPageComponent, {
+      width: '60%',
+      height: '80%'
+    })
+  }
+
+  openEditDialog(catalogo: string , element: any ): void {
+    console.log(element)
+    switch (catalogo) {
+      case 'cil':
+        this.matDialog.open(EditCilComponent, {
+          width: '40%',
+          height: '20%',
+          data: { element: element }
+        })
+        break;
+      case 'inspecciones':
+        this.matDialog.open(EditInspeccionesComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      case 'entregas':
+        this.matDialog.open(EditEntregasComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      case 'acciones':
+        this.matDialog.open(EditAccionesComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      case 'banios':
+        this.matDialog.open(EditBaniosComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      case 'empleados':
+        this.matDialog.open(EditEmpleadosComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      case 'iniciales_locos':
+        this.matDialog.open(EditInicialesLocosComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      case 'locomotoras':
+        this.matDialog.open(EditLocomotorasComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      case 'mantenedores':
+        this.matDialog.open(EditMantenedoresComponent, {
+          width: '60%',
+          height: '80%'
+        })
+        break;
+      default:
+        throw new Error(`Tipo de catálogo no válido: ${catalogo}`);
     }
 
-    openEditDialog() : void {
-      this.matDialog.open(EditModalMainPageComponent, {
-        width: '60%',
-        height : '80%'
-      })
-    }
+  }
 }

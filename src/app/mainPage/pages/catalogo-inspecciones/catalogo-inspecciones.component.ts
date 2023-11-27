@@ -3,7 +3,7 @@ import { CatalogosService } from '../../services/catalogos.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Inspecciones } from '../../interfaces/catalogos-cil';
+import { Acciones, Inspecciones } from '../../interfaces/catalogos-cil';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
 
@@ -48,8 +48,8 @@ export class CatalogoInspeccionesComponent implements AfterViewInit{
   }
 
   //modals
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(element : Acciones): void {
+    this._habilitarServices.openEditDialog('inspecciones', element)
   }
 
   openDialogCil(): void{

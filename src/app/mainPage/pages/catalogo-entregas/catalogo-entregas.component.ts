@@ -47,8 +47,8 @@ export class CatalogoEntregasComponent implements AfterViewInit{
   }
   
   //modals
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(element : Entregas): void {
+    this._habilitarServices.openEditDialog('entregas',element)
   }
 
   openDialogCil(): void{

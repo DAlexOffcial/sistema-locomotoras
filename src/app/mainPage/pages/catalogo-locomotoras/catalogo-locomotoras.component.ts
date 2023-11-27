@@ -46,8 +46,8 @@ export class CatalogoLocomotorasComponent implements AfterViewInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openEditDialog(): void {
-    this._habilitarServices.openEditDialog()
+  openEditDialog(element: Locomotora): void {
+    this._habilitarServices.openEditDialog('locomotoras' , element)
   }
 
   openDialogCil(): void{
