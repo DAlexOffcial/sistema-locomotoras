@@ -232,8 +232,9 @@ export class HabilitarService {
         break;
       case 'inspecciones':
         this.matDialog.open(EditInspeccionesComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%',
+          data: {element : element}
         })
         break;
       case 'entregas':
