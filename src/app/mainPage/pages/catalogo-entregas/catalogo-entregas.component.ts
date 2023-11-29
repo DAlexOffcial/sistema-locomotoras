@@ -14,7 +14,7 @@ import { HabilitarService } from '../../services/Habilitar.service';
 })
 export class CatalogoEntregasComponent implements AfterViewInit{
    
-  displayedColumns : string[] = ['id_tipo_entrega', 'desc_tipo_entrega', 'activo', 'fecha_registro' , 'fecha_actualizacion' ,'acciones']
+  displayedColumns : string[] = ['acciones', 'desc_tipo_entrega', 'activo', 'fecha_registro' , 'fecha_actualizacion']
 
   dataSource = new MatTableDataSource<any>();
 
@@ -48,7 +48,7 @@ export class CatalogoEntregasComponent implements AfterViewInit{
   
   //modals
   openEditDialog(element : Entregas): void {
-    this._habilitarServices.openEditDialog('entregas',element)
+    this._habilitarServices.openEditDialog('entregas', element)
   }
 
   openDialogCil(): void{

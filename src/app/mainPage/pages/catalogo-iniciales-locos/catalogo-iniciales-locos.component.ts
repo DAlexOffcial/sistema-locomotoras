@@ -14,7 +14,7 @@ import { HabilitarService } from '../../services/Habilitar.service';
 })
 export class CatalogoInicialesLocosComponent implements AfterViewInit{
   
-  displayedColumns : string[] = ['id_inicial_loco', 'desc_inicial_loco', 'activo', 'fecha_registro', 'fecha_actualizacion','acciones']
+  displayedColumns : string[] = ['acciones', 'desc_inicial_loco', 'activo', 'fecha_registro', 'fecha_actualizacion']
 
   dataSource = new MatTableDataSource<any>();
 

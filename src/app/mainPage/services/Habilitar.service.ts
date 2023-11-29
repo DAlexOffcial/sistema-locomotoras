@@ -239,44 +239,50 @@ export class HabilitarService {
         break;
       case 'entregas':
         this.matDialog.open(EditEntregasComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%',
+          data: {element : element}
         })
         break;
       case 'acciones':
         this.matDialog.open(EditAccionesComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%',
+          data: {element: element}
         })
         break;
       case 'banios':
         this.matDialog.open(EditBaniosComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%',
+          data: {element: element}
         })
         break;
       case 'empleados':
         this.matDialog.open(EditEmpleadosComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%'
         })
         break;
       case 'iniciales_locos':
         this.matDialog.open(EditInicialesLocosComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%',
+          data: {element: element}
         })
         break;
       case 'locomotoras':
         this.matDialog.open(EditLocomotorasComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%',
+          data: {element: element}
         })
         break;
       case 'mantenedores':
         this.matDialog.open(EditMantenedoresComponent, {
-          width: '60%',
-          height: '80%'
+          width: '40%',
+          height: '20%',
+          data: {element: element}
         })
         break;
       default:

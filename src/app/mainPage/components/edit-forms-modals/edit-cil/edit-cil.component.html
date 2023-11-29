@@ -5,7 +5,7 @@
             <div class="form-group col-md-6">
                 <label for="campo1" class="">Descripcion del Cil</label>
                 <input type="text" class="form-control mt-1" [placeholder]="dataCil.desc_cil" formControlName="desc_cil" autocomplete="off">
-                <div *ngIf="Cilforms.get('desc_cil')!.hasError('required') && Cilforms.get('desc_cil')!.touched" class="text-danger">
+                <div *ngIf="Cilforms.get('desc_cil')!.hasError('required')" class="text-danger">
                     Necesitas llenar este campo.
                   </div>
             </div>
@@ -13,7 +13,7 @@
             <div class="form-group col-md-6">
                 <label for="campo2">Puesto de trabajo:</label>
                 <input type="text" class="form-control mt-1" [placeholder]="dataCil.PUESTO_TRABAJO" formControlName="PUESTO_TRABAJO" autocomplete="off">
-                <div *ngIf="Cilforms.get('PUESTO_TRABAJO')!.hasError('required') && Cilforms.get('PUESTO_TRABAJO')!.touched" class="text-danger"> 
+                <div *ngIf="Cilforms.get('PUESTO_TRABAJO')!.hasError('required')" class="text-danger"> 
                     Necesitas llenar este campo.
                 </div>
             </div>

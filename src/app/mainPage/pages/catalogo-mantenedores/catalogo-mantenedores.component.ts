@@ -14,7 +14,7 @@ import { HabilitarService } from '../../services/Habilitar.service';
 })
 export class CatalogoMantenedoresComponent implements AfterViewInit{
     
-  displayedColumns : string[] = ['id_mantenedor', 'desc_mantenedor', 'activo', 'fecha_registro', 'fecha_actualizacion','acciones']
+  displayedColumns : string[] = ['acciones', 'desc_mantenedor', 'activo', 'fecha_registro', 'fecha_actualizacion']
 
   dataSource = new MatTableDataSource<any>();
 

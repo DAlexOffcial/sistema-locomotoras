@@ -15,7 +15,7 @@ import { HabilitarService } from '../../services/Habilitar.service';
 })
 export class CatalogoCliComponent implements AfterViewInit{
 
-  displayedColumns : string[] = ['id_cil', 'desc_cil', 'activo', 'fecha_registro', 'fecha_actualizacion', 'PUESTO_TRABAJO' ,'acciones']
+  displayedColumns : string[] = [ 'acciones' , 'id_cil', 'desc_cil', 'activo', 'fecha_registro', 'fecha_actualizacion', 'PUESTO_TRABAJO']
 
   dataSource = new MatTableDataSource<any>();
 

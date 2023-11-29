@@ -18,10 +18,11 @@ export class EditInspeccionesComponent {
 
   constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService){
     this.inspeccionesForm = this.fb.group({
-      desc_cil: ['', Validators.required],
-      PUESTO_TRABAJO: ['', Validators.required],
+      tipo_inspeccion: ['', [Validators.required , Validators.maxLength(3)]],
+      desc_tipo_inspeccion: ['', Validators.required],
+      tiempo_meta: ['', Validators.required],
     })
-     this.dataInspecciones = data.element
+    this.dataInspecciones = data.element
     console.log(this.dataInspecciones.id_tipo_inspeccion)
     
   }
@@ -34,14 +35,19 @@ export class EditInspeccionesComponent {
    
   editForm() {
      if (this.inspeccionesForm.valid){
-      const DescCil = this.inspeccionesForm.value.desc_cil
-      const PuestoTrabajo = this.inspeccionesForm.value.PUESTO_TRABAJO
-      console.log(DescCil , PuestoTrabajo);
-      this.dataInspecciones.id_tipo_inspeccion = DescCil
-      this.dataInspecciones.desc_tipo_inspeccion = PuestoTrabajo
+      const TipoInspc = this.inspeccionesForm.value.tipo_inspeccion
+      const DescTipoInsp = this.inspeccionesForm.value.desc_tipo_inspeccion
+      const TiempoMeta = this.inspeccionesForm.value.tiempo_meta
+     
+     
+      this.dataInspecciones.tipo_inspeccion = TipoInspc
+      this.dataInspecciones.desc_tipo_inspeccion = DescTipoInsp
+      this.dataInspecciones.tiempo_meta = TiempoMeta
+
+      console.log(this.dataInspecciones.tipo_inspeccion , this.dataInspecciones.desc_tipo_inspeccion , this.dataInspecciones.tiempo_meta );
      
  
-      this._habiliatarServices.cambiarEstatus('cil' , this.dataInspecciones).subscribe(data=> {
+      this._habiliatarServices.cambiarEstatus('inspecciones' , this.dataInspecciones).subscribe(data=> {
        console.log(JSON.stringify(data))
        Swal.fire({
         title: "Registro editado!",

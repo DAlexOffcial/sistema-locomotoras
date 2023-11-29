@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./catalogo-acciones.component.css']
 })
 export class CatalogoAccionesComponent implements AfterViewInit {
-  displayedColumns : string[] = ['id_accion', 'desc_accion', 'activo' , 'fecha_registro' , 'fecha_actualizacion','acciones']
+  displayedColumns : string[] = ['acciones', 'desc_accion', 'activo' , 'fecha_registro' , 'fecha_actualizacion']
 
   dataSource = new MatTableDataSource<any>();
 

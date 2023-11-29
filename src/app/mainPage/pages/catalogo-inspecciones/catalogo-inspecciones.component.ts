@@ -15,7 +15,7 @@ import { HabilitarService } from '../../services/Habilitar.service';
 export class CatalogoInspeccionesComponent implements AfterViewInit{
  
  
-  displayedColumns : string[] = ['id_tipo_inspeccion', 'tipo_inspeccion', 'desc_tipo_inspeccion' , 'tiempo_meta' , 'activo' , 'fecha_registro' , 'fecha_actualizacion' , 'acciones'];
+  displayedColumns : string[] = ['acciones', 'tipo_inspeccion', 'desc_tipo_inspeccion' , 'tiempo_meta' , 'activo' , 'fecha_registro' , 'fecha_actualizacion'];
 
   dataSource = new MatTableDataSource<any>();
 
@@ -48,7 +48,7 @@ export class CatalogoInspeccionesComponent implements AfterViewInit{
   }
 
   //modals
-  openEditDialog(element : Acciones): void {
+  openEditDialog(element : Inspecciones): void {
     this._habilitarServices.openEditDialog('inspecciones', element)
   }
 

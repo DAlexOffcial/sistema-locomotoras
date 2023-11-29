@@ -14,7 +14,7 @@ import { HabilitarService } from '../../services/Habilitar.service';
 })
 export class CatalogoBaniosComponent implements AfterViewInit{
   
-  displayedColumns : string[] = [ 'desc_banio', 'activo' , 'fecha_registro' , 'fecha_actualizacion','acciones']
+  displayedColumns : string[] = [ 'acciones' ,'desc_banio', 'activo' , 'fecha_registro' , 'fecha_actualizacion']
 
   dataSource = new MatTableDataSource<any>();
 
