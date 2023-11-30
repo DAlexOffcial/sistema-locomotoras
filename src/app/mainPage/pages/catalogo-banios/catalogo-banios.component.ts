@@ -3,7 +3,7 @@ import { CatalogosService } from '../../services/catalogos.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Banio } from '../../interfaces/catalogos-cil';
+import { Banio } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
 
@@ -50,8 +50,8 @@ export class CatalogoBaniosComponent implements AfterViewInit{
   openDialogCil(): void{
      this._habilitarServices.openAddDialog()
   }
-  openEditDialog(element : Banio): void {
-    this._habilitarServices.openEditDialog('banios' , element)
+  openEditDialog(element : Banio , TipoBoton: string): void {
+    this._habilitarServices.openEditDialog('banios' , element , TipoBoton)
   }
 
 

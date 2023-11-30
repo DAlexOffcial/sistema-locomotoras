@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CatalogosService } from '../../services/catalogos.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { InicialesLoco } from '../../interfaces/catalogos-cil';
+import { InicialesLoco } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
 
@@ -47,8 +47,8 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit{
   }
 
   //modals
-  openEditDialog(element : InicialesLoco): void {
-    this._habilitarServices.openEditDialog('iniciales_locos', element)
+  openEditDialog(element : InicialesLoco , TipoBoton: string): void {
+    this._habilitarServices.openEditDialog('iniciales_locos', element , TipoBoton )
   }
 
   openDialogCil(): void{

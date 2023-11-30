@@ -3,7 +3,7 @@ import { CatalogosService } from '../../services/catalogos.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Entregas } from '../../interfaces/catalogos-cil';
+import { Entregas } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
 
@@ -47,8 +47,8 @@ export class CatalogoEntregasComponent implements AfterViewInit{
   }
   
   //modals
-  openEditDialog(element : Entregas): void {
-    this._habilitarServices.openEditDialog('entregas', element)
+  openEditDialog(element : Entregas , TipoBoton :  string): void {
+    this._habilitarServices.openEditDialog('entregas', element , TipoBoton)
   }
 
   openDialogCil(): void{

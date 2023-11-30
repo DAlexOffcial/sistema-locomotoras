@@ -1,8 +1,12 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog , MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Cil } from 'src/app/mainPage/interfaces/catalogos-cil';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Cil } from 'src/app/mainPage/interfaces/catalogos';
+import { CatalogoCliComponent } from 'src/app/mainPage/pages/catalogo-cil/catalogo-cli.component';
+import { CreateService } from 'src/app/mainPage/services/Create.service';
 import { HabilitarService } from 'src/app/mainPage/services/Habilitar.service';
+import { TablasService } from 'src/app/mainPage/services/Tablas.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
 import Swal from 'sweetalert2';
 
 
@@ -14,49 +18,76 @@ import Swal from 'sweetalert2';
 export class EditCilComponent {
 
   dataCil!: Cil
- 
+
   Cilforms: FormGroup
 
-  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService){
+
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _createServices: CreateService, private _tableService : TablasService) {
     this.Cilforms = this.fb.group({
+      id_cil: [this.data.element.id_cil || '', this.data.element.id_cil ? Validators.required : null],
       desc_cil: ['', Validators.required],
       PUESTO_TRABAJO: ['', Validators.required],
     })
-     this.dataCil = data.element
+    console.log(data.TipoBoton);
+
+    this.dataCil = data.element
     console.log(this.dataCil.id_cil)
-    
+
   }
 
-  close(){
+  close() {
     this.Cilforms.clearValidators(); // Limpiar validadores
     this.Cilforms.updateValueAndValidity();
     this.dialog.closeAll();
- }
-   
-  editForm() {
-     if (this.Cilforms.valid){
-      const DescCil = this.Cilforms.value.desc_cil
-      const PuestoTrabajo = this.Cilforms.value.PUESTO_TRABAJO
-      console.log(DescCil , PuestoTrabajo);
-      this.dataCil.desc_cil = DescCil
-      this.dataCil.PUESTO_TRABAJO = PuestoTrabajo
-     
- 
-      this._habiliatarServices.cambiarEstatus('cil' , this.dataCil).subscribe(data=> {
-       console.log(JSON.stringify(data))
-       Swal.fire({
-        title: "Registro editado!",
-        icon: "success"
-      });
-      this.close()
-      }, (error) =>{
-       console.log(error)
-      } )  
-     } else {
-      this.Cilforms.markAllAsTouched();
-     }
-
   }
 
+  editForm() {
+    console.log(this.Cilforms.valid);
+    if (this.Cilforms.valid) {
+      const DescCil = this.Cilforms.value.desc_cil;
+      const PuestoTrabajo = this.Cilforms.value.PUESTO_TRABAJO;
+      console.log(DescCil, PuestoTrabajo);
+      this.dataCil.desc_cil = DescCil;
+      this.dataCil.PUESTO_TRABAJO = PuestoTrabajo;
+
+      if (this.data.TipoBoton == 'add') {
+        const IdCil = this.Cilforms.value.id_cil;
+        console.log(IdCil);
+        this.dataCil.id_cil = IdCil;
+
+          console.log(this.dataCil);
+          this._createServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
+            console.log(JSON.stringify(data));
+            Swal.fire({
+              title: "Registro editado!",
+              icon: "success"
+            });
+             // llamar a la tabla 
+             this._tableService.TriggerTabla('cil')
+            this.close();
+          }, (error) => {
+            console.log(error);
+          });
+      } else if (this.data.TipoBoton == 'edit') {
+        this._habiliatarServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
+          console.log(JSON.stringify(data));
+          Swal.fire({
+            title: "Registro editado!",
+            icon: "success"
+          });
+          //llamar a la tabla 
+          this._tableService.TriggerTabla('cil')
+          this.close();
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        this.Cilforms.markAllAsTouched();
+      }
+    } else {
+      this.Cilforms.markAllAsTouched();
+    }
+  }
 
 }
+

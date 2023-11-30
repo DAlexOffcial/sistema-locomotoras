@@ -3,7 +3,7 @@ import { CatalogosService } from '../../services/catalogos.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Acciones } from '../../interfaces/catalogos-cil';
+import { Acciones } from '../../interfaces/catalogos';
 import { HabilitarService } from '../../services/Habilitar.service';
 import Swal from 'sweetalert2';
 
@@ -46,8 +46,8 @@ export class CatalogoAccionesComponent implements AfterViewInit {
   }
   
   //modals
-  openEditDialog(element : Acciones): void {
-    this._habilitarServices.openEditDialog('acciones' , element)
+  openEditDialog(element : Acciones , tipoBoton: string): void {
+    this._habilitarServices.openEditDialog('acciones' , element, tipoBoton)
   }
 
      

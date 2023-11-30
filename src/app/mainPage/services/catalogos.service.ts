@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, map } from 'rxjs';
-import { Acciones, Banio, Catalog, Catalogos, Cil, Entregas, InicialesLoco, Inspecciones, Locomotora, Mantenedore } from '../interfaces/catalogos-cil';
+import { Acciones, Banio, Catalog, Catalogos, Cil, Entregas, InicialesLoco, Inspecciones, Locomotora, Mantenedore } from '../interfaces/catalogos';
 import { MatDialog } from '@angular/material/dialog';
 import { AddModalMainPageComponent } from '../components/add-modal-main-page/add-modal-main-page.component';
 

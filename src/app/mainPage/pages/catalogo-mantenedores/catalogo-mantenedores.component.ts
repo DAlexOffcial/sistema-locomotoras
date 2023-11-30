@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CatalogosService } from '../../services/catalogos.service';
-import { Mantenedore } from '../../interfaces/catalogos-cil';
+import { Mantenedore } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
 
@@ -47,8 +47,8 @@ export class CatalogoMantenedoresComponent implements AfterViewInit{
   }
 
   //modals
-  openEditDialog(element : Mantenedore): void {
-    this._habilitarServices.openEditDialog('mantenedores' , element)
+  openEditDialog(element : Mantenedore , TipoBoton: string): void {
+    this._habilitarServices.openEditDialog('mantenedores' , element , TipoBoton)
   }
   
   openDialogCil(): void{

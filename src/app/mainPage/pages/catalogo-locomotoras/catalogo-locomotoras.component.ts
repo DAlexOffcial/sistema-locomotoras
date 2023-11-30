@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CatalogosService } from '../../services/catalogos.service';
-import { Locomotora } from '../../interfaces/catalogos-cil';
+import { Locomotora } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
 
@@ -46,8 +46,8 @@ export class CatalogoLocomotorasComponent implements AfterViewInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openEditDialog(element: Locomotora): void {
-    this._habilitarServices.openEditDialog('locomotoras' , element)
+  openEditDialog(element: Locomotora , TipoBoton : string): void {
+    this._habilitarServices.openEditDialog('locomotoras' , element , TipoBoton)
   }
 
   openDialogCil(): void{

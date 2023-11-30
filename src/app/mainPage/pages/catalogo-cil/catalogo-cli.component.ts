@@ -1,19 +1,23 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
 import { LoginService } from 'src/app/services/login.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Cil } from '../../interfaces/catalogos-cil';
+import { Cil } from '../../interfaces/catalogos';
 import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
+import { TablasService } from '../../services/Tablas.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-catalogo-cli',
   templateUrl: './catalogo-cli.component.html',
   styleUrls: ['./catalogo-cli.component.css']
 })
-export class CatalogoCliComponent implements AfterViewInit{
+export class CatalogoCliComponent implements AfterViewInit , OnInit{
+
+  private subscription: Subscription = new Subscription();
 
   displayedColumns : string[] = [ 'acciones' , 'id_cil', 'desc_cil', 'activo', 'fecha_registro', 'fecha_actualizacion', 'PUESTO_TRABAJO']
 
@@ -24,8 +28,21 @@ export class CatalogoCliComponent implements AfterViewInit{
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService , private _habilitarServices: HabilitarService){
+  constructor (private _catalogoServices: CatalogosService , private _habilitarServices: HabilitarService , private _tablaService : TablasService){
     this.cargarTabla()
+  }
+
+  ngOnInit(): void {
+     this.subscription = this._tablaService.obserbableTabla('cil').subscribe(() => {
+      this.cargarTabla()
+      console.log('recarge tabla cil');
+      
+     })
+  }
+
+  ngOnDestroy() {
+    // Liberar la suscripción para evitar posibles fugas de memoria
+    this.subscription.unsubscribe();
   }
   
   cargarTabla(){
@@ -47,17 +64,23 @@ export class CatalogoCliComponent implements AfterViewInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  nuevoCil: Cil = {
+    id_cil: '',
+    desc_cil: '',
+    activo: '',
+    fecha_registro: new Date(),
+    fecha_actualizacion: new Date(),
+    PUESTO_TRABAJO: '',
+  };
+
   //modals
-  openEditDialog(elements: Cil ): void {
+  openEditDialog(elements: Cil , tipoBoton : string): void {
     console.log(elements.id_cil)
-    this._habilitarServices.openEditDialog('cil' , elements)
+    this._habilitarServices.openEditDialog('cil' , elements , tipoBoton)
   }
 
-  openDialogCil(): void{
-     this._habilitarServices.openAddDialog()
-  }
 
-    //cambio de estatus
+  //botones
     cambiarEstatus(acciones : Cil , estatus : string): void {
       console.log(acciones.id_cil)
       Swal.fire({

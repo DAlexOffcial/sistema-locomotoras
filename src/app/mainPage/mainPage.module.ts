@@ -92,7 +92,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ],
     providers: [
       CatalogosService,
-      HabilitarService
+      HabilitarService,
     ]
 })
 export class mainPageModule { }
