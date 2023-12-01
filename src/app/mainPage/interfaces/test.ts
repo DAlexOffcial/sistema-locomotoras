@@ -14,5 +14,6 @@ export interface Mantenedore {
     activo:              string;
     fecha_registro:      string;
     fecha_actualizacion: string;
+    s:1
 }
 

@@ -24,7 +24,6 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { FormatoFechaPipe } from './formato-fecha.pipe';
 import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
-import { AddModalMainPageComponent } from './components/add-modal-main-page/add-modal-main-page.component';
 import { CatalogosService } from './services/catalogos.service';
 import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-locos/catalogo-iniciales-locos.component';
 import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
@@ -41,8 +40,7 @@ import { EditInicialesLocosComponent } from './components/edit-forms-modals/edit
 import { EditLocomotorasComponent } from './components/edit-forms-modals/edit-locomotoras/edit-locomotoras.component';
 import { EditMantenedoresComponent } from './components/edit-forms-modals/edit-mantenedores/edit-mantenedores.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+import { AddCilComponent } from './components/edit-forms-modals/add-cil/add-cil.component';
 
 @NgModule({
     imports: [
@@ -75,7 +73,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       FormatoFechaPipe,
       FormatoEstadoPipe,
       TablaMainPageComponent,
-      AddModalMainPageComponent,
       CatalogoInicialesLocosComponent,
       CatalogoLocomotorasComponent,
       CatalogoMantenedoresComponent,
@@ -88,7 +85,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       EditInicialesLocosComponent,
       EditLocomotorasComponent,
       EditMantenedoresComponent,
-      
+      AddCilComponent,    
     ],
     providers: [
       CatalogosService,

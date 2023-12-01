@@ -89,7 +89,7 @@ export class CreateService {
             },
             {
               "Key": "activo",
-              "Value": element.activo
+              "Value": "0"
             }
           ]
         };
@@ -104,7 +104,7 @@ export class CreateService {
             },
             {
               "Key": "activo",
-              "Value": element.activo
+              "Value": "0"
             }
           ]
         };
@@ -120,7 +120,7 @@ export class CreateService {
             },
             {
               "Key": "activo",
-              "Value": element.activo
+              "Value": "0"
             }
           ]
         };
@@ -135,7 +135,7 @@ export class CreateService {
             },
             {
               "Key": "activo",
-              "Value": element.activo
+              "Value": "0"
             }
           ]
         };
@@ -154,7 +154,7 @@ export class CreateService {
             },
             {
               "Key": "activo",
-              "Value": element.activo
+              "Value": "0"
             }
           ]
         };
@@ -169,7 +169,7 @@ export class CreateService {
             },
             {
               "Key": "activo",
-              "Value": element.activo
+              "Value": "0"
             }
           ]
         };

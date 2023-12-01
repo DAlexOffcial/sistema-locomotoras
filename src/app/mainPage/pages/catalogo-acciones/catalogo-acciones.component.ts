@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -6,13 +6,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Acciones } from '../../interfaces/catalogos';
 import { HabilitarService } from '../../services/Habilitar.service';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
+import { TablasService } from '../../services/Tablas.service';
 
 @Component({
   selector: 'app-catalogo-acciones',
   templateUrl: './catalogo-acciones.component.html',
   styleUrls: ['./catalogo-acciones.component.css']
 })
-export class CatalogoAccionesComponent implements AfterViewInit {
+export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
+  
+  private subscription: Subscription = new Subscription();
+
   displayedColumns : string[] = ['acciones', 'desc_accion', 'activo' , 'fecha_registro' , 'fecha_actualizacion']
 
   dataSource = new MatTableDataSource<any>();
@@ -22,8 +27,15 @@ export class CatalogoAccionesComponent implements AfterViewInit {
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService,  private _habilitarServices: HabilitarService){
+  constructor (private _catalogoServices: CatalogosService,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService){
     this.cargarTabla()
+  }
+
+  ngOnInit(): void {
+      this.subscription = this._tablasServices.obserbableTabla('acciones').subscribe(() => {
+      console.log('cargue la tabla de inspecciones')
+      this.cargarTabla()
+    } )
   }
 
   cargarTabla():void{
@@ -45,16 +57,19 @@ export class CatalogoAccionesComponent implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
+  nuevaAccion : Acciones = {
+    id_accion: 0,
+    desc_accion: '',
+    activo: '',
+    fecha_registro: '',
+    fecha_actualizacion: ''
+  };
   //modals
   openEditDialog(element : Acciones , tipoBoton: string): void {
     this._habilitarServices.openEditDialog('acciones' , element, tipoBoton)
   }
 
-     
-  openDialogCil(): void{
-     this._habilitarServices.openAddDialog()
-  }
-
+    
   //cambio de estatus
   cambiarEstatus(acciones : Acciones , estatus : string): void {
     console.log(acciones.id_accion)

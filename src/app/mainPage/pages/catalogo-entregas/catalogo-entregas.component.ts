@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,13 +6,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Entregas } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
+import { Subscription } from 'rxjs';
+import { TablasService } from '../../services/Tablas.service';
 
 @Component({
   selector: 'app-catalogo-entregas',
   templateUrl: './catalogo-entregas.component.html',
   styleUrls: ['./catalogo-entregas.component.css']
 })
-export class CatalogoEntregasComponent implements AfterViewInit{
+export class CatalogoEntregasComponent implements AfterViewInit , OnInit{
+
+  private subscription: Subscription = new Subscription();
    
   displayedColumns : string[] = ['acciones', 'desc_tipo_entrega', 'activo', 'fecha_registro' , 'fecha_actualizacion']
 
@@ -23,8 +27,14 @@ export class CatalogoEntregasComponent implements AfterViewInit{
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices:HabilitarService){
+  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices:HabilitarService , private _tablasServices : TablasService){
      this.cargarTabla()
+  }
+  ngOnInit(): void {
+    this.subscription = this._tablasServices.obserbableTabla('entregas').subscribe(() => {
+      console.log('cargue la tabla de entregas')
+      this.cargarTabla()
+    } )
   }
 
   cargarTabla(){
@@ -45,15 +55,19 @@ export class CatalogoEntregasComponent implements AfterViewInit{
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  
+  nuevaEntrega: Entregas = {
+    id_tipo_entrega: 0,
+    desc_tipo_entrega: '',
+    activo: '',
+    fecha_registro: '',
+    fecha_actualizacion: ''
+  };
   //modals
+
   openEditDialog(element : Entregas , TipoBoton :  string): void {
     this._habilitarServices.openEditDialog('entregas', element , TipoBoton)
   }
 
-  openDialogCil(): void{
-     this._habilitarServices.openAddDialog()
-  }
 
     //cambio de estatus
     cambiarEstatus(acciones : Entregas , estatus : string): void {

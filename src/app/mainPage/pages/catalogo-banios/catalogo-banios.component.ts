@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,13 +6,17 @@ import { MatSort } from '@angular/material/sort';
 import { Banio } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
+import { Subscription } from 'rxjs';
+import { TablasService } from '../../services/Tablas.service';
 
 @Component({
   selector: 'app-catalogo-banios',
   templateUrl: './catalogo-banios.component.html',
   styleUrls: ['./catalogo-banios.component.css']
 })
-export class CatalogoBaniosComponent implements AfterViewInit{
+export class CatalogoBaniosComponent implements AfterViewInit , OnInit{
+
+  private subscription: Subscription = new Subscription();
   
   displayedColumns : string[] = [ 'acciones' ,'desc_banio', 'activo' , 'fecha_registro' , 'fecha_actualizacion']
 
@@ -23,8 +27,14 @@ export class CatalogoBaniosComponent implements AfterViewInit{
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices: HabilitarService){
+  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService){
     this.cargarTabla()
+  }
+  ngOnInit(): void {
+    this.subscription = this._tablasServices.obserbableTabla('banios').subscribe(() => {
+      console.log('cargue la tabla de banios')
+      this.cargarTabla()
+    } )
   }
 
   cargarTabla():void{
@@ -45,15 +55,19 @@ export class CatalogoBaniosComponent implements AfterViewInit{
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  
+  nuevoBanio : Banio = {
+    id_banio: 0,
+    desc_banio: '',
+    activo: '',
+    fecha_registro: '',
+    fecha_actualizacion: ''
+  };
   //modals
-  openDialogCil(): void{
-     this._habilitarServices.openAddDialog()
-  }
+
   openEditDialog(element : Banio , TipoBoton: string): void {
     this._habilitarServices.openEditDialog('banios' , element , TipoBoton)
   }
-
 
   //cambio de estatus
   cambiarEstatus(acciones : Banio , estatus : string): void {

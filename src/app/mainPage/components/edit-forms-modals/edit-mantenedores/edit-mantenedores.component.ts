@@ -2,7 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Mantenedore } from 'src/app/mainPage/interfaces/catalogos';
+import { CreateService } from 'src/app/mainPage/services/Create.service';
 import { HabilitarService } from 'src/app/mainPage/services/Habilitar.service';
+import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +18,7 @@ export class EditMantenedoresComponent {
  
   Mantenedorforms: FormGroup
 
-  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService){
+  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService , private _createServices:CreateService , private _tablaService: TablasService){
     this.Mantenedorforms = this.fb.group({
       desc_mantenedor: ['', Validators.required],
     })
@@ -31,25 +33,49 @@ export class EditMantenedoresComponent {
     this.dialog.closeAll();
  }
    
-  editForm() {
-     if (this.Mantenedorforms.valid){
-      const DescMantenedor = this.Mantenedorforms.value.desc_mantenedor
-      console.log(DescMantenedor);
-      this.dataMantenedor.desc_mantenedor = DescMantenedor
+ editForm() {
+  if (this.Mantenedorforms.valid) {
+    const DescMantenedor = this.Mantenedorforms.value.desc_mantenedor;
+    console.log(DescMantenedor);
+    this.dataMantenedor.desc_mantenedor = DescMantenedor;
 
-      this._habiliatarServices.cambiarEstatus('mantenedores' , this.dataMantenedor).subscribe(data=> {
-       console.log(JSON.stringify(data))
-       Swal.fire({
-        title: "Registro editado!",
-        icon: "success"
-      });
-      this.close()
-      }, (error) =>{
-       console.log(error)
-      } )  
-     } else {
-      this.Mantenedorforms.markAllAsTouched();
-     }
-
+    if (this.data.TipoBoton == 'add') {
+      console.log(this.dataMantenedor);
+      this._createServices.cambiarEstatus('mantenedores', this.dataMantenedor).subscribe(
+        (data) => {
+          console.log(JSON.stringify(data));
+          Swal.fire({
+            title: 'Registro editado!',
+            icon: 'success',
+          });
+          this._tablaService.TriggerTabla('mantenedores');
+          this.close();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else if (this.data.TipoBoton == 'edit') {
+      this._habiliatarServices.cambiarEstatus('mantenedores', this.dataMantenedor).subscribe(
+        (data) => {
+          console.log(JSON.stringify(data));
+          Swal.fire({
+            title: 'Registro editado!',
+            icon: 'success',
+          });
+          this._tablaService.TriggerTabla('mantenedores');
+          this.close();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      // Handle other scenarios if needed
+    }
+  } else {
+    this.Mantenedorforms.markAllAsTouched();
   }
+}
+
 }

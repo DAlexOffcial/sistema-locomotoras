@@ -1,4 +1,4 @@
-<div class="card card-background">
+<div class="card">
     <div class="card-header">
         <div class="body">
             <img class="logo mb-3" src="../../../assets/img/MicrosoftTeams-image (2).png" alt="">
@@ -6,7 +6,8 @@
             <form (ngSubmit)="login()" [formGroup]="loginUsuario">
                 <h4 class="d-flex flex-row">Usuario</h4>
                 <div class="form-floating mb-3">
-                    <input type="text" formControlName="NoEmpleado" class="form-control" placeholder="Numero de empleado">
+                    <input type="text" formControlName="NoEmpleado" class="form-control"
+                        placeholder="Numero de empleado">
                     <label>No. empleado</label>
                 </div>
                 <h4 class="d-flex flex-row">Contraseña</h4>
@@ -15,7 +16,8 @@
                     <label>Contraseña</label>
                 </div>
                 <button type="submit" class="btn btn-danger mt-3">Ingresar</button>
-                <p class="mt-3">¿Olvidaste tu contraseña? <a style="color: blue; cursor: pointer;" (click)="IrLick()">Recuperar</a></p>
+                <p class="mt-3">¿Olvidaste tu contraseña? <a style="color: blue; cursor: pointer;"
+                        (click)="IrLick()">Recuperar</a></p>
             </form>
         </div>
     </div>

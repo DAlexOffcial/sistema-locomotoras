@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddModalMainPageComponent } from '../components/add-modal-main-page/add-modal-main-page.component';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -14,6 +13,7 @@ import { EditInicialesLocosComponent } from '../components/edit-forms-modals/edi
 import { EditLocomotorasComponent } from '../components/edit-forms-modals/edit-locomotoras/edit-locomotoras.component';
 import { EditMantenedoresComponent } from '../components/edit-forms-modals/edit-mantenedores/edit-mantenedores.component';
 import { EditEntregasComponent } from '../components/edit-forms-modals/edit-entregas/edit-entregas.component';
+import { AddCilComponent } from '../components/edit-forms-modals/add-cil/add-cil.component';
 
 
 @Injectable({
@@ -24,14 +24,14 @@ export class HabilitarService {
   constructor(private http: HttpClient, private matDialog: MatDialog) { }
 
 
-  cambiarEstatus(catalogo: string, element: any): Observable<any> {
+  cambiarEstatus(catalogo: string, element: any): Observable<string> {
     const body = this.getBody(catalogo, element)
 
     const apiUrl = '/server/saveCatalogData';
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
-    return this.http.post<any>(apiUrl, body, { headers })
+    return this.http.post<string>(apiUrl, body, { headers })
   }
 
   private getBody(catalo: string, element: any): any {
@@ -212,77 +212,81 @@ export class HabilitarService {
         throw new Error(`Tipo de catálogo no válido: ${catalo}`);
     }
   }
+
+  
   //modals
-  openAddDialog(): void {
-    this.matDialog.open(AddModalMainPageComponent, {
+  openAddDialogCil( element: any , TipoBoton: string){
+    this.matDialog.open(AddCilComponent, {
       width: '60%',
-      height: '80%'
+      height: 'auto',
+      data: { element: element , TipoBoton : TipoBoton }
     })
   }
 
+  
   openEditDialog(catalogo: string , element: any , TipoBoton: string): void {
     console.log(element)
     switch (catalogo) {
       case 'cil':
         this.matDialog.open(EditCilComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: { element: element , TipoBoton : TipoBoton }
         })
         break;
       case 'inspecciones':
         this.matDialog.open(EditInspeccionesComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: {element : element , TipoBoton : TipoBoton}
         })
         break;
       case 'entregas':
         this.matDialog.open(EditEntregasComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: {element : element , TipoBoton : TipoBoton}
         })
         break;
       case 'acciones':
         this.matDialog.open(EditAccionesComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'banios':
         this.matDialog.open(EditBaniosComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'empleados':
         this.matDialog.open(EditEmpleadosComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           
         })
         break;
       case 'iniciales_locos':
         this.matDialog.open(EditInicialesLocosComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'locomotoras':
         this.matDialog.open(EditLocomotorasComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'mantenedores':
         this.matDialog.open(EditMantenedoresComponent, {
-          width: '40%',
-          height: '20%',
+          width: '60%',
+          height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;

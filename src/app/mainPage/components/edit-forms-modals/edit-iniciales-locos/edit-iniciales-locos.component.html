@@ -1,9 +1,9 @@
 <div class="container">
-    <h1 class="mt-3">Editar LOCOMOTORAS EXTERNAS</h1>
+    <h1 class="mt-3">{{ data.TipoBoton == 'edit' ? 'Editar LOCOMOTORA EXTERNA' : 'Agregar LOCOMOTORA EXTERNA'}}</h1>
     <form [formGroup]="Iniciales_locosforms" class="mt-3" >
         <div class="row mt-3">
             <div class="form-group col-md-12">
-                <label for="campo1" class="">Descripcion del Accion</label>
+                <label for="campo1" class="">Descripcion de la Locomotora Externa</label>
                 <input type="text" class="form-control mt-1" [placeholder]="dataInicales_locos.desc_inicial_loco" formControlName="desc_inicial_loco" autocomplete="off">
                 <div *ngIf="Iniciales_locosforms.get('desc_inicial_loco')!.hasError('required')" class="text-danger">
                     Necesitas llenar este campo.
@@ -14,12 +14,14 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3 d-flex flex-row-reverse">
+        <div class="row mt-3 mb-3 d-flex flex-row-reverse">
             <div class="col-md-3">
                 <button style="width: 100%;" type="button" class="btn btn-danger" (click)="close()">Cerrar</button>
             </div>
             <div class="col-md-3">
-                <button style="width: 100%;"  class="btn btn-primary" (click)="editForm()">Editar</button>
+                <button 
+                [class.edit-button]="data.TipoBoton === 'edit'" [class.add-button]="data.TipoBoton === 'add'"
+                style="width: 100%;"  class="btn btn-primary" (click)="editForm()">{{data.TipoBoton == 'edit' ? 'Editar' : 'Agregar'}}</button>
             </div>
         </div>
     </form>

@@ -10,7 +10,7 @@
               </mat-form-field>
         </div>
         <div class="col-md-3">
-            <button (click)="openEditDialog( nuevoCil , 'add')" class="btn btn-success btn-lg text-center" style="width: 100%; height: 70%;">Agregar
+            <button (click)="openAddDialog( nuevoCil , 'add')" class="btn btn-success btn-lg text-center" style="width: 100%; height: 70%;">Agregar
             </button>
         </div>
     </div>
@@ -35,13 +35,13 @@
                 </ng-container>
 
                 <ng-container matColumnDef="fecha_registro">
-                    <th mat-header-cell *matHeaderCellDef>Fecha de Registro</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Registro</th>
                     <td mat-cell *matCellDef="let element">{{ element.fecha_registro | date: 'dd/MM/yyyy HH:mm'}}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="fecha_actualizacion">
-                    <th mat-header-cell *matHeaderCellDef>Fecha de Actualización</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Actualización</th>
                     <td mat-cell *matCellDef="let element">{{ element.fecha_actualizacion | date: 'dd/MM/yyyy HH:mm' }}</td>
                 </ng-container>
 

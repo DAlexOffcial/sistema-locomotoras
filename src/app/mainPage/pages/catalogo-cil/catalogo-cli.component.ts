@@ -74,6 +74,10 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
   };
 
   //modals
+  openAddDialog( element: Cil ,  TipoBoton: string): void {
+    this._habilitarServices.openAddDialogCil(element , TipoBoton)
+  }
+
   openEditDialog(elements: Cil , tipoBoton : string): void {
     console.log(elements.id_cil)
     this._habilitarServices.openEditDialog('cil' , elements , tipoBoton)

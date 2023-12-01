@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,13 +6,17 @@ import { CatalogosService } from '../../services/catalogos.service';
 import { Locomotora } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
+import { Subscription } from 'rxjs';
+import { TablasService } from '../../services/Tablas.service';
 
 @Component({
   selector: 'app-catalogo-locomotoras',
   templateUrl: './catalogo-locomotoras.component.html',
   styleUrls: ['./catalogo-locomotoras.component.css']
 })
-export class CatalogoLocomotorasComponent implements AfterViewInit{
+export class CatalogoLocomotorasComponent implements AfterViewInit , OnInit{
+
+  private subscription: Subscription = new Subscription();
    
   displayedColumns : string[] = ['acciones', 'desc_loco', 'fk_mantenedor', 'activo' , 'fecha_registro', 'fecha_actualizacion']
 
@@ -23,8 +27,14 @@ export class CatalogoLocomotorasComponent implements AfterViewInit{
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService, private _habilitarServices: HabilitarService){
+  constructor (private _catalogoServices: CatalogosService, private _habilitarServices: HabilitarService , private _tablasServices : TablasService){
     this.cargarTabla()
+  }
+  ngOnInit(): void {
+    this.subscription = this._tablasServices.obserbableTabla('locomotoras').subscribe(() => {
+      console.log('cargue la tabla de locomotoras')
+      this.cargarTabla()
+    } )
   }
  
   cargarTabla(){
@@ -45,15 +55,20 @@ export class CatalogoLocomotorasComponent implements AfterViewInit{
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  
+  nuevaLocomotora : Locomotora = {
+    id_loco: 0,
+    desc_loco: '',
+    fk_mantenedor: 0,
+    activo: '',
+    fecha_registro: '',
+    fecha_actualizacion: ''
+  };
+ 
   openEditDialog(element: Locomotora , TipoBoton : string): void {
     this._habilitarServices.openEditDialog('locomotoras' , element , TipoBoton)
   }
 
-  openDialogCil(): void{
-     this._habilitarServices.openAddDialog()
-  }
- 
    //cambio de estatus
    cambiarEstatus(acciones : Locomotora , estatus : string): void {
     console.log(acciones.id_loco)

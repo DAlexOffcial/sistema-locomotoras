@@ -45,19 +45,13 @@ export class EditInspeccionesComponent {
       this.dataInspecciones.desc_tipo_inspeccion = DescTipoInsp;
       this.dataInspecciones.tiempo_meta = TiempoMeta;
   
-      console.log(
-        this.dataInspecciones.tipo_inspeccion,
-        this.dataInspecciones.desc_tipo_inspeccion,
-        this.dataInspecciones.tiempo_meta
-      );
-  
       if (this.data.TipoBoton == 'add') {
         console.log(this.dataInspecciones);
         this._createServices.cambiarEstatus('inspecciones', this.dataInspecciones).subscribe(
           (data) => {
             console.log(JSON.stringify(data));
             Swal.fire({
-              title: 'Registro editado!',
+              title: 'Registro agregado!',
               icon: 'success',
             });
             this._tablaService.TriggerTabla('inspecciones')

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CatalogosService } from '../../services/catalogos.service';
@@ -6,13 +6,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { InicialesLoco } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/Habilitar.service';
+import { Subscription } from 'rxjs';
+import { TablasService } from '../../services/Tablas.service';
 
 @Component({
   selector: 'app-catalogo-iniciales-locos',
   templateUrl: './catalogo-iniciales-locos.component.html',
   styleUrls: ['./catalogo-iniciales-locos.component.css']
 })
-export class CatalogoInicialesLocosComponent implements AfterViewInit{
+export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
+
+  private subscription: Subscription = new Subscription();
   
   displayedColumns : string[] = ['acciones', 'desc_inicial_loco', 'activo', 'fecha_registro', 'fecha_actualizacion']
 
@@ -23,8 +27,14 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit{
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices: HabilitarService){
+  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService){
     this.cargarTabla()
+  }
+  ngOnInit(): void {
+    this.subscription = this._tablasServices.obserbableTabla('iniciales_locos').subscribe(() => {
+      console.log('cargue la tabla de locomotoras externas')
+      this.cargarTabla()
+    } )
   }
 
   cargarTabla(){
@@ -45,16 +55,20 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit{
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  
+  nuevaInicial_locos : InicialesLoco = {
+    id_inicial_loco: 0,
+    desc_inicial_loco: '',
+    activo: '',
+    fecha_registro: '',
+    fecha_actualizacion: ''
+  };
+  
 
   //modals
   openEditDialog(element : InicialesLoco , TipoBoton: string): void {
     this._habilitarServices.openEditDialog('iniciales_locos', element , TipoBoton )
   }
-
-  openDialogCil(): void{
-     this._habilitarServices.openAddDialog()
-  }
-
   
   //cambio de estatus
   cambiarEstatus(acciones : InicialesLoco , estatus : string): void {
