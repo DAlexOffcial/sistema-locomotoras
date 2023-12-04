@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Token } from 'src/app/interfaces/login';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 
@@ -26,8 +27,7 @@ export class LoginComponent {
     console.log( NoEmpleado , Password )
     
     this._loginService.postDatos(NoEmpleado , Password).subscribe( data => {
-      //console.log(data.token)
-      //this._loginService.getDataCil('cil')
+
       this._loginService.guardarToken(data.token)
       this.router.navigate(['/dashboard'])
     },(error) => {
@@ -38,7 +38,6 @@ export class LoginComponent {
         padding: 0,
       }) 
       console.log(error)
-    
     })
   }
 

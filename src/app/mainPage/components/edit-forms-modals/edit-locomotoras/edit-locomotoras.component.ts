@@ -48,7 +48,7 @@ export class EditLocomotorasComponent {
           (data) => {
             console.log(JSON.stringify(data));
             Swal.fire({
-              title: 'Registro agregado!',
+              title: 'Registro agregadowww!',
               icon: 'success',
             });
             this._tablaService.TriggerTabla('locomotoras');

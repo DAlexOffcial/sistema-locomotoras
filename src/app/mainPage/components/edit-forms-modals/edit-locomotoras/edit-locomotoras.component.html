@@ -1,11 +1,18 @@
+<div class="container colors">
+    <div class="d-flex justify-content-between">
+        <h1 class="col-10">{{ data.TipoBoton == 'edit' ? 'EDITAR LOCOMOTORA' : 'AGERGAR LOCOMOTORA'}}</h1>
+        <button  type="button" class="btn btn-danger col-2 mt-3 close" (click)="close()">
+            <mat-icon aria-hidden="false" fontIcon="close"></mat-icon>
+        </button>
+    </div>
+</div>
 <div class="container">
-    <h1 class="mt-3">{{ data.TipoBoton == 'edit' ? 'Editar LOCOMOTORA' : 'Agregar LOCOMOTORA'}}</h1>
-    <form [formGroup]="Locomotoraforms" class="mt-3" >
+    <form [formGroup]="Locomotoraforms" class="mt-3 mb-3" >
         <div class="row mt-3">
             <div class="form-group col-md-6">
                 <label for="campo1" class="">Descripcion de Locomotora</label>
                 <input type="text" class="form-control mt-1" [placeholder]="dataLocomotora.desc_loco" formControlName="desc_loco" autocomplete="off">
-                <div *ngIf="Locomotoraforms.get('desc_loco')!.hasError('required')" class="text-danger">
+                <div *ngIf="Locomotoraforms.get('desc_loco')!.hasError('required') && Locomotoraforms.get('desc_loco')!.touched" class="text-danger">
                     Necesitas llenar este campo.
                   </div>
                 <div *ngIf="Locomotoraforms.get('desc_loco')!.hasError('maxlength')"
@@ -17,21 +24,22 @@
                 <label for="campo2">Mantenedor</label>
                 <input type="text" class="form-control mt-1" [placeholder]="dataLocomotora.fk_mantenedor" formControlName="fk_mantenedor" autocomplete="off">
                 
-                <div *ngIf="Locomotoraforms.get('fk_mantenedor')!.hasError('required')" class="text-danger"> 
+                <div *ngIf="Locomotoraforms.get('fk_mantenedor')!.hasError('required') && Locomotoraforms.get('fk_mantenedor')!.touched" class="text-danger"> 
                     Necesitas llenar este campo.
                 </div>
             </div>
-
         </div>
-        <div class="row mt-3 mb-3 d-flex flex-row-reverse">
-            <div class="col-md-3">
-                <button style="width: 100%;" type="button" class="btn btn-danger" (click)="close()">Cerrar</button>
-            </div>
+        <div class="row mt-3 d-flex flex-row-reverse">
             <div class="col-md-3">
                 <button 
-                [class.edit-button]="data.TipoBoton === 'edit'" [class.add-button]="data.TipoBoton === 'add'"
-                style="width: 100%;"  class="btn btn-primary" (click)="editForm()">{{data.TipoBoton == 'edit' ? 'Editar' : 'Agregar'}}</button>
-            </div>
+                    [class.edit-button]="data.TipoBoton === 'edit'" [class.add-button]="data.TipoBoton === 'add'"
+                    style="width: 100%;" class="btn btn-primary" (click)="editForm()">
+                    <div class="addedit">
+                        <mat-icon aria-hidden="false"  fontIcon="save"></mat-icon>
+                        <span style="padding-left: 10px">{{data.TipoBoton == 'edit' ? 'Editar' : 'Agregar'}}</span>
+                    </div>
+                </button>
+            </div>                               
         </div>
     </form>
 </div>

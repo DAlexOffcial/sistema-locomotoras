@@ -37,12 +37,12 @@ export class EditInspeccionesComponent {
 
   editForm() {
     if (this.inspeccionesForm.valid) {
-      const TipoInspc = this.inspeccionesForm.value.tipo_inspeccion;
-      const DescTipoInsp = this.inspeccionesForm.value.desc_tipo_inspeccion;
-      const TiempoMeta = this.inspeccionesForm.value.tiempo_meta;
+      const TipoInspc : string = this.inspeccionesForm.value.tipo_inspeccion;
+      const DescTipoInsp : string = this.inspeccionesForm.value.desc_tipo_inspeccion;
+      const TiempoMeta : number = this.inspeccionesForm.value.tiempo_meta;
   
-      this.dataInspecciones.tipo_inspeccion = TipoInspc;
-      this.dataInspecciones.desc_tipo_inspeccion = DescTipoInsp;
+      this.dataInspecciones.tipo_inspeccion = TipoInspc.toUpperCase();
+      this.dataInspecciones.desc_tipo_inspeccion = DescTipoInsp.toUpperCase();
       this.dataInspecciones.tiempo_meta = TiempoMeta;
   
       if (this.data.TipoBoton == 'add') {

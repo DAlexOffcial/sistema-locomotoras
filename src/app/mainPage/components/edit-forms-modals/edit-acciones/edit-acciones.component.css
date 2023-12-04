@@ -1,11 +1,49 @@
 
 .edit-button {
-    background-color: #f29d12;
-    border-color: #f29d12 ;
-  }
-  
-  .add-button {
-    background-color: #188654;
-    border-color: #188654;
-  }
-  
+  background-color: #f29d12;
+  border-color: #f29d12;
+}
+
+.add-button {
+  background-color: #188654;
+  border-color: #188654;
+}
+
+.container {
+  background-color: #f4f4f5;
+}
+
+span {
+  padding-left: 10px
+}
+
+.addedit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colors {
+  background-color: #455560;
+  color: #f4f4f5;
+}
+
+form {
+  padding: 10px;
+}
+
+h1 {
+  padding: 15px;
+}
+
+.close {
+  height: 50%;
+  width: 50px;
+}
+.btn{
+  background-color:  #2e4253;
+  border-color:  #2e4253 ;
+}
+.btn:hover{
+  background-color:  #0e3352 ;
+}

@@ -1,6 +1,10 @@
 .custom-navbar {
     background-color: #455560 !important;
   }
+  
+  .navbar img{
+    filter: invert(1);
+  }
  .white-icon {
     fill: white;
   }

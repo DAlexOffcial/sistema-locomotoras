@@ -35,8 +35,8 @@ export class EditAccionesComponent {
 
   editForm() {
     if (this.Accionesforms.valid) {
-      const DescAccion = this.Accionesforms.value.desc_accion;
-      this.dataAcciones.desc_accion = DescAccion;
+      const DescAccion : string = this.Accionesforms.value.desc_accion;
+      this.dataAcciones.desc_accion = DescAccion.toUpperCase();
   
       if (this.data.TipoBoton == 'add') {
         console.log(this.dataAcciones);

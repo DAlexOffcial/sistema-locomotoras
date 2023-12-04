@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, Subject, map } from 'rxjs';
 import { CatalogosService } from '../mainPage/services/catalogos.service';
+import { Token } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class LoginService {
     }
     const url = '/server/login/authenticate' 
 
-    return this.http.post(url , body) 
+    return this.http.post<any>(url , body)
   }
   
   guardarToken(token : string) :void{

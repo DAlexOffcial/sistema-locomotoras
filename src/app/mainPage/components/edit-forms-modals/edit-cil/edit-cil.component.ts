@@ -41,11 +41,11 @@ export class EditCilComponent {
   editForm() {
     console.log(this.Cilforms.valid);
     if (this.Cilforms.valid) {
-      const DescCil = this.Cilforms.value.desc_cil;
-      const PuestoTrabajo = this.Cilforms.value.PUESTO_TRABAJO;
+      const DescCil : string = this.Cilforms.value.desc_cil;
+      const PuestoTrabajo :string = this.Cilforms.value.PUESTO_TRABAJO;
       console.log(DescCil, PuestoTrabajo);
-      this.dataCil.desc_cil = DescCil;
-      this.dataCil.PUESTO_TRABAJO = PuestoTrabajo;
+      this.dataCil.desc_cil = DescCil.toUpperCase();
+      this.dataCil.PUESTO_TRABAJO = PuestoTrabajo.toUpperCase();
 
       if (this.data.TipoBoton == 'add') {
         const IdCil = this.Cilforms.value.id_cil;

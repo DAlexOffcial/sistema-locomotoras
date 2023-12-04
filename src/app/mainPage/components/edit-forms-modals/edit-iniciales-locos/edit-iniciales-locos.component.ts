@@ -35,8 +35,8 @@ export class EditInicialesLocosComponent {
    
 editForm() {
   if (this.Iniciales_locosforms.valid) {
-    const DescIniciales_locos = this.Iniciales_locosforms.value.desc_inicial_loco;
-    this.dataInicales_locos.desc_inicial_loco = DescIniciales_locos;
+    const DescIniciales_locos : string = this.Iniciales_locosforms.value.desc_inicial_loco;
+    this.dataInicales_locos.desc_inicial_loco = DescIniciales_locos.toUpperCase();
 
     if (this.data.TipoBoton == 'add') {
       console.log(this.dataInicales_locos);

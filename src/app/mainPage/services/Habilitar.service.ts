@@ -217,7 +217,7 @@ export class HabilitarService {
   //modals
   openAddDialogCil( element: any , TipoBoton: string){
     this.matDialog.open(AddCilComponent, {
-      width: '60%',
+      width: '50%',
       height: 'auto',
       data: { element: element , TipoBoton : TipoBoton }
     })
@@ -229,63 +229,63 @@ export class HabilitarService {
     switch (catalogo) {
       case 'cil':
         this.matDialog.open(EditCilComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: { element: element , TipoBoton : TipoBoton }
         })
         break;
       case 'inspecciones':
         this.matDialog.open(EditInspeccionesComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: {element : element , TipoBoton : TipoBoton}
         })
         break;
       case 'entregas':
         this.matDialog.open(EditEntregasComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: {element : element , TipoBoton : TipoBoton}
         })
         break;
       case 'acciones':
         this.matDialog.open(EditAccionesComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'banios':
         this.matDialog.open(EditBaniosComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'empleados':
         this.matDialog.open(EditEmpleadosComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           
         })
         break;
       case 'iniciales_locos':
         this.matDialog.open(EditInicialesLocosComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'locomotoras':
         this.matDialog.open(EditLocomotorasComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
       case 'mantenedores':
         this.matDialog.open(EditMantenedoresComponent, {
-          width: '60%',
+          width: '50%',
           height: 'auto',
           data: {element: element , TipoBoton : TipoBoton}
         })

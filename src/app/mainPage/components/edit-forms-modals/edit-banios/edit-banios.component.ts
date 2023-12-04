@@ -35,8 +35,8 @@ export class EditBaniosComponent {
    
  editForm() {
   if (this.Banioforms.valid) {
-    const DescBanio = this.Banioforms.value.desc_banio;
-    this.dataBanio.desc_banio = DescBanio;
+    const DescBanio : string = this.Banioforms.value.desc_banio;
+    this.dataBanio.desc_banio = DescBanio.toUpperCase();
 
     if (this.data.TipoBoton == 'add') {
       console.log(this.dataBanio);

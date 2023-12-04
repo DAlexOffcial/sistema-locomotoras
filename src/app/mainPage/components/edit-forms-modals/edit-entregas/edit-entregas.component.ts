@@ -35,8 +35,8 @@ export class EditEntregasComponent {
    
  editForm() {
   if (this.Entregasforms.valid) {
-    const DescEntregas = this.Entregasforms.value.desc_tipo_entrega;
-    this.dataEntregas.desc_tipo_entrega = DescEntregas;
+    const DescEntregas : string = this.Entregasforms.value.desc_tipo_entrega;
+    this.dataEntregas.desc_tipo_entrega = DescEntregas.toUpperCase();
 
     if (this.data.TipoBoton == 'add') {
       console.log(this.dataEntregas);

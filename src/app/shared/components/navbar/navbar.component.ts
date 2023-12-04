@@ -10,7 +10,7 @@ export class NavbarComponent {
   menuStatus:boolean = false
 
   sideNavToggle(){
-    this.menuStatus = !this.menuStatus
+    this.menuStatus = true
     this.sideNavToggled.emit(this.menuStatus)
   }
 }
