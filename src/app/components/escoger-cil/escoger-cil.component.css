@@ -1,0 +1,38 @@
+.fondo {
+    background-image: url('http://10.10.76.150:8080/imagenes/elegir%20cil.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.container {
+    padding-top: 5%;
+}
+
+.card-header {
+    background-color: #455560;
+    padding-top: 2%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.btn {
+    background-color: #2e4253;
+    border-color: #2e4253;
+    color: white;
+    width: 100%;
+}
+.ajustar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px; /* Ajusta el relleno según sea necesario */
+    box-sizing: border-box; /* Asegura que el relleno y el borde no afecten el tamaño total del botón */
+} 
+
+.btn:hover {
+    background-color: #0e3352;
+}

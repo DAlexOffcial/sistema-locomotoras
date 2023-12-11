@@ -1,14 +1,13 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
-import { LoginService } from 'src/app/services/login.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { Cil } from '../../interfaces/catalogos';
 import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
-import { HabilitarService } from '../../services/Habilitar.service';
+import { HabilitarService } from '../../services/edit.service';
 import { TablasService } from '../../services/Tablas.service';
 import { Subscription } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-catalogo-cli',
@@ -54,7 +53,9 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
   }
 
   ngAfterViewInit() {
+    console.log(this.paginator)
     this.dataSource.paginator = this.paginator;
+    console.log(this.dataSource);
     this.paginator._intl.itemsPerPageLabel = 'Cil por pagina: '
     this.dataSource.sort = this.sort
   }
@@ -88,18 +89,18 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
     cambiarEstatus(acciones : Cil , estatus : string): void {
       console.log(acciones.id_cil)
       Swal.fire({
-        title: (acciones.activo === '1') ? "¿Quieres habilitar este Cil?" : "¿Quieres desahabilitar este Cil?",
+        title: (acciones.activo === '0') ? "¿Quieres habilitar este Cil?" : "¿Quieres desahabilitar este Cil?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        text: (acciones.activo === '1') ? `Se habilitara : ${acciones.id_cil}` : `Se desahabilitara : ${acciones.id_cil}`,
-        confirmButtonText: (acciones.activo === '1') ? "habilitar" : "desahabilitar",
+        text: (acciones.activo === '0') ? `Se habilitara : ${acciones.id_cil}` : `Se desahabilitara : ${acciones.id_cil}`,
+        confirmButtonText: (acciones.activo === '0') ? "habilitar" : "desahabilitar",
         cancelButtonText: "Cancelar"
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title:(acciones.activo === '1') ? "Tu Cil esta habilitado" : "Tu Cil esta desahabilitado",
+            title:(acciones.activo === '0') ? "Tu Cil esta habilitada" : "Tu Cil esta desahabilitada",
             icon: "success"
           });
           //va al servicio

@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CatalogosService } from '../../services/catalogos.service';
 import { Mantenedore } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
-import { HabilitarService } from '../../services/Habilitar.service';
+import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
 import { TablasService } from '../../services/Tablas.service';
 
@@ -73,17 +73,17 @@ export class CatalogoMantenedoresComponent implements AfterViewInit , OnInit{
   cambiarEstatus(acciones : Mantenedore , estatus : string): void {
     console.log(acciones.id_mantenedor)
     Swal.fire({
-      title: (acciones.activo === '1') ? "¿quieres habilitar esta accion?" : "¿quieres desahabilitar esta accion?",
+      title: (acciones.activo === '0') ? "¿quieres habilitar esta accion?" : "¿quieres desahabilitar esta accion?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: (acciones.activo === '1') ? "habilitar" : "desahabilitar",
+      confirmButtonText: (acciones.activo === '0') ? "habilitar" : "desahabilitar",
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title:(acciones.activo === '1') ? "tu accion esta habilitar" : "tu accion esta desahabilitar",
+          title:(acciones.activo === '0') ? "tu accion esta habilitar" : "tu accion esta desahabilitar",
           text: "Your file has been deleted.",
           icon: "success"
         });

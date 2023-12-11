@@ -14,6 +14,10 @@ import { EditLocomotorasComponent } from '../components/edit-forms-modals/edit-l
 import { EditMantenedoresComponent } from '../components/edit-forms-modals/edit-mantenedores/edit-mantenedores.component';
 import { EditEntregasComponent } from '../components/edit-forms-modals/edit-entregas/edit-entregas.component';
 import { AddCilComponent } from '../components/edit-forms-modals/add-cil/add-cil.component';
+import { AddEmpleadosComponent } from '../components/edit-forms-modals/add-empleados/add-empleados.component';
+import { PasswordEmpleadosComponent } from '../components/edit-forms-modals/password-empleados/password-empleados.component';
+import { Usuario } from '../interfaces/usuarios';
+import { Empleado } from '../interfaces/catalogos';
 
 
 @Injectable({
@@ -219,18 +223,37 @@ export class HabilitarService {
     this.matDialog.open(AddCilComponent, {
       width: '50%',
       height: 'auto',
+      position: { top: '10%' } ,
+      data: { element: element , TipoBoton : TipoBoton }
+    })
+  }
+
+  openAddDialogEmpleado( element: Empleado , TipoBoton: string){
+    this.matDialog.open(AddEmpleadosComponent, {
+      width: '50%',
+      height: 'auto',
+      position: { top: '10%' } ,
+      data: { element: element , TipoBoton : TipoBoton }
+    })
+  }
+
+  openPasswordDialogEmpleado( element: Empleado , TipoBoton: string){
+    this.matDialog.open(PasswordEmpleadosComponent, {
+      width: '50%',
+      height: 'auto',
+      position: { top: '10%' } ,
       data: { element: element , TipoBoton : TipoBoton }
     })
   }
 
   
   openEditDialog(catalogo: string , element: any , TipoBoton: string): void {
-    console.log(element)
     switch (catalogo) {
       case 'cil':
         this.matDialog.open(EditCilComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '10%' } ,
           data: { element: element , TipoBoton : TipoBoton }
         })
         break;
@@ -238,6 +261,7 @@ export class HabilitarService {
         this.matDialog.open(EditInspeccionesComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '10%' } ,
           data: {element : element , TipoBoton : TipoBoton}
         })
         break;
@@ -245,6 +269,7 @@ export class HabilitarService {
         this.matDialog.open(EditEntregasComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '10%' } ,
           data: {element : element , TipoBoton : TipoBoton}
         })
         break;
@@ -252,6 +277,7 @@ export class HabilitarService {
         this.matDialog.open(EditAccionesComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '10%' } ,
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
@@ -259,6 +285,7 @@ export class HabilitarService {
         this.matDialog.open(EditBaniosComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '10%' } ,
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
@@ -266,13 +293,15 @@ export class HabilitarService {
         this.matDialog.open(EditEmpleadosComponent, {
           width: '50%',
           height: 'auto',
-          
+          position: { top: '10%' } ,    
+          data: {element: element , TipoBoton : TipoBoton}      
         })
         break;
       case 'iniciales_locos':
         this.matDialog.open(EditInicialesLocosComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '10%' } ,
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
@@ -280,6 +309,7 @@ export class HabilitarService {
         this.matDialog.open(EditLocomotorasComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '10%' } ,
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;
@@ -287,6 +317,7 @@ export class HabilitarService {
         this.matDialog.open(EditMantenedoresComponent, {
           width: '50%',
           height: 'auto',
+          position: { top: '7%' } ,
           data: {element: element , TipoBoton : TipoBoton}
         })
         break;

@@ -23,9 +23,11 @@
             <div class="form-group col-md-6">
                 <label for="campo2">Descripcion de tipo de Inspeccion</label>
                 <input type="text" class="form-control mt-1" [placeholder]="dataInspecciones.desc_tipo_inspeccion" formControlName="desc_tipo_inspeccion" autocomplete="off">
-                
                 <div *ngIf="inspeccionesForm.get('desc_tipo_inspeccion')!.hasError('required') && inspeccionesForm.get('desc_tipo_inspeccion')!.touched" class="text-danger"> 
                     Necesitas llenar este campo.
+                </div>
+                <div *ngIf="inspeccionesForm.get('desc_tipo_inspeccion')!.hasError('maxlength')" class="text-danger"> 
+                    No se admiten más de 50 letras.
                 </div>
             </div>
         </div>
@@ -35,6 +37,12 @@
                 <input type="text" class="form-control mt-1" [placeholder]="dataInspecciones.tiempo_meta" formControlName="tiempo_meta" autocomplete="off">
                 <div *ngIf="inspeccionesForm.get('tiempo_meta')!.hasError('required') && inspeccionesForm.get('tiempo_meta')!.touched" class="text-danger"> 
                     Necesitas llenar este campo.
+                </div>
+                <div *ngIf="inspeccionesForm.get('tiempo_meta')!.hasError('maxlength')" class="text-danger"> 
+                    No se admiten más de 4 numeros.
+                </div>
+                <div *ngIf="inspeccionesForm.get('tiempo_meta')!.hasError('pattern')" class="text-danger"> 
+                    solo se admiten numeros
                 </div>
             </div>
         </div>

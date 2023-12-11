@@ -1,8 +1,21 @@
-<nav class="navbar navbar-expand-lg custom-navbar px-2">
-  <div class="d-flex justify-content-start">
-    <div (click)="sideNavToggle()" class="side-nav-button p-2 text-light">
-      <mat-icon  aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
-    </div>
+<nav class="navbar custom-navbar px-2">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <!-- Botón del sidenav y la imagen a la izquierda -->
+    <div class="d-flex align-items-center">
+      <div (click)="sideNavToggle()" class="side-nav-button p-2 text-light">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
+      </div>
       <img class="white-icon" style="color: white !important;" src="../../../../assets/img/svg-icon-grupo.svg" width="170" height="50">
+    </div>
+
+    <!-- Botones a la derecha -->
+    <div class="d-flex">
+      <button (click)="SelectCil()" class="btn">
+        <span>Cambiar de cil <mat-icon aria-hidden="false" fontIcon="manage_history"></mat-icon></span>
+      </button>
+      <button (click)="logOut()" class="btn">
+        <span>Cerrar sesión <mat-icon aria-hidden="false" fontIcon="logout"></mat-icon></span>
+      </button>
+    </div>
   </div>
 </nav>

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { mainPageRoutingModule } from './mainPage-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
@@ -21,6 +22,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 import { FormatoFechaPipe } from './formato-fecha.pipe';
 import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
@@ -29,7 +31,7 @@ import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-loco
 import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
 import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/catalogo-mantenedores.component';
 import { FormatoEstadoPipe } from './formato-status.pipe';
-import { HabilitarService } from './services/Habilitar.service';
+import { HabilitarService } from './services/edit.service';
 import { EditCilComponent } from './components/edit-forms-modals/edit-cil/edit-cil.component';
 import { EditInspeccionesComponent } from './components/edit-forms-modals/edit-inspecciones/edit-inspecciones.component';
 import { EditEntregasComponent } from './components/edit-forms-modals/edit-entregas/edit-entregas.component';
@@ -39,8 +41,9 @@ import { EditEmpleadosComponent } from './components/edit-forms-modals/edit-empl
 import { EditInicialesLocosComponent } from './components/edit-forms-modals/edit-iniciales-locos/edit-iniciales-locos.component';
 import { EditLocomotorasComponent } from './components/edit-forms-modals/edit-locomotoras/edit-locomotoras.component';
 import { EditMantenedoresComponent } from './components/edit-forms-modals/edit-mantenedores/edit-mantenedores.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCilComponent } from './components/edit-forms-modals/add-cil/add-cil.component';
+import { AddEmpleadosComponent } from './components/edit-forms-modals/add-empleados/add-empleados.component';
+import { PasswordEmpleadosComponent } from './components/edit-forms-modals/password-empleados/password-empleados.component';
 
 @NgModule({
     imports: [
@@ -58,7 +61,8 @@ import { AddCilComponent } from './components/edit-forms-modals/add-cil/add-cil.
         MatInputModule,
         MatButtonModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        MatSelectModule
     ],
     exports: [
 
@@ -85,7 +89,9 @@ import { AddCilComponent } from './components/edit-forms-modals/add-cil/add-cil.
       EditInicialesLocosComponent,
       EditLocomotorasComponent,
       EditMantenedoresComponent,
-      AddCilComponent,    
+      AddCilComponent,
+      AddEmpleadosComponent,
+      PasswordEmpleadosComponent,    
     ],
     providers: [
       CatalogosService,

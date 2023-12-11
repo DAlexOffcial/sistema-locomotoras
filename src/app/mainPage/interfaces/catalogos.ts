@@ -13,6 +13,8 @@ export interface Catalog {
   iniciales_locos: InicialesLoco[];
   locomotoras: Locomotora[];
   mantenedores: Mantenedore[];
+  empleados: Empleado[];
+  funciones: Funcione[];
 }  
 
 export interface Cil {
@@ -79,6 +81,24 @@ export interface Mantenedore {
   id_mantenedor:       number;
   desc_mantenedor:     string;
   activo:              string;
+  fecha_registro:      string;
+  fecha_actualizacion: string;
+}
+
+export interface Empleado {
+  id_empleado:         number;
+  nombre_empl:         string;
+  apellido_empl:       string;
+  fk_funcion_empl:     number;
+  acceso_cil:          string;
+  activo:              string;
+  fecha_registro:      string;
+  fecha_actualizacion: string;
+}
+
+export interface Funcione {
+  id_funcion:          number;
+  desc_funcion:        string;
   fecha_registro:      string;
   fecha_actualizacion: string;
 }

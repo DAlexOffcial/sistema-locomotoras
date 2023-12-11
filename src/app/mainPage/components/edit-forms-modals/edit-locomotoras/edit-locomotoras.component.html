@@ -17,15 +17,17 @@
                   </div>
                 <div *ngIf="Locomotoraforms.get('desc_loco')!.hasError('maxlength')"
                   class="text-danger">
-                    No se admiten más de 11 letras.
+                    No se admiten más de 9 letras.
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <label for="campo2">Mantenedor</label>
                 <input type="text" class="form-control mt-1" [placeholder]="dataLocomotora.fk_mantenedor" formControlName="fk_mantenedor" autocomplete="off">
-                
                 <div *ngIf="Locomotoraforms.get('fk_mantenedor')!.hasError('required') && Locomotoraforms.get('fk_mantenedor')!.touched" class="text-danger"> 
                     Necesitas llenar este campo.
+                </div>
+                <div *ngIf="Locomotoraforms.get('fk_mantenedor')!.hasError('maxlength')" class="text-danger"> 
+                    No se admiten más de 11 letras.
                 </div>
             </div>
         </div>

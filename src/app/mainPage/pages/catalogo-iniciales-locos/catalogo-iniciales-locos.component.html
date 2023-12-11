@@ -14,9 +14,10 @@
             </button>
         </div>
     </div>
-    <div class="mt-3">
+    <div class="mt-3"> 
+      <div  class="mat-elevation-z8 mat-table-responsive">
 
-        <div class="mat-elevation-z8 mat-table-responsive">
+        <div *ngIf="dataSource.data.length > 0; else noData">
             <table mat-table [dataSource]="dataSource" matSort>
                 
                 <ng-container matColumnDef="id_inicial_loco">
@@ -58,7 +59,13 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
         </div>
+
+        <ng-template #noData>
+            <h1>No hay datos disponibles para mostrar.</h1>
+        </ng-template>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+      </div>
 
     </div>

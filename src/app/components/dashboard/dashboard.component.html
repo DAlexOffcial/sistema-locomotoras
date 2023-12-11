@@ -1,10 +1,12 @@
-<shared-navbar (sideNavToggled)="sideNavStatus = $event"></shared-navbar>
-<div class="row">
-    <div class="col-md-1">
-        <shared-sidebar (sideNavToggled)="sideNavStatus = $event" [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open': sideNavStatus}" ></shared-sidebar>
-    </div>
-    <!-- [ngClass]="{'display-area-shrink' : sideNavStatus}"-->
-    <div class="col-md-11">
-        <router-outlet></router-outlet>
+<div class="fondo">
+    <shared-navbar (sideNavToggled)="sideNavStatus = $event"></shared-navbar>
+    <div class="row">
+        <div>
+            <shared-sidebar (sideNavToggled)="sideNavStatus = $event" [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open': sideNavStatus}" ></shared-sidebar>
+        </div>
+        <!-- [ngClass]="{'display-area-shrink' : sideNavStatus}"-->
+        <div>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>

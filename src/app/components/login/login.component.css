@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('../../../assets/img/train-main-image.jpg');
+    background-image: url('http://10.10.76.150:8080/imagenes/login.png');
     background-size: cover;
     background-position: center;
 }

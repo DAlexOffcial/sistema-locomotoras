@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Token } from 'src/app/interfaces/login';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 
@@ -15,21 +15,26 @@ export class LoginComponent {
   
   loginUsuario: FormGroup;
 
+ // private _loginService = inject( LoginService )
+
   constructor(private fb: FormBuilder, private router :Router,  private _loginService: LoginService) {
     this.loginUsuario = this.fb.group({
       NoEmpleado:['', Validators.required],
       Password:['', Validators.required],
     })
   }
+
   login(){
     const NoEmpleado = this.loginUsuario.value.NoEmpleado
     const Password = this.loginUsuario.value.Password
     console.log( NoEmpleado , Password )
-    
-    this._loginService.postDatos(NoEmpleado , Password).subscribe( data => {
 
+    this._loginService.guardarNoEmpleado(NoEmpleado)
+
+    this._loginService.postDatos(NoEmpleado , Password).subscribe( data => {
+    
       this._loginService.guardarToken(data.token)
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/chose-cil'])
     },(error) => {
       Swal.fire({  
         icon: 'error',  

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Inspecciones } from 'src/app/mainPage/interfaces/catalogos';
 import { CreateService } from 'src/app/mainPage/services/Create.service';
-import { HabilitarService } from 'src/app/mainPage/services/Habilitar.service';
+import { HabilitarService } from 'src/app/mainPage/services/edit.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
@@ -19,10 +19,12 @@ export class EditInspeccionesComponent {
   inspeccionesForm: FormGroup
 
   constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService , private _createServices:CreateService , private _tablaService: TablasService) {
+    const SoloNumeros = /^[0-9]*$/;
+
     this.inspeccionesForm = this.fb.group({
       tipo_inspeccion: ['', [Validators.required, Validators.maxLength(3)]],
-      desc_tipo_inspeccion: ['', Validators.required],
-      tiempo_meta: ['', Validators.required],
+      desc_tipo_inspeccion: ['', [Validators.required, Validators.maxLength(50)]],
+      tiempo_meta: ['', [Validators.required, Validators.maxLength(4), Validators.pattern(SoloNumeros)]],
     })
     this.dataInspecciones = data.element
     console.log(this.dataInspecciones.id_tipo_inspeccion)

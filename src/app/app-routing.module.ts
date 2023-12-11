@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
+import { EscogerCilComponent } from './components/escoger-cil/escoger-cil.component';
+import { isAuthenticatedGuard } from './guards/login.guard.guard';
+import { hasCilesGuard } from './guards/HasCiles.guard';
 
 const routes: Routes = [
   { 
@@ -12,13 +15,19 @@ const routes: Routes = [
     path: 'login' , component: LoginComponent 
   },
   { 
-    path: 'dashboard' , component: DashboardComponent
+    path: 'dashboard' , component: DashboardComponent,
+    //canActivate: [isAuthenticatedGuard]
   },
   { 
     path: 'recover' , component: RecoverPasswordComponent
   },
   { 
-    path: 'dashboard' , loadChildren: () => import('./mainPage/mainPage.module').then(m => m.mainPageModule )
+    path: 'chose-cil' , component: EscogerCilComponent,
+    //canActivate: [isAuthenticatedGuard]
+  },
+  { 
+    path: 'dashboard' , loadChildren: () => import('./mainPage/mainPage.module').then(m => m.mainPageModule ) ,
+    // canActivate: [hasCilesGuard, isAuthenticatedGuard]
   },
   { 
     path: '**' , redirectTo: 'login' , pathMatch: 'full'

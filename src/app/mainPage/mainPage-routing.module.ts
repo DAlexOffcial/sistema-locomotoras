@@ -18,7 +18,7 @@ const routes: Routes = [
         component: DashboardComponent,
         children:[
             {
-                path: 'cil', component: CatalogoCliComponent 
+                path: 'cil', component: CatalogoCliComponent
             },
             {
                 path: 'inspecciones', component: CatalogoInspeccionesComponent 

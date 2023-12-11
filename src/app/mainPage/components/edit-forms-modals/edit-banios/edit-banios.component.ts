@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Banio } from 'src/app/mainPage/interfaces/catalogos';
 import { CreateService } from 'src/app/mainPage/services/Create.service';
-import { HabilitarService } from 'src/app/mainPage/services/Habilitar.service';
+import { HabilitarService } from 'src/app/mainPage/services/edit.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
@@ -20,7 +20,7 @@ export class EditBaniosComponent {
 
   constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService, private _createServices:CreateService , private _tablaService: TablasService){
     this.Banioforms = this.fb.group({
-      desc_banio: ['', Validators.required],
+      desc_banio: ['', [Validators.required , Validators.maxLength(20)]],
     })
      this.dataBanio = data.element
     console.log(this.dataBanio.desc_banio)

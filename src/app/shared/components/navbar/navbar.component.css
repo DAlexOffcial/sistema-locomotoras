@@ -1,23 +1,46 @@
 .custom-navbar {
-    background-color: #455560 !important;
-  }
-  
-  .navbar img{
-    filter: invert(1);
-  }
- .white-icon {
-    fill: white;
-  }
-  .side-nav-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
-    cursor: pointer;
-    margin-right: 110%;
-    margin-left: 2%; 
-  }
-  .side-nav-button:hover{
-     background-color: #9dc1d8;
-     border-radius: 30%;
-  }
+  background-color: #455560 !important;
+}
+
+.navbar img {
+  filter: invert(1);
+}
+
+.white-icon {
+  fill: white;
+}
+
+.side-nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+  margin-left: 2%;
+}
+
+.side-nav-button:hover {
+  background-color: #9dc1d8;
+  border-radius: 30%;
+}
+
+.btn {
+  color: white;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background-color: rgb(106, 156, 210);
+}
+ 
+.btn span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn mat-icon {
+  margin-left: 1rem;
+  /* Ajusta el margen según sea necesario */
+}

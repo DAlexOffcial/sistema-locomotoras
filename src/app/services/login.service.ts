@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subject, map } from 'rxjs';
-import { CatalogosService } from '../mainPage/services/catalogos.service';
-import { Token } from '@angular/compiler';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +17,29 @@ export class LoginService {
       Username: NoEmpleado,
       Password: Password
     }
-    const url = '/server/login/authenticate' 
+
+    console.log(body);
+    
+
+    const url = '/server/login/authenticate?' 
 
     return this.http.post<any>(url , body)
   }
-  
-  guardarToken(token : string) :void{
-    console.log(token)
-     localStorage.setItem('token' , token )
+
+  guardarNoEmpleado(NoEmpleado : string) :void{
+    console.log(NoEmpleado)
+    localStorage.removeItem("NoEmpleado");
+    localStorage.setItem('NoEmpleado' , NoEmpleado )
   }
 
+  guardarToken(token : string) :void{
+    console.log(token)
+    localStorage.removeItem("token");
+    localStorage.setItem('token' , token )
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
 
 }

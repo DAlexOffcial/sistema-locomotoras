@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Cil } from 'src/app/mainPage/interfaces/catalogos';
 import { CreateService } from 'src/app/mainPage/services/Create.service';
-import { HabilitarService } from 'src/app/mainPage/services/Habilitar.service';
+import { HabilitarService } from 'src/app/mainPage/services/edit.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 

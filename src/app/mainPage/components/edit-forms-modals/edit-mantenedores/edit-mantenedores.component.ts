@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Mantenedore } from 'src/app/mainPage/interfaces/catalogos';
 import { CreateService } from 'src/app/mainPage/services/Create.service';
-import { HabilitarService } from 'src/app/mainPage/services/Habilitar.service';
+import { HabilitarService } from 'src/app/mainPage/services/edit.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
@@ -20,7 +20,7 @@ export class EditMantenedoresComponent {
 
   constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService , private _createServices:CreateService , private _tablaService: TablasService){
     this.Mantenedorforms = this.fb.group({
-      desc_mantenedor: ['', Validators.required],
+      desc_mantenedor: ['', [Validators.required , Validators.maxLength(20)]],
     })
      this.dataMantenedor = data.element
     console.log(this.dataMantenedor.id_mantenedor)
