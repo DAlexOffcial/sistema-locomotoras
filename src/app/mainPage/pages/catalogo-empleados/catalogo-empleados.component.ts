@@ -8,6 +8,8 @@ import { MatSort } from '@angular/material/sort';
 import { TablasService } from '../../services/Tablas.service';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
+import { UsuarioService } from '../../services/Usuario.service';
+import { Usuario } from '../../interfaces/usuarios';
 
 @Component({
   selector: 'app-catalogo-empleados',
@@ -22,12 +24,14 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
 
   catalogoData: Empleado [] = []
 
+  dataUsuarios!: Usuario
+
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
    
-  constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService ) {
+  constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService ) {
     this.cargarTabla()
   }
 
@@ -103,6 +107,19 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
         this._empleadosTablaService.cambiarEstatus(acciones).subscribe(res => {
           console.log(JSON.stringify(res));
           this.cargarTabla()
+              
+          this._usuarioService.getDataCatalogos(acciones.id_empleado).subscribe(data =>{
+             this.dataUsuarios = data
+              if(estatus === '1'){
+                this.dataUsuarios.Status = true
+              }else{
+                this.dataUsuarios.Status = false
+              }
+
+             this._usuarioService.editUsuario(acciones , this.dataUsuarios).subscribe(data => {
+              console.log(data);
+             })
+          })
         },(error) => {
           console.log(error)
           Swal.fire({
