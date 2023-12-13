@@ -6,6 +6,7 @@ import { RecoverPasswordComponent } from './components/recover-password/recover-
 import { EscogerCilComponent } from './components/escoger-cil/escoger-cil.component';
 import { isAuthenticatedGuard } from './guards/login.guard.guard';
 import { hasCilesGuard } from './guards/HasCiles.guard';
+import { getRoleGuardDos } from './guards/GetRole2-3.guard';
 
 const routes: Routes = [
   { 
@@ -15,19 +16,16 @@ const routes: Routes = [
     path: 'login' , component: LoginComponent 
   },
   { 
-    path: 'dashboard' , component: DashboardComponent,
-    //canActivate: [isAuthenticatedGuard]
-  },
-  { 
     path: 'recover' , component: RecoverPasswordComponent
   },
   { 
     path: 'chose-cil' , component: EscogerCilComponent,
-    //canActivate: [isAuthenticatedGuard]
+    canActivate: [isAuthenticatedGuard]
   },
   { 
-    path: 'dashboard' , loadChildren: () => import('./mainPage/mainPage.module').then(m => m.mainPageModule ) ,
-    // canActivate: [hasCilesGuard, isAuthenticatedGuard]
+    path: 'dashboard' , 
+    loadChildren: () => import('./mainPage/mainPage.module').then(m => m.mainPageModule ) ,
+    canActivate: [isAuthenticatedGuard]
   },
   { 
     path: '**' , redirectTo: 'login' , pathMatch: 'full'

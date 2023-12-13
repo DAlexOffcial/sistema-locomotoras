@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { EmpleadosTablaService } from '../../services/EmpleadosTabla.service';
 import { Empleado } from '../../interfaces/catalogos';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { UsuarioService } from '../../services/Usuario.service';
 import { Usuario } from '../../interfaces/usuarios';
+
 
 @Component({
   selector: 'app-catalogo-empleados',
@@ -30,6 +31,8 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
 
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  
    
   constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService ) {
     this.cargarTabla()

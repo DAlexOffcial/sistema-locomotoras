@@ -12,46 +12,94 @@ import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-loco
 import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
 import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/catalogo-mantenedores.component';
 
+import { getRoleGuardDos } from '../guards/GetRole2-3.guard';
+import { getDashboardAccessGuard } from '../guards/GetRole1.guard';
+
+
+
 const routes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [getDashboardAccessGuard],
         children:[
             {
-                path: 'cil', component: CatalogoCliComponent
+                path: 'cil', component: CatalogoCliComponent,
+                canActivate:[getRoleGuardDos],
+                data:{
+                    allowedRoles: [1]
+                },
+
             },
             {
-                path: 'inspecciones', component: CatalogoInspeccionesComponent 
+                path: 'inspecciones', component: CatalogoInspeccionesComponent ,
+                canActivate:[getRoleGuardDos],
+                data:{
+                    allowedRoles: [1]
+                },
             },
             {
-                path: 'entregas', component: CatalogoEntregasComponent
-            },
-            {
-                path: 'acciones', component: CatalogoAccionesComponent
-            },
-            {
-                path: 'banios', component: CatalogoBaniosComponent
-            },
-            {
-                path: 'empleados', component: CatalogoEmpleadosComponent 
-            },
-            {
-                path: 'iniciales-locos', component: CatalogoInicialesLocosComponent
-            },
-            {
-                path: 'locomotoras', component: CatalogoLocomotorasComponent
-            },
-            {
-                path: 'mantenedores', component: CatalogoMantenedoresComponent
-            },
-            {
-                path: '**',
-                redirectTo: 'cli'
-            }
-        ]
-    },
+                path: 'entregas', component: CatalogoEntregasComponent,
+                canActivate:[getRoleGuardDos],
+                data:{
+                    allowedRoles: [1]
+                },
     
-     
+            },
+            {
+                path: 'acciones', component: CatalogoAccionesComponent,
+                canActivate:[getRoleGuardDos],
+                data:{
+                    allowedRoles: [1]
+                },
+  
+            },
+            {
+                path: 'banios', component: CatalogoBaniosComponent,
+                canActivate:[getRoleGuardDos],
+                data:{
+                    allowedRoles: [1]
+                },
+
+            },
+            {
+                path: 'empleados', component: CatalogoEmpleadosComponent ,
+               canActivate:[getRoleGuardDos],
+                data:{
+                  allowedRoles: [1 , 2 , 3]
+                },
+            },
+            {
+                path: 'iniciales-locos', component: CatalogoInicialesLocosComponent,
+                canActivate:[getRoleGuardDos],
+                data:{
+                    allowedRoles: [1]
+                },
+            },
+            {
+                path: 'locomotoras', component: CatalogoLocomotorasComponent,
+                canActivate:[getRoleGuardDos],
+                data:{
+                  allowedRoles: [1 , 2 , 3]
+                },
+            },
+            {
+                path: 'mantenedores', component: CatalogoMantenedoresComponent,
+                canActivate:[getRoleGuardDos],
+                data:{
+                    allowedRoles: [1]
+                },
+
+            },
+            { 
+                path: '**' , redirectTo: 'empleados' , pathMatch: 'full'
+            }
+
+        ]
+    },  
+    { 
+        path: '**' , redirectTo: 'dashboard' , pathMatch: 'full'
+    }
 ]
 
 @NgModule({

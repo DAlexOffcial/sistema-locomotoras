@@ -91,7 +91,7 @@ import { PasswordEmpleadosComponent } from './components/edit-forms-modals/passw
       EditMantenedoresComponent,
       AddCilComponent,
       AddEmpleadosComponent,
-      PasswordEmpleadosComponent,    
+      PasswordEmpleadosComponent   
     ],
     providers: [
       CatalogosService,

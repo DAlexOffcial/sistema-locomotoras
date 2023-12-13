@@ -28,19 +28,22 @@ export class EscogerCilComponent {
   mensaje: boolean = false
 
   constructor(private _empleadosService: EmpleadosService, private router: Router) {
-     this.getEmpleado()
+    localStorage.removeItem("CIL");
+    localStorage.removeItem("CILES");
+    this.getEmpleado()
   }
 
   getEmpleado(){
     this._empleadosService.getEmpleados().subscribe(data => {
       this.empleado = data
-      console.log(this.empleado)
     })
   }
 
   logOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("NoEmpleado");
+    localStorage.removeItem("CIL");
+    localStorage.removeItem("CILES");
     this.router.navigate(['/login'])
   }
 
