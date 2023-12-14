@@ -9,9 +9,9 @@ export const getDashboardAccessGuard: CanActivateFn = (
     const router = inject(Router)
     const empleadosService = inject(EmpleadosService)
 
-const currentUserRole = empleadosService.getFuncion()
+const currentUserRole =  localStorage.getItem('funcion') ?? ''
 
-if ([1, 2, 3].includes(currentUserRole)) {
+if (['1', '2', '3'].includes(currentUserRole)) {
       return true;
   }
   alert('acceso denegado a operario')

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/interfaces/empleado';
+import { CilService } from 'src/app/services/Cil.service';
 import { EmpleadosService } from 'src/app/services/Empleados.service';
 
 @Component({
@@ -27,15 +28,21 @@ export class EscogerCilComponent {
 
   mensaje: boolean = false
 
-  constructor(private _empleadosService: EmpleadosService, private router: Router) {
+  constructor(private _CILService :CilService , private _empleadosService: EmpleadosService, private router: Router) {
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
+    localStorage.removeItem('funcion')
     this.getEmpleado()
   }
 
   getEmpleado(){
     this._empleadosService.getEmpleados().subscribe(data => {
       this.empleado = data
+      if(this.empleado.Access === 'TODAS'){
+        this._CILService.getDataCatalogos().subscribe(data => {
+          this.empleado.Access = data
+        })
+      }
     })
   }
 

@@ -15,8 +15,6 @@ import { CatalogoMantenedoresComponent } from './pages/catalogo-mantenedores/cat
 import { getRoleGuardDos } from '../guards/GetRole2-3.guard';
 import { getDashboardAccessGuard } from '../guards/GetRole1.guard';
 
-
-
 const routes: Routes = [
     {
         path: 'dashboard',
@@ -27,7 +25,7 @@ const routes: Routes = [
                 path: 'cil', component: CatalogoCliComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                    allowedRoles: [1]
+                    allowedRoles: ['1']
                 },
 
             },
@@ -35,14 +33,14 @@ const routes: Routes = [
                 path: 'inspecciones', component: CatalogoInspeccionesComponent ,
                 canActivate:[getRoleGuardDos],
                 data:{
-                    allowedRoles: [1]
+                    allowedRoles: ['1']
                 },
             },
             {
                 path: 'entregas', component: CatalogoEntregasComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                    allowedRoles: [1]
+                    allowedRoles: ['1']
                 },
     
             },
@@ -50,7 +48,7 @@ const routes: Routes = [
                 path: 'acciones', component: CatalogoAccionesComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                    allowedRoles: [1]
+                    allowedRoles: ['1']
                 },
   
             },
@@ -58,36 +56,36 @@ const routes: Routes = [
                 path: 'banios', component: CatalogoBaniosComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                    allowedRoles: [1]
+                    allowedRoles: ['1']
                 },
 
             },
             {
                 path: 'empleados', component: CatalogoEmpleadosComponent ,
-               canActivate:[getRoleGuardDos],
+                canActivate:[getRoleGuardDos],
                 data:{
-                  allowedRoles: [1 , 2 , 3]
+                  allowedRoles: ['1' , '2' , '3']
                 },
             },
             {
                 path: 'iniciales-locos', component: CatalogoInicialesLocosComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                    allowedRoles: [1]
+                    allowedRoles: ['1']
                 },
             },
             {
                 path: 'locomotoras', component: CatalogoLocomotorasComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                  allowedRoles: [1 , 2 , 3]
+                  allowedRoles: ['1' , '2 ', '3']
                 },
             },
             {
                 path: 'mantenedores', component: CatalogoMantenedoresComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                    allowedRoles: [1]
+                    allowedRoles: ['1']
                 },
 
             },

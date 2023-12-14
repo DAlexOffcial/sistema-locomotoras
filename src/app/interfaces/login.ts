@@ -3,3 +3,20 @@
 export interface Token {
     token: string;
 }
+
+export interface Catalogos {
+    Catalog: Catalog;
+  }
+
+export interface Catalog {
+    cil: Cil[];
+}  
+
+export interface Cil {
+    id_cil:              string;
+    desc_cil:            string;
+    activo:              string;
+    fecha_registro:      Date;
+    fecha_actualizacion: Date;
+    PUESTO_TRABAJO:      string|null;
+  }

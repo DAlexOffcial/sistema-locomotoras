@@ -23,11 +23,12 @@ export class LoginComponent {
     localStorage.removeItem("NoEmpleado");
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
+    localStorage.removeItem('funcion')
 
     this.loginUsuario = this.fb.group({
-      NoEmpleado:['32232', Validators.required],
-      Password:['32232', Validators.required],
+      NoEmpleado:['1152', Validators.required],
+      Password:['fxe123', Validators.required],
     })
   }
 
@@ -39,7 +40,7 @@ export class LoginComponent {
     this._loginService.guardarNoEmpleado(NoEmpleado)
 
     this._loginService.postDatos(NoEmpleado , Password).subscribe( data => {
-      this._empleadosServices.getEmpleados()
+      //this._empleadosServices.getEmpleados()
       this._loginService.guardarToken(data.token)
       this.router.navigate(['/chose-cil'])
     },(error) => {

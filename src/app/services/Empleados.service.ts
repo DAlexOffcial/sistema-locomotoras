@@ -19,7 +19,7 @@ export class EmpleadosService {
     })
   }
 
-  getEmpleadosFuncion() : Observable<number> {
+  /*getEmpleadosFuncion() : Observable<number> {
     
     const NoEmpleado = localStorage.getItem('NoEmpleado');
 
@@ -38,7 +38,7 @@ export class EmpleadosService {
         return data.Function
       })
     )
-  }
+  }*/
   
   getEmpleados() : Observable<Empleado> {
     
@@ -52,16 +52,14 @@ export class EmpleadosService {
     return this.http.get<Empleado>(url , {headers}).pipe(
       tap((data) => {
         console.log(data);
-        
-        this.setFuncion(data)
+        localStorage.removeItem('funcion')
+        localStorage.setItem('funcion' , data.Function.toString())
+        //this.setFuncion(data)
       })
     )
   }
 
-  hasCiles(): Observable<boolean> {
-    const hasCilesValue = !!localStorage.getItem('CILES');
-    return of(hasCilesValue);
-  }
+  /*
 
   getFuncion() {
     return this.currentUser
@@ -69,6 +67,11 @@ export class EmpleadosService {
 
   setFuncion(data : Empleado){
      this.currentUser = data.Function
-  }
+  }*/
   
+
+  hasCiles(): Observable<boolean> {
+    const hasCilesValue = !!localStorage.getItem('CILES');
+    return of(hasCilesValue);
+  }
 }

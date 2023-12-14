@@ -9,7 +9,7 @@ export const getRoleGuardDos: CanActivateFn = (
     const router = inject(Router)
     const empleadosService = inject(EmpleadosService)
 
-  const currentUserRole = empleadosService.getFuncion()
+  const currentUserRole = localStorage.getItem('funcion')
   console.log(currentUserRole);
   
   const allowedRoles = route.data?.['allowedRoles'] 
@@ -19,8 +19,12 @@ export const getRoleGuardDos: CanActivateFn = (
   }
   //router.createUrlTree(['/login'])
 
+  if(currentUserRole === '2'){
+    alert('acceso denegado a maestro')
+  }
+  if(currentUserRole === '3'){
+    alert('acceso denegado a mayordomo')
+  }
 
   return false
-
-
 };
