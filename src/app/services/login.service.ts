@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { OperarioService } from './Operario.service';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class LoginService {
   //login 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient ,  private _operarioService : OperarioService) { }
   
   postDatos(  NoEmpleado:number , Password:string): Observable<any> {
     
@@ -27,7 +28,11 @@ export class LoginService {
   }
 
   guardarNoEmpleado(NoEmpleado : string) :void{
+    NoEmpleado = this._operarioService.encrypt(NoEmpleado)
     console.log(NoEmpleado)
+    /*NoEmpleado = this._operarioService.decrypt(NoEmpleado)
+    console.log(NoEmpleado);*/
+    
     localStorage.removeItem("NoEmpleado");
     localStorage.setItem('NoEmpleado' , NoEmpleado )
   }

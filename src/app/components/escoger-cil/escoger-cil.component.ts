@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { CilService } from 'src/app/services/Cil.service';
 import { EmpleadosService } from 'src/app/services/Empleados.service';
+import { OperarioService } from 'src/app/services/Operario.service';
 
 @Component({
   selector: 'app-escoger-cil',
@@ -28,7 +29,7 @@ export class EscogerCilComponent {
 
   mensaje: boolean = false
 
-  constructor(private _CILService :CilService , private _empleadosService: EmpleadosService, private router: Router) {
+  constructor(private _CILService :CilService , private _empleadosService: EmpleadosService, private router: Router, private _operarioService : OperarioService) {
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
     localStorage.removeItem('funcion')
@@ -57,8 +58,8 @@ export class EscogerCilComponent {
   enviarDatos() {
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
-    localStorage.setItem('CIL', this.CilSeleccionado)
-    localStorage.setItem('CILES', this.empleado.Access)
+    localStorage.setItem('CIL', this._operarioService.encrypt(this.CilSeleccionado))
+    localStorage.setItem('CILES', this._operarioService.encrypt(this.empleado.Access))
     if (this.CilSeleccionado !== '') {
       this.router.navigate(['/dashboard'])
     } else {

@@ -1,20 +1,23 @@
-import {  inject } from '@angular/core';
-import { Router, RouterStateSnapshot, ActivatedRouteSnapshot, CanActivateFn } from '@angular/router';
-import { EmpleadosService } from '../services/Empleados.service';
+import { inject } from '@angular/core';
+import { RouterStateSnapshot, ActivatedRouteSnapshot, CanActivateFn } from '@angular/router';
+import { OperarioService } from '../services/Operario.service';
 
 export const getDashboardAccessGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
 ) => {
-    const router = inject(Router)
-    const empleadosService = inject(EmpleadosService)
+   
+  const _operarioService = inject(OperarioService)
 
-const currentUserRole =  localStorage.getItem('funcion') ?? ''
+  const currentUserRole = _operarioService.decrypt( localStorage.getItem('funcion') ?? '')
 
-if (['1', '2', '3'].includes(currentUserRole)) {
-      return true;
+  if (['1', '2', '3'].includes(currentUserRole)) {
+    
+    return true;
   }
   alert('acceso denegado a operario')
+
   return false
 
 };
+

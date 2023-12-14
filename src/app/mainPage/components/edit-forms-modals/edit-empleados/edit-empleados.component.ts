@@ -7,6 +7,7 @@ import { CreateService } from 'src/app/mainPage/services/Create.service';
 import { EmpleadosTablaService } from 'src/app/mainPage/services/EmpleadosTabla.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import { UsuarioService } from 'src/app/mainPage/services/Usuario.service';
+import { OperarioService } from 'src/app/services/Operario.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,7 +27,7 @@ export class EditEmpleadosComponent {
 
   SelecionarCiles: string = ''
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _createServices: CreateService, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService ,private _usuariosService: UsuarioService) {
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService ,private _usuariosService: UsuarioService , private _operarioService : OperarioService) {
     this.Empleadosforms = this.fb.group({
       nombre_empl: ['', Validators.required],
       apellido_empl: ['', Validators.required],
@@ -41,7 +42,7 @@ export class EditEmpleadosComponent {
       console.log(this.dataUsuario);
    })
  
-    this.SelecionarCiles = localStorage.getItem('CILES') ?? ''
+    this.SelecionarCiles = _operarioService.decrypt(localStorage.getItem('CILES') ?? '')
 
   }
 

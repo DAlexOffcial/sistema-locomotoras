@@ -2,16 +2,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Catalogos, Empleado } from '../interfaces/catalogos';
+import { OperarioService } from 'src/app/services/Operario.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpleadosTablaService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _operarioService: OperarioService) { }
 
   getDataCatalogos(): Observable<Catalogos> {
-    const CIL = localStorage.getItem('CIL')
+    const CIL = this._operarioService.decrypt( localStorage.getItem('CIL') ?? '')
     const apiUrl = `/server/getCatalogData?catalog=empleados&cil=${CIL}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
@@ -23,7 +24,7 @@ export class EmpleadosTablaService {
     
     const body = this.getBody(element)
 
-    const CIL = localStorage.getItem('CIL')
+    const CIL = this._operarioService.decrypt( localStorage.getItem('CIL') ?? '')
     const apiUrl = `/server/saveCatalogData?catalog=empleados&cil=${CIL}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
@@ -68,7 +69,7 @@ export class EmpleadosTablaService {
     
     const body = this.getBodyAdd(element)
 
-    const CIL = localStorage.getItem('CIL')
+    const CIL = this._operarioService.decrypt( localStorage.getItem('CIL') ?? '')
     const apiUrl = `/server/saveCatalogData?catalog=empleados&cil=${CIL}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });

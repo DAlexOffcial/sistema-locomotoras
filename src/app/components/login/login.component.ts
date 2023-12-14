@@ -19,7 +19,7 @@ export class LoginComponent {
 
  // private _loginService = inject( LoginService )
 
-  constructor(private fb: FormBuilder, private router :Router,  private _loginService: LoginService ,private _empleadosServices :EmpleadosService) {
+  constructor(private fb: FormBuilder, private router :Router,  private _loginService: LoginService) {
     localStorage.removeItem("NoEmpleado");
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
@@ -37,10 +37,9 @@ export class LoginComponent {
     const Password = this.loginUsuario.value.Password
     console.log( NoEmpleado , Password )
 
-    this._loginService.guardarNoEmpleado(NoEmpleado)
-
     this._loginService.postDatos(NoEmpleado , Password).subscribe( data => {
       //this._empleadosServices.getEmpleados()
+      this._loginService.guardarNoEmpleado(NoEmpleado)
       this._loginService.guardarToken(data.token)
       this.router.navigate(['/chose-cil'])
     },(error) => {

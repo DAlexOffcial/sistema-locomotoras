@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, of, tap } from 'rxjs';
 import { Empleado } from '../interfaces/empleado';
+import { OperarioService } from './Operario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class EmpleadosService {
 
   //public funcionUser : number = 0;
 
-  constructor(private http:HttpClient) { 
+  constructor(private http:HttpClient ,  private _operarioService : OperarioService) { 
 
     this.getEmpleados().subscribe(data=> {
       this.currentUser = data.Function
@@ -42,7 +43,8 @@ export class EmpleadosService {
   
   getEmpleados() : Observable<Empleado> {
     
-    const NoEmpleado = localStorage.getItem('NoEmpleado');
+    const NoEmpleado =   this._operarioService.decrypt(localStorage.getItem('NoEmpleado') ?? '');
+    console.log(NoEmpleado)
 
     const url = '/server/profile?id=' + NoEmpleado
 
@@ -53,7 +55,7 @@ export class EmpleadosService {
       tap((data) => {
         console.log(data);
         localStorage.removeItem('funcion')
-        localStorage.setItem('funcion' , data.Function.toString())
+        localStorage.setItem('funcion' , this._operarioService.encrypt(data.Function.toString()))
         //this.setFuncion(data)
       })
     )
@@ -68,10 +70,5 @@ export class EmpleadosService {
   setFuncion(data : Empleado){
      this.currentUser = data.Function
   }*/
-  
 
-  hasCiles(): Observable<boolean> {
-    const hasCilesValue = !!localStorage.getItem('CILES');
-    return of(hasCilesValue);
-  }
 }

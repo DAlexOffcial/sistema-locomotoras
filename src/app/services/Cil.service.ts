@@ -16,7 +16,7 @@ export class CilService {
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
   
     return this.http.post<Catalogos>(apiUrl, null, { headers }).pipe(
-      map(data => data.Catalog.cil.map(cil => cil.id_cil).join(', '))
+      map(data => data.Catalog.cil.map(cil => cil.id_cil).join(','))
     );
   }
 
