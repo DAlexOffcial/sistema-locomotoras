@@ -85,7 +85,6 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
       if (result.isConfirmed) {
         Swal.fire({
           title:(acciones.activo === '0') ? "tu accion esta habilitada" : "tu accion esta desahabilitada",
-          text: "Your file has been deleted.",
           icon: "success"
         });
         //va al servicio

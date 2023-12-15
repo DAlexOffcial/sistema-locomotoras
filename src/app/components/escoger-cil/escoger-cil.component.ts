@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/interfaces/empleado';
+import { Cil } from 'src/app/interfaces/login';
 import { CilService } from 'src/app/services/Cil.service';
 import { EmpleadosService } from 'src/app/services/Empleados.service';
 import { OperarioService } from 'src/app/services/Operario.service';
@@ -8,7 +9,7 @@ import { OperarioService } from 'src/app/services/Operario.service';
 @Component({
   selector: 'app-escoger-cil',
   templateUrl: './escoger-cil.component.html',
-  styleUrls: ['./escoger-cil.component.css']
+  styleUrls: ['./escoger-cil.component.css'],
 })
 export class EscogerCilComponent {
 
@@ -25,6 +26,8 @@ export class EscogerCilComponent {
     UpdateDate: ''
   }
 
+  cilArrayTodos: Cil[] = [];
+
   CilSeleccionado: string = ''
 
   mensaje: boolean = false
@@ -39,10 +42,16 @@ export class EscogerCilComponent {
   getEmpleado(){
     this._empleadosService.getEmpleados().subscribe(data => {
       this.empleado = data
+      console.log(this.empleado.Access);
+      this._CILService.getDataCatalogos().subscribe((data) => {
+        this.cilArrayTodos = data.filter(cil => this.empleado.Access.split(',').includes(cil.id_cil));
+      });
+
       if(this.empleado.Access === 'TODAS'){
         this._CILService.getDataCatalogos().subscribe(data => {
-          this.empleado.Access = data
-        })
+          this.cilArrayTodos = data;
+        });
+
       }
     })
   }

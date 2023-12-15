@@ -78,7 +78,7 @@ const routes: Routes = [
                 path: 'locomotoras', component: CatalogoLocomotorasComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                  allowedRoles: ['1' , '2 ', '3']
+                  allowedRoles: ['1' , '2', '3']
                 },
             },
             {

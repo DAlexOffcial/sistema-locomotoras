@@ -17,8 +17,8 @@
                     <mat-form-field style="width: 100%;">
                         <mat-label>Selecciona Cil</mat-label>
                         <mat-select [(ngModel)]="CilSeleccionado">
-                            <mat-option *ngFor="let access of empleado.Access.split(',')" [value]="access">
-                                {{ access }}
+                            <mat-option *ngFor="let cil of cilArrayTodos" [value]="cil.id_cil">
+                                Cil: {{ cil.id_cil }} - Descripcion: {{ cil.desc_cil }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>

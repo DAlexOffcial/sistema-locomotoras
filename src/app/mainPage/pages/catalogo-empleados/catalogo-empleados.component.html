@@ -17,7 +17,7 @@
     <div class="mt-3">
 
         <div  class="mat-elevation-z8 mat-table-responsive">
-            <table *ngIf="dataSource.data.length > 1; else noData" mat-table [dataSource]="dataSource" matSort>
+            <table mat-table [dataSource]="dataSource" matSort>
                 
                 <ng-container matColumnDef="nombre_empl">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del empleado</th>
@@ -58,9 +58,6 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <ng-template #noData>
-                <h1>No hay datos disponibles para mostrar.</h1>
-            </ng-template>
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </div>
 

@@ -43,8 +43,7 @@ export class EmpleadosService {
   
   getEmpleados() : Observable<Empleado> {
     
-    const NoEmpleado =   this._operarioService.decrypt(localStorage.getItem('NoEmpleado') ?? '');
-    console.log(NoEmpleado)
+    const NoEmpleado = this._operarioService.decrypt(localStorage.getItem('NoEmpleado') ?? '');
 
     const url = '/server/profile?id=' + NoEmpleado
 
@@ -53,7 +52,6 @@ export class EmpleadosService {
   
     return this.http.get<Empleado>(url , {headers}).pipe(
       tap((data) => {
-        console.log(data);
         localStorage.removeItem('funcion')
         localStorage.setItem('funcion' , this._operarioService.encrypt(data.Function.toString()))
         //this.setFuncion(data)

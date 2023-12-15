@@ -85,7 +85,6 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
       if (result.isConfirmed) {
         Swal.fire({
           title:(acciones.activo === '0') ? "tu accion esta habilitar" : "tu accion esta desahabilitar",
-          text: "Your file has been deleted.",
           icon: "success"
         });
         //va al servicio

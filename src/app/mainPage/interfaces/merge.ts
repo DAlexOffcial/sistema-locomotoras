@@ -1,5 +1,5 @@
-import { Empleado, Funcione } from "./catalogos";
+import { Locomotora } from "./catalogos";
 
-export interface EmpleadoConFuncion extends Empleado {
-    funcion: Funcione;
-}
+export interface LocomotoraConMantenedor extends Locomotora {
+    mantenedor: string;
+  }

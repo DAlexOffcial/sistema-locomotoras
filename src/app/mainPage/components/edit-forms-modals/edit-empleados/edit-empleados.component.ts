@@ -1,12 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs';
+import { Cil } from 'src/app/interfaces/login';
 import { Empleado } from 'src/app/mainPage/interfaces/catalogos';
 import { Usuario } from 'src/app/mainPage/interfaces/usuarios';
 import { CreateService } from 'src/app/mainPage/services/Create.service';
 import { EmpleadosTablaService } from 'src/app/mainPage/services/EmpleadosTabla.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import { UsuarioService } from 'src/app/mainPage/services/Usuario.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
+import { CilService } from 'src/app/services/Cil.service';
 import { OperarioService } from 'src/app/services/Operario.service';
 import Swal from 'sweetalert2';
 
@@ -27,7 +31,9 @@ export class EditEmpleadosComponent {
 
   SelecionarCiles: string = ''
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService ,private _usuariosService: UsuarioService , private _operarioService : OperarioService) {
+  Cil: Cil[] = []
+
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService ,private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService:  CilService) {
     this.Empleadosforms = this.fb.group({
       nombre_empl: ['', Validators.required],
       apellido_empl: ['', Validators.required],
@@ -43,7 +49,14 @@ export class EditEmpleadosComponent {
    })
  
     this.SelecionarCiles = _operarioService.decrypt(localStorage.getItem('CILES') ?? '')
-
+    
+    if(this.SelecionarCiles == 'TODAS'){
+        _cilService.getDataCatalogos().pipe(
+          map(data => data.map(item => item.id_cil).join(','))
+        ).subscribe(concatenatedIds => {
+          this.SelecionarCiles = concatenatedIds
+        });
+    }
   }
 
   close() {

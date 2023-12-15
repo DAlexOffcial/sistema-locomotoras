@@ -25,7 +25,6 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 
 import { FormatoFechaPipe } from './formato-fecha.pipe';
-import { TablaMainPageComponent } from './components/tabla-main-page/tabla-main-page.component';
 import { CatalogosService } from './services/catalogos.service';
 import { CatalogoInicialesLocosComponent } from './pages/catalogo-iniciales-locos/catalogo-iniciales-locos.component';
 import { CatalogoLocomotorasComponent } from './pages/catalogo-locomotoras/catalogo-locomotoras.component';
@@ -76,7 +75,6 @@ import { PasswordEmpleadosComponent } from './components/edit-forms-modals/passw
       CatalogoEmpleadosComponent,
       FormatoFechaPipe,
       FormatoEstadoPipe,
-      TablaMainPageComponent,
       CatalogoInicialesLocosComponent,
       CatalogoLocomotorasComponent,
       CatalogoMantenedoresComponent,
