@@ -44,6 +44,19 @@ export class EditEmpleadosComponent {
     })
 
     this.dataEmpleado = data.element
+    
+    const funcion = _operarioService.decrypt(localStorage.getItem('funcion') ?? '')
+    console.log(funcion);
+    
+    switch (funcion) {
+      case '2':
+          this.SelecionarRoles = 'MAESTRO,MAYORDOMO,OPERARIO'
+        break;
+      case '3':
+           this.SelecionarRoles = 'MAYORDOMO,OPERARIO'
+        break;
+    }
+    
 
     this._usuariosService.getDataCatalogos(this.dataEmpleado.id_empleado).subscribe(data => {
       this.dataUsuario = data
@@ -129,5 +142,4 @@ export class EditEmpleadosComponent {
       
     })
   }
-
 }

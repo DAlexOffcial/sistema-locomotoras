@@ -31,7 +31,7 @@
 
                 <ng-container matColumnDef="fk_funcion_empl">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Role del empleado</th>
-                    <td mat-cell *matCellDef="let element">{{ element.fk_funcion_empl | roles }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.fk_funcion_empl | roles | async | uppercase}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="acceso_cil">
@@ -47,11 +47,11 @@
 
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                    <td mat-cell *matCellDef="let element;">
-                        <mat-icon (click)="openPasswordDialog(element, 'password')" *ngIf="element.activo === '1'" matTooltip="Cambiar contraseña" style="color: #1b73e9;" fontIcon="manage_accounts"></mat-icon>
-                        <mat-icon (click)="openEditDialog(element, 'edit')" *ngIf="element.activo === '1'" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
-                        <mat-icon (click)="cambiarEstatus(element, '0')" *ngIf="element.activo === '1'" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
-                        <mat-icon (click)="cambiarEstatus(element, '1')" *ngIf="element.activo === '0'"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
+                    <td  mat-cell *matCellDef="let element;">
+                        <mat-icon (click)="openPasswordDialog(element, 'password')" *ngIf="element.activo === '1' && isButtonEnabled(element)" matTooltip="Cambiar contraseña" style="color: #1b73e9;" fontIcon="manage_accounts"></mat-icon>
+                        <mat-icon (click)="openEditDialog(element, 'edit')" *ngIf="element.activo === '1' && isButtonEnabled(element)" matTooltip="Editar" style="color: #f39c12;" fontIcon="edit"></mat-icon>
+                        <mat-icon (click)="cambiarEstatus(element, '0')" *ngIf="element.activo === '1' && isButtonEnabled(element)" matTooltip="Inhabilitar" style="color: #dd4b39;" fontIcon="block"></mat-icon>
+                        <mat-icon (click)="cambiarEstatus(element, '1')" *ngIf="element.activo === '0' && isButtonEnabled(element)"  matTooltip="Habilitar" style="color: #01a65b;" fontIcon="check_box"></mat-icon>
                     </td>
                 </ng-container>
 

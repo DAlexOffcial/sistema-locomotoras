@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Acciones, Banio, Cil, Entregas, InicialesLoco, Inspecciones, Locomotora, Mantenedore } from '../interfaces/catalogos';
+import { Acciones, Banio, Cil, Entregas, Funcione, InicialesLoco, Inspecciones, Locomotora, Mantenedore } from '../interfaces/catalogos';
 
 
 @Injectable({
@@ -74,6 +74,8 @@ export class CatalogosService {
         return this.mapLocomotorasData(data);
       case 'mantenedores':
         return this.mapMantenedoresData(data);
+      case 'funciones':
+        return this.mapFuncionesData(data);
       // Agrega más casos según sea necesario para otros tipos de información
       default:
         throw new Error(`Tipo de catálogo no válido: ${tipo}`);
@@ -155,6 +157,16 @@ export class CatalogosService {
       Catalog: {
         ...data.Catalog,
         mantenedores: data.Catalog.mantenedores.map((mantenedores: Mantenedore) => ({ ...mantenedores}))
+      }
+    };
+  }
+
+  private mapFuncionesData(data: any): any {
+    return {
+      ...data,
+      Catalog: {
+        ...data.Catalog,
+        funciones: data.Catalog.funciones.map((funciones: Funcione) => ({ ...funciones}))
       }
     };
   }

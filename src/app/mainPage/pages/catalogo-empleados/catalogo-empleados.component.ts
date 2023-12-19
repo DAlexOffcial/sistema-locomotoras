@@ -11,6 +11,7 @@ import { HabilitarService } from '../../services/edit.service';
 import { UsuarioService } from '../../services/Usuario.service';
 import { Usuario } from '../../interfaces/usuarios';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { OperarioService } from 'src/app/services/Operario.service';
 
 
 @Component({
@@ -35,10 +36,14 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
 
   
    
-  constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService, private _modalAuthService : ModalAuthService ) {
+  constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService, private _modalAuthService : ModalAuthService, private _operarioService : OperarioService ) {
     this.cargarTabla()
   }
 
+  isButtonEnabled(rolEmpleado: Empleado): boolean {
+    const funcion = this._operarioService.decrypt(localStorage.getItem('funcion') ?? '')
+    return funcion <= rolEmpleado.fk_funcion_empl;
+  }
   ngOnInit(): void {
       this._modalAuthService.checkTokenExpiration()
       this.subscription = this._tablasServices.obserbableTabla('empleados').subscribe(() => {

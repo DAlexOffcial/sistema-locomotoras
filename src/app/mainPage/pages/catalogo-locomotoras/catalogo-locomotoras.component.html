@@ -31,7 +31,7 @@
 
                 <ng-container matColumnDef="fk_mantenedor">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Mantenedor </th>
-                    <td mat-cell *matCellDef="let element">{{ element.fk_mantenedor | fk_mantenedores }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.fk_mantenedor | fk_mantenedores | async  }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="activo">

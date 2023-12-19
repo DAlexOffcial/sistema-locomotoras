@@ -52,6 +52,18 @@ export class AddEmpleadosComponent {
     })
 
     this.dataEmpleado = data.element
+
+    const funcion = _operarioService.decrypt(localStorage.getItem('funcion') ?? '')
+    console.log(funcion);
+    
+    switch (funcion) {
+      case '2':
+          this.SelecionarRoles = 'MAESTRO,MAYORDOMO,OPERARIO'
+        break;
+      case '3':
+           this.SelecionarRoles = 'MAYORDOMO,OPERARIO'
+        break;
+    }
     
     console.log(this.dataEmpleado);
     
