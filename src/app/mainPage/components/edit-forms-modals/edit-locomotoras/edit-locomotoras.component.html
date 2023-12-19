@@ -21,13 +21,12 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="campo2">Mantenedor</label>
-                <input type="text" class="form-control mt-1" [placeholder]="dataLocomotora.fk_mantenedor" formControlName="fk_mantenedor" autocomplete="off">
+                <label for="campo1" class="">Mantenedor</label>
+                <mat-select placeholder="Selecciona un mantenedor" formControlName="fk_mantenedor" class="form-control mt-1">
+                    <mat-option *ngFor="let mantendor of SeleccionarMantenedor.split(',')" [value]="mantendor">{{ mantendor }}</mat-option>
+                </mat-select>
                 <div *ngIf="Locomotoraforms.get('fk_mantenedor')!.hasError('required') && Locomotoraforms.get('fk_mantenedor')!.touched" class="text-danger"> 
                     Necesitas llenar este campo.
-                </div>
-                <div *ngIf="Locomotoraforms.get('fk_mantenedor')!.hasError('maxlength')" class="text-danger"> 
-                    No se admiten más de 11 letras.
                 </div>
             </div>
         </div>

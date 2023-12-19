@@ -8,6 +8,7 @@ import { Funcione } from './interfaces/catalogos';
 export class FormatoRolesPipe implements PipeTransform {
 
     funciones: Funcione[] = [];
+    
     dataLoaded: Promise<boolean>;
   
     constructor(private _catalogoServices: CatalogosService) {

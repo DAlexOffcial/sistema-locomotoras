@@ -19,7 +19,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
-import { TokenExpirationModalComponent } from './components/token-expiration-modal/token-expiration-modal.component';
 import { ModalAuthService } from './services/modalAuth.service';
 import {MatDialogModule} from '@angular/material/dialog';
 
@@ -30,7 +29,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     DashboardComponent,
     RecoverPasswordComponent,
     EscogerCilComponent,
-    TokenExpirationModalComponent,
   ],
   imports: [
     BrowserModule,

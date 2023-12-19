@@ -18,10 +18,14 @@ export class EditLocomotorasComponent {
 
   Locomotoraforms: FormGroup
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService , private _createServices:CreateService , private _tablaService: TablasService) {
+  SeleccionarMantenedor: string = 'FXE,ALSTOM,PROGRESS RAIL,WABTEC,FSRR'
+
+  valorConvertido: number = 0
+
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _createServices: CreateService, private _tablaService: TablasService) {
     this.Locomotoraforms = this.fb.group({
-      desc_loco: ['', [Validators.required , Validators.maxLength(9)]],
-      fk_mantenedor: ['', [Validators.required , Validators.maxLength(11)]],
+      desc_loco: ['', [Validators.required, Validators.maxLength(9)]],
+      fk_mantenedor: ['', [Validators.required]],
     })
     this.dataLocomotora = data.element
     console.log(this.dataLocomotora.id_loco)
@@ -35,12 +39,35 @@ export class EditLocomotorasComponent {
 
   editForm() {
     if (this.Locomotoraforms.valid) {
-      const DescLoco = this.Locomotoraforms.value.desc_loco;
-      const FK_Mantenedor = this.Locomotoraforms.value.fk_mantenedor;
+      const DescLoco: string = this.Locomotoraforms.value.desc_loco;
+      console.log(this.Locomotoraforms.value.fk_mantenedor);
+
+      switch (this.Locomotoraforms.value.fk_mantenedor.trim().toUpperCase()) {
+        case 'FXE':
+          this.valorConvertido = 1;
+          break;
+        case 'ALSTOM':
+          this.valorConvertido = 2;
+          break;
+        case 'PROGRESS RAIL':
+          this.valorConvertido = 3;
+          break;
+        case 'WABTEC':
+          this.valorConvertido = 4;
+          break;
+        case 'FSRR':
+          this.valorConvertido = 5;
+          break;
+        default:
+          console.log('Valor no reconocido:', this.Locomotoraforms.value.fk_mantenedor.trim().toUpperCase());
+          // Puedes agregar más información de depuración si es necesario
+          break;
+      }
+      const FK_Mantenedor: number = this.valorConvertido
       console.log(DescLoco, FK_Mantenedor);
       this.dataLocomotora.desc_loco = DescLoco;
       this.dataLocomotora.fk_mantenedor = FK_Mantenedor;
-  
+
       if (this.data.TipoBoton == 'add') {
         console.log(this.dataLocomotora);
         this._createServices.cambiarEstatus('locomotoras', this.dataLocomotora).subscribe(
@@ -79,5 +106,5 @@ export class EditLocomotorasComponent {
       this.Locomotoraforms.markAllAsTouched();
     }
   }
-  
+
 }
