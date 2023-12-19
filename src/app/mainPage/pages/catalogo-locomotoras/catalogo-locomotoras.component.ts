@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
 import { TablasService } from '../../services/Tablas.service';
+import { ModalAuthService } from 'src/app/services/modalAuth.service';
 
 @Component({
   selector: 'app-catalogo-locomotoras',
@@ -27,10 +28,11 @@ export class CatalogoLocomotorasComponent implements AfterViewInit , OnInit{
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService, private _habilitarServices: HabilitarService , private _tablasServices : TablasService){
+  constructor (private _catalogoServices: CatalogosService, private _habilitarServices: HabilitarService , private _tablasServices : TablasService , private _modalAuthService: ModalAuthService){
     this.cargarTabla()
   }
   ngOnInit(): void {
+    this._modalAuthService.checkTokenExpiration()
     this.subscription = this._tablasServices.obserbableTabla('locomotoras').subscribe(() => {
       console.log('cargue la tabla de locomotoras')
       this.cargarTabla()

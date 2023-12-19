@@ -5,13 +5,14 @@ import { Cil } from 'src/app/interfaces/login';
 import { CilService } from 'src/app/services/Cil.service';
 import { EmpleadosService } from 'src/app/services/Empleados.service';
 import { OperarioService } from 'src/app/services/Operario.service';
+import { ModalAuthService } from 'src/app/services/modalAuth.service';
 
 @Component({
   selector: 'app-escoger-cil',
   templateUrl: './escoger-cil.component.html',
   styleUrls: ['./escoger-cil.component.css'],
 })
-export class EscogerCilComponent {
+export class EscogerCilComponent implements OnInit {
 
   empleado: Empleado = {
     EmployeeNumber: 0,
@@ -32,11 +33,15 @@ export class EscogerCilComponent {
 
   mensaje: boolean = false
 
-  constructor(private _CILService :CilService , private _empleadosService: EmpleadosService, private router: Router, private _operarioService : OperarioService) {
+  constructor(private _CILService :CilService , private _empleadosService: EmpleadosService, private router: Router, private _operarioService : OperarioService ,private _modalAuthService : ModalAuthService) {
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
     localStorage.removeItem('funcion')
     this.getEmpleado()
+  }
+
+  ngOnInit(): void {
+    this._modalAuthService.checkTokenExpiration()
   }
 
   getEmpleado(){

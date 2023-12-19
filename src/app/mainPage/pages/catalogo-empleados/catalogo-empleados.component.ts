@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { UsuarioService } from '../../services/Usuario.service';
 import { Usuario } from '../../interfaces/usuarios';
+import { ModalAuthService } from 'src/app/services/modalAuth.service';
 
 
 @Component({
@@ -34,11 +35,12 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
 
   
    
-  constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService ) {
+  constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService, private _modalAuthService : ModalAuthService ) {
     this.cargarTabla()
   }
 
   ngOnInit(): void {
+      this._modalAuthService.checkTokenExpiration()
       this.subscription = this._tablasServices.obserbableTabla('empleados').subscribe(() => {
       console.log('cargue la tabla de empleados')
       this.cargarTabla()

@@ -8,6 +8,7 @@ import { HabilitarService } from '../../services/edit.service';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { TablasService } from '../../services/Tablas.service';
+import { ModalAuthService } from 'src/app/services/modalAuth.service';
 
 @Component({
   selector: 'app-catalogo-acciones',
@@ -27,11 +28,12 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService){
+  constructor (private _catalogoServices: CatalogosService,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService , private _modalAuthService :ModalAuthService){
     this.cargarTabla()
   }
 
   ngOnInit(): void {
+      this._modalAuthService.checkTokenExpiration()
       this.subscription = this._tablasServices.obserbableTabla('acciones').subscribe(() => {
       console.log('cargue la tabla de inspecciones')
       this.cargarTabla()

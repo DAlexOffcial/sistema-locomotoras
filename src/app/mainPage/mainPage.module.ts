@@ -43,6 +43,8 @@ import { EditMantenedoresComponent } from './components/edit-forms-modals/edit-m
 import { AddCilComponent } from './components/edit-forms-modals/add-cil/add-cil.component';
 import { AddEmpleadosComponent } from './components/edit-forms-modals/add-empleados/add-empleados.component';
 import { PasswordEmpleadosComponent } from './components/edit-forms-modals/password-empleados/password-empleados.component';
+import { FormatoFK_mantenedoresPipe } from './formato-fk_mantenedores.pipe';
+import { FormatoRolesPipe } from './formatoRoles.pipe';
 
 @NgModule({
     imports: [
@@ -89,7 +91,9 @@ import { PasswordEmpleadosComponent } from './components/edit-forms-modals/passw
       EditMantenedoresComponent,
       AddCilComponent,
       AddEmpleadosComponent,
-      PasswordEmpleadosComponent   
+      PasswordEmpleadosComponent,
+      FormatoFK_mantenedoresPipe,
+      FormatoRolesPipe
     ],
     providers: [
       CatalogosService,

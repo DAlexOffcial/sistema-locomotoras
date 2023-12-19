@@ -18,7 +18,7 @@
                         <mat-label>Selecciona Cil</mat-label>
                         <mat-select [(ngModel)]="CilSeleccionado">
                             <mat-option *ngFor="let cil of cilArrayTodos" [value]="cil.id_cil">
-                                Cil: {{ cil.id_cil }} - Descripcion: {{ cil.desc_cil }}
+                                Cil: {{ cil.id_cil }} Descripcion: {{ cil.desc_cil }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>

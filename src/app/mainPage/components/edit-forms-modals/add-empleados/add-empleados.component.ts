@@ -34,9 +34,11 @@ export class AddEmpleadosComponent {
 
   Empleadosforms: FormGroup
 
-  SelecionarRoles: string = '1,2,3,4'
+  SelecionarRoles: string = 'SUPERVISOR,MAESTRO,MAYORDOMO,OPERARIO'
 
   SelecionarCiles: string = ''
+
+  valorConvertido : number = 0
 
   constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService, private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService : CilService) {
     const SoloNumeros = /^[0-9]*$/;
@@ -75,7 +77,23 @@ export class AddEmpleadosComponent {
     if (this.Empleadosforms.valid) {
       const NombreEmple: string = this.Empleadosforms.value.nombre_empl;
       const ApellidoEmple: string = this.Empleadosforms.value.apellido_empl;
-      const FuncionEmple : number = this.Empleadosforms.value.fk_funcion_empl;
+
+      switch (this.Empleadosforms.value.fk_funcion_empl) {
+        case 'SUPERVISOR':
+          this.valorConvertido = 1;
+          break;
+        case 'MAESTRO':
+          this.valorConvertido = 2;
+          break;
+        case 'MAYORDOMO':
+          this.valorConvertido = 3;
+          break;
+        case 'OPERARIO':
+          this.valorConvertido = 4;
+          break;
+      }
+
+      const FuncionEmple : number =  this.valorConvertido;
       const AccesoCil: string[] = this.Empleadosforms.value.acceso_cil;
       const IdEmple: number = this.Empleadosforms.value.id_empleado;
       const Password: string = this.Empleadosforms.value.Password;

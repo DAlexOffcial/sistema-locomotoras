@@ -20,3 +20,13 @@ export interface Cil {
   fecha_actualizacion: Date;
   PUESTO_TRABAJO: string | null;
 }
+
+
+export interface TokenData {
+  username: string;
+  nbf: number;
+  exp: number;
+  iat: number;
+  iss: string;
+  aud: string;
+}

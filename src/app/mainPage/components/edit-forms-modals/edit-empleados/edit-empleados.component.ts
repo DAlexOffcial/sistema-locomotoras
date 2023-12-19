@@ -27,9 +27,11 @@ export class EditEmpleadosComponent {
 
   Empleadosforms: FormGroup
 
-  SelecionarRoles: string = '1,2,3,4'
+  SelecionarRoles: string = 'SUPERVISOR,MAESTRO,MAYORDOMO,OPERARIO'
 
   SelecionarCiles: string = ''
+
+  valorConvertido : number = 0
 
   Cil: Cil[] = []
 
@@ -67,9 +69,26 @@ export class EditEmpleadosComponent {
 
   editForm() {
     if (this.Empleadosforms.valid) {
+    
       const NombreEmple: string = this.Empleadosforms.value.nombre_empl;
       const ApellidoEmple: string = this.Empleadosforms.value.apellido_empl;
-      const FuncionEmple : number = this.Empleadosforms.value.fk_funcion_empl;
+      
+      switch (this.Empleadosforms.value.fk_funcion_empl) {
+        case 'SUPERVISOR':
+          this.valorConvertido = 1;
+          break;
+        case 'MAESTRO':
+          this.valorConvertido = 2;
+          break;
+        case 'MAYORDOMO':
+          this.valorConvertido = 3;
+          break;
+        case 'OPERARIO':
+          this.valorConvertido = 4;
+          break;
+      }
+      
+      const FuncionEmple : number = this.valorConvertido
       const AccesoCil: string[] = this.Empleadosforms.value.acceso_cil;
     
       this.dataEmpleado.nombre_empl = NombreEmple.toUpperCase();

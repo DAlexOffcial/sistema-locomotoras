@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { EmpleadosService } from 'src/app/services/Empleados.service';
 import { LoginService } from 'src/app/services/login.service';
+import { ModalAuthService } from 'src/app/services/modalAuth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,22 +14,23 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent  {
   
   loginUsuario: FormGroup;
 
  // private _loginService = inject( LoginService )
 
-  constructor(private fb: FormBuilder, private router :Router,  private _loginService: LoginService) {
+  constructor(private fb: FormBuilder, private router :Router,  private _loginService: LoginService, private _modalAuthService: ModalAuthService ) {
     localStorage.removeItem("NoEmpleado");
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
     localStorage.removeItem('token');
     localStorage.removeItem('funcion')
+    localStorage.removeItem('fecha')
 
     this.loginUsuario = this.fb.group({
-      NoEmpleado:['1152', Validators.required],
-      Password:['fxe123', Validators.required],
+      NoEmpleado:['', Validators.required],
+      Password:['', Validators.required],
     })
   }
 
@@ -41,6 +43,7 @@ export class LoginComponent {
       //this._empleadosServices.getEmpleados()
       this._loginService.guardarNoEmpleado(NoEmpleado)
       this._loginService.guardarToken(data.token)
+      this._modalAuthService.checkTokenExpiration()
       this.router.navigate(['/chose-cil'])
     },(error) => {
       Swal.fire({  

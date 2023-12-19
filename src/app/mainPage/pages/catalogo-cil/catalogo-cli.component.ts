@@ -8,6 +8,7 @@ import { HabilitarService } from '../../services/edit.service';
 import { TablasService } from '../../services/Tablas.service';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
+import { ModalAuthService } from 'src/app/services/modalAuth.service';
 
 @Component({
   selector: 'app-catalogo-cli',
@@ -27,15 +28,15 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService , private _habilitarServices: HabilitarService , private _tablaService : TablasService){
+  constructor (private _catalogoServices: CatalogosService , private _habilitarServices: HabilitarService , private _tablaService : TablasService , private _modalAuthService : ModalAuthService){
     this.cargarTabla()
   }
 
   ngOnInit(): void {
+    this._modalAuthService.checkTokenExpiration()
      this.subscription = this._tablaService.obserbableTabla('cil').subscribe(() => {
       this.cargarTabla()
       console.log('recarge tabla cil');
-      
      })
   }
 
