@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { EscogerCilComponent } from './components/escoger-cil/escoger-cil.component';
 import { isAuthenticatedGuard } from './guards/login.guard.guard';
+import { getDashboardAccessGuard } from './guards/GetRole1.guard';
 
 
 const routes: Routes = [
@@ -18,7 +19,7 @@ const routes: Routes = [
   },
   { 
     path: 'chose-cil' , component: EscogerCilComponent,
-    canActivate: [isAuthenticatedGuard]
+    canActivate: [isAuthenticatedGuard , getDashboardAccessGuard]
   },
   { 
     path: 'dashboard' , 

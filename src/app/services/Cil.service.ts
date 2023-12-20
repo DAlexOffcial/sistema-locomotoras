@@ -11,7 +11,7 @@ export class CilService {
   constructor(private http: HttpClient) { }
    
   getDataCatalogos(): Observable<Cil[]> {
-    const apiUrl = `/server/getCatalogData?catalog=cil`;
+    const apiUrl = `/api/getCatalogData?catalog=cil`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
   

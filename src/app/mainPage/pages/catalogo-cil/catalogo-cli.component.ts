@@ -9,63 +9,46 @@ import { TablasService } from '../../services/Tablas.service';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
-
 @Component({
   selector: 'app-catalogo-cli',
   templateUrl: './catalogo-cli.component.html',
   styleUrls: ['./catalogo-cli.component.css']
 })
 export class CatalogoCliComponent implements AfterViewInit , OnInit{
-
   private subscription: Subscription = new Subscription();
-
   displayedColumns : string[] = [ 'acciones' , 'id_cil', 'desc_cil', 'activo', 'fecha_registro', 'fecha_actualizacion', 'PUESTO_TRABAJO']
-
   dataSource = new MatTableDataSource<any>();
-
   catalogoData: Cil[] = []
-
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   constructor (private _catalogoServices: CatalogosService , private _habilitarServices: HabilitarService , private _tablaService : TablasService , private _modalAuthService : ModalAuthService){
     this.cargarTabla()
   }
-
   ngOnInit(): void {
     this._modalAuthService.checkTokenExpiration()
      this.subscription = this._tablaService.obserbableTabla('cil').subscribe(() => {
       this.cargarTabla()
-      console.log('recarge tabla cil');
      })
   }
-
   ngOnDestroy() {
     // Liberar la suscripción para evitar posibles fugas de memoria
     this.subscription.unsubscribe();
   }
-  
   cargarTabla(){
     this._catalogoServices.getDataCatalogos('cil').subscribe(data =>{
       this.catalogoData = data.Catalog.cil
       this.dataSource.data = this.catalogoData
-      console.log(this.catalogoData)
      })
   }
-
   ngAfterViewInit() {
-    console.log(this.paginator)
     this.dataSource.paginator = this.paginator;
-    console.log(this.dataSource);
     this.paginator._intl.itemsPerPageLabel = 'Cil por pagina: '
     this.dataSource.sort = this.sort
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
   nuevoCil: Cil = {
     id_cil: '',
     desc_cil: '',
@@ -74,21 +57,15 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
     fecha_actualizacion: new Date(),
     PUESTO_TRABAJO: '',
   };
-
   //modals
   openAddDialog( element: Cil ,  TipoBoton: string): void {
     this._habilitarServices.openAddDialogCil(element , TipoBoton)
   }
-
   openEditDialog(elements: Cil , tipoBoton : string): void {
-    console.log(elements.id_cil)
     this._habilitarServices.openEditDialog('cil' , elements , tipoBoton)
   }
-
-
   //botones
     cambiarEstatus(acciones : Cil , estatus : string): void {
-      console.log(acciones.id_cil)
       Swal.fire({
         title: (acciones.activo === '0') ? "¿Quieres habilitar este Cil?" : "¿Quieres desahabilitar este Cil?",
         icon: "warning",
@@ -108,10 +85,8 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
           acciones.activo = estatus
           const catalogo = 'cil'
           this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
-            console.log(JSON.stringify(res));
             this.cargarTabla()
           },(error) => {
-            console.log(error)
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -121,6 +96,4 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
         }
       });
     }
-  
-
 }

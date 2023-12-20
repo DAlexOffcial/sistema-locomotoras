@@ -23,8 +23,6 @@ export class EditInicialesLocosComponent {
       desc_inicial_loco: ['', [Validators.required , Validators.maxLength(4)]],
     })
      this.dataInicales_locos = data.element
-    console.log(this.dataInicales_locos.id_inicial_loco)
-    
   }
 
   close(){
@@ -39,10 +37,9 @@ editForm() {
     this.dataInicales_locos.desc_inicial_loco = DescIniciales_locos.toUpperCase();
 
     if (this.data.TipoBoton == 'add') {
-      console.log(this.dataInicales_locos);
+
       this._createServices.cambiarEstatus('iniciales_locos', this.dataInicales_locos).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
           Swal.fire({
             title: 'Registro agregado!',
             icon: 'success',
@@ -51,13 +48,12 @@ editForm() {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('iniciales_locos');
         }
       );
     } else if (this.data.TipoBoton == 'edit') {
       this._habiliatarServices.cambiarEstatus('iniciales_locos', this.dataInicales_locos).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
@@ -66,11 +62,9 @@ editForm() {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('iniciales_locos');
         }
       );
-    } else {
-      // Handle other scenarios if needed
     }
   } else {
     this.Iniciales_locosforms.markAllAsTouched();

@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { OperarioService } from './Operario.service';
-
 import * as jwt_decode from 'jwt-decode';
 import { TokenData } from '../interfaces/login';
 import Swal from 'sweetalert2';
@@ -9,47 +8,26 @@ import { Observable } from 'rxjs';
 import { Usuario } from '../mainPage/interfaces/usuarios';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class ModalAuthService {
-
   private token!: TokenData
-
   public timeoutId: any;
   public tempo: any;
-
   constructor(private _operarioService: OperarioService, private _loginService: LoginService, private http: HttpClient, private router: Router) {
-
   }
-
   checkTokenExpiration() {
     // Cancelar cualquier temporizador existente antes de configurar uno nuevo
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
-
     this.token = jwt_decode.jwtDecode((localStorage.getItem('token') ?? ''))
-    console.log(this.token);
     if (this.token) {
-
       const currentTime = Math.floor(Date.now() / 1000) + 10  
-
       const expirationTime = this.token.exp;
-
       const timeRemaining = expirationTime - currentTime;
-      console.log(expirationTime)
-      console.log(currentTime)
-      console.log(timeRemaining)
-
-      console.log('estoy contando');
-
       if (timeRemaining <= 1800 && timeRemaining > 0 || timeRemaining <= 0) {  // Menos de 30 minutos y mayor que cero
-        console.log(timeRemaining);
-        
         this.timeoutId = setTimeout(() => {
           if (window.location.pathname !== '/login') {
             this.showTokenExpirationModal();
@@ -58,7 +36,6 @@ export class ModalAuthService {
       }
     }
   }
-
   private showTokenExpirationModal() {  
     Swal.fire({
       title: "¿Quieres volver a iniciar sesión?",
@@ -74,30 +51,23 @@ export class ModalAuthService {
         this.Relogin()
       },
     })
-
     this.tempo = setTimeout(() => {
       this.router.navigate(['/login']);
       Swal.close();
     }, 10000);
   }
-
   private Relogin() {
     const NoEmpleado: number = this._operarioService.decrypt((localStorage.getItem('NoEmpleado') ?? ''))
     this.getDataCatalogos(NoEmpleado).subscribe(data => {
-      console.log(NoEmpleado, data.Password)
       this._loginService.postDatos(NoEmpleado, data.Password).subscribe(data => {
         localStorage.removeItem('token')
         localStorage.setItem('token', data.token)
         this.checkTokenExpiration()
       })
     })
-
   }
-
- 
-
   getDataCatalogos(NoEmpleado: number): Observable<Usuario> {
-    const apiUrl = `/server/profile?id=${NoEmpleado}`;
+    const apiUrl = `/api/profile?id=${NoEmpleado}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
     return this.http.get<Usuario>(apiUrl, { headers })

@@ -35,7 +35,7 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
       this._modalAuthService.checkTokenExpiration()
       this.subscription = this._tablasServices.obserbableTabla('acciones').subscribe(() => {
-      console.log('cargue la tabla de inspecciones')
+
       this.cargarTabla()
     } )
   }
@@ -44,7 +44,7 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
     this._catalogoServices.getDataCatalogos('acciones').subscribe(data =>{
       this.catalogoData = data.Catalog.acciones
       this.dataSource.data = this.catalogoData
-      console.log(this.catalogoData)
+   
      })
   }
 
@@ -74,7 +74,7 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
     
   //cambio de estatus
   cambiarEstatus(acciones : Acciones , estatus : string): void {
-    console.log(acciones.id_accion)
+
     Swal.fire({
       title: (acciones.activo === '0') ? "¿quieres habilitar esta accion?" : "¿quieres desahabilitar esta accion?",
       icon: "warning",
@@ -93,10 +93,10 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
         acciones.activo = estatus
         const catalogo = 'acciones'
         this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
-          console.log(JSON.stringify(res));
+      
           this.cargarTabla()
         },(error) => {
-          console.log(error)
+      
           Swal.fire({
             icon: "error",
             title: "Oops...",

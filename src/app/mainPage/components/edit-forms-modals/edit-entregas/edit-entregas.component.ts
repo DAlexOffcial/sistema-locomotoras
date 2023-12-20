@@ -23,8 +23,7 @@ export class EditEntregasComponent {
       desc_tipo_entrega: ['', Validators.required],
     })
      this.dataEntregas = data.element
-    console.log(this.dataEntregas.id_tipo_entrega)
-    
+
   }
 
   close(){
@@ -39,10 +38,10 @@ export class EditEntregasComponent {
     this.dataEntregas.desc_tipo_entrega = DescEntregas.toUpperCase();
 
     if (this.data.TipoBoton == 'add') {
-      console.log(this.dataEntregas);
+
       this._createServices.cambiarEstatus('entregas', this.dataEntregas).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
+
           Swal.fire({
             title: 'Registro agregado!',
             icon: 'success',
@@ -51,13 +50,14 @@ export class EditEntregasComponent {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('entregas');
+
         }
       );
     } else if (this.data.TipoBoton == 'edit') {
       this._habiliatarServices.cambiarEstatus('entregas', this.dataEntregas).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
+
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
@@ -66,12 +66,11 @@ export class EditEntregasComponent {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('entregas');
+
         }
       );
-    } else {
-      // Handle other scenarios if needed
-    }
+    } 
   } else {
     this.Entregasforms.markAllAsTouched();
   }

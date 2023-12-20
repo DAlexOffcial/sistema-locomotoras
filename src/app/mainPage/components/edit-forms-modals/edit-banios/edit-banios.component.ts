@@ -23,8 +23,6 @@ export class EditBaniosComponent {
       desc_banio: ['', [Validators.required , Validators.maxLength(20)]],
     })
      this.dataBanio = data.element
-    console.log(this.dataBanio.desc_banio)
-    
   }
 
   close(){
@@ -39,10 +37,8 @@ export class EditBaniosComponent {
     this.dataBanio.desc_banio = DescBanio.toUpperCase();
 
     if (this.data.TipoBoton == 'add') {
-      console.log(this.dataBanio);
       this._createServices.cambiarEstatus('banios', this.dataBanio).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
           Swal.fire({
             title: 'Registro agregado!',
             icon: 'success',
@@ -51,13 +47,13 @@ export class EditBaniosComponent {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('banios');
         }
       );
     } else if (this.data.TipoBoton == 'edit') {
       this._habiliatarServices.cambiarEstatus('banios', this.dataBanio).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
+
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
@@ -66,12 +62,10 @@ export class EditBaniosComponent {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('banios');
         }
       );
-    } else {
-      // Handle other scenarios if needed
-    }
+    } 
   } else {
     this.Banioforms.markAllAsTouched();
   }

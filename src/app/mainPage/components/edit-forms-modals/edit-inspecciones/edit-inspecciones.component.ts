@@ -27,7 +27,7 @@ export class EditInspeccionesComponent {
       tiempo_meta: ['', [Validators.required, Validators.maxLength(4), Validators.pattern(SoloNumeros)]],
     })
     this.dataInspecciones = data.element
-    console.log(this.dataInspecciones.id_tipo_inspeccion)
+
 
   }
 
@@ -48,10 +48,10 @@ export class EditInspeccionesComponent {
       this.dataInspecciones.tiempo_meta = TiempoMeta;
   
       if (this.data.TipoBoton == 'add') {
-        console.log(this.dataInspecciones);
+   
         this._createServices.cambiarEstatus('inspecciones', this.dataInspecciones).subscribe(
           (data) => {
-            console.log(JSON.stringify(data));
+
             Swal.fire({
               title: 'Registro agregado!',
               icon: 'success',
@@ -60,13 +60,14 @@ export class EditInspeccionesComponent {
             this.close();
           },
           (error) => {
-            console.log(error);
+            this._tablaService.TriggerTabla('inspecciones')
+  
           }
         );
       } else if (this.data.TipoBoton == 'edit') {
         this._habiliatarServices.cambiarEstatus('inspecciones', this.dataInspecciones).subscribe(
           (data) => {
-            console.log(JSON.stringify(data));
+      
             Swal.fire({
               title: 'Registro editado!',
               icon: 'success',
@@ -75,7 +76,8 @@ export class EditInspeccionesComponent {
             this.close();
           },
           (error) => {
-            console.log(error);
+            this._tablaService.TriggerTabla('inspecciones')
+
           }
         );
       } else {

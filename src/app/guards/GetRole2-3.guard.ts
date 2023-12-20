@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot, CanActivateFn } from '@angular/router';
 import { OperarioService } from '../services/Operario.service';
+import Swal from 'sweetalert2';
 
 export const getRoleGuardDos: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -10,7 +11,6 @@ export const getRoleGuardDos: CanActivateFn = (
   const _operarioService = inject(OperarioService)
 
   const currentUserRole = _operarioService.decrypt(localStorage.getItem('funcion') ?? '')
-  console.log(currentUserRole);
 
   const allowedRoles = route.data?.['allowedRoles']
 
@@ -20,10 +20,10 @@ export const getRoleGuardDos: CanActivateFn = (
   //router.createUrlTree(['/login'])
 
   if (currentUserRole === '2') {
-    alert('acceso denegado a maestro')
-  }
-  if (currentUserRole === '3') {
-    alert('acceso denegado a mayordomo')
+    Swal.fire({
+      icon: "error",
+      title: "Acceso denegado a maestro",
+    });
   }
 
   return false

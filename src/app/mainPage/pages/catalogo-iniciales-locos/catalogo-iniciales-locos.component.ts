@@ -9,55 +9,42 @@ import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
 import { TablasService } from '../../services/Tablas.service';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
-
 @Component({
   selector: 'app-catalogo-iniciales-locos',
   templateUrl: './catalogo-iniciales-locos.component.html',
   styleUrls: ['./catalogo-iniciales-locos.component.css']
 })
 export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
-
   private subscription: Subscription = new Subscription();
-  
   displayedColumns : string[] = ['acciones', 'desc_inicial_loco', 'activo', 'fecha_registro', 'fecha_actualizacion']
-
   dataSource = new MatTableDataSource<any>();
-
   catalogoData: InicialesLoco[] = []
-
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService , private _modalAuthService: ModalAuthService){
     this.cargarTabla()
   }
   ngOnInit(): void {
     this._modalAuthService.checkTokenExpiration()
     this.subscription = this._tablasServices.obserbableTabla('iniciales_locos').subscribe(() => {
-      console.log('cargue la tabla de locomotoras externas')
       this.cargarTabla()
     } )
   }
-
   cargarTabla(){
     this._catalogoServices.getDataCatalogos('iniciales_locos').subscribe(data =>{
       this.catalogoData = data.Catalog.iniciales_locos
       this.dataSource.data = this.catalogoData
-      console.log(this.catalogoData)
      })
   }
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Locomotoras externas por pagina: '
     this.dataSource.sort = this.sort
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  
   nuevaInicial_locos : InicialesLoco = {
     id_inicial_loco: 0,
     desc_inicial_loco: '',
@@ -65,16 +52,12 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
     fecha_registro: '',
     fecha_actualizacion: ''
   };
-  
-
   //modals
   openEditDialog(element : InicialesLoco , TipoBoton: string): void {
     this._habilitarServices.openEditDialog('iniciales_locos', element , TipoBoton )
   }
-  
   //cambio de estatus
   cambiarEstatus(acciones : InicialesLoco , estatus : string): void {
-    console.log(acciones.id_inicial_loco)
     Swal.fire({
       title: (acciones.activo === '0') ? "¿quieres habilitar esta accion?" : "¿quieres desahabilitar esta accion?",
       icon: "warning",
@@ -93,10 +76,8 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
         acciones.activo = estatus
         const catalogo = 'iniciales_locos'
         this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
-          console.log(JSON.stringify(res));
           this.cargarTabla()
         },(error) => {
-          console.log(error)
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -106,6 +87,4 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
       }
     });
   }
-
-
 }

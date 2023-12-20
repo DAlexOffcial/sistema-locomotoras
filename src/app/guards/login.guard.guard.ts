@@ -12,7 +12,6 @@ export const isAuthenticatedGuard : CanActivateFn = (route, state) => {
       return true;
     } else {
       // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
-      console.log('Usuario no autenticado. Redirigiendo a la página de inicio de sesión.');
       router.navigate(['login'])
       // Puedes redirigir a la página de inicio de sesión o hacer cualquier otra lógica aquí.
       return false;

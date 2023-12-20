@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { OperarioService } from 'src/app/services/Operario.service';
 
 @Component({
   selector: 'shared-sidebar',
@@ -11,9 +12,14 @@ export class SidebarComponent {
   @Output() sideNavToggled = new EventEmitter<boolean>()
   menuStatus:boolean = false
 
-  
-  constructor(private router : Router) {}
+  funsion: string = ''
+  constructor(private router : Router, private _operarioService :OperarioService) {
 
+    this.funsion = _operarioService.decrypt( localStorage.getItem('funcion') ?? '')
+  }
+   
+
+  
   IrLick(route : string) : void {
     this.menuStatus = false
     this.sideNavToggled.emit(this.menuStatus)

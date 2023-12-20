@@ -23,7 +23,7 @@ export class EditAccionesComponent {
       desc_accion: ['', Validators.required],
     })
     this.dataAcciones = data.element
-    console.log(this.dataAcciones.id_accion)
+
 
   }
 
@@ -39,10 +39,8 @@ export class EditAccionesComponent {
       this.dataAcciones.desc_accion = DescAccion.toUpperCase();
   
       if (this.data.TipoBoton == 'add') {
-        console.log(this.dataAcciones);
         this._createServices.cambiarEstatus('acciones', this.dataAcciones).subscribe(
           (data) => {
-            console.log(JSON.stringify(data));
             Swal.fire({
               title: 'Registro agregado!',
               icon: 'success',
@@ -51,13 +49,12 @@ export class EditAccionesComponent {
             this.close();
           },
           (error) => {
-            console.log(error);
+            this._tablaService.TriggerTabla('acciones');
           }
         );
       } else if (this.data.TipoBoton == 'edit') {
         this._habiliatarServices.cambiarEstatus('acciones', this.dataAcciones).subscribe(
           (data) => {
-            console.log(JSON.stringify(data));
             Swal.fire({
               title: 'Registro editado!',
               icon: 'success',
@@ -66,12 +63,10 @@ export class EditAccionesComponent {
             this.close();
           },
           (error) => {
-            console.log(error);
+            this._tablaService.TriggerTabla('acciones');
           }
         );
-      } else {
-        // Handle other scenarios if needed
-      }
+      } 
     } else {
       this.Accionesforms.markAllAsTouched();
     }

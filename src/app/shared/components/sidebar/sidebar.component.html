@@ -1,34 +1,34 @@
 <div class="side-nav-content">
   <ul class="nav-list" [ngClass]="{'nav-list-open': sideNavStatus}">
-    <li (click)="IrLick('cil')" class="nav-list-item">
+    <li *ngIf="funsion === '1'" (click)="IrLick('cil')" class="nav-list-item">
        <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="gite"></mat-icon>
        </i>
        <span>
         <a>CIL</a>
        </span>
     </li>
-    <li (click)="IrLick('inspecciones')" class="nav-list-item">
+    <li *ngIf="funsion === '1'" (click)="IrLick('inspecciones')" class="nav-list-item">
        <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="manage_search"></mat-icon>
        </i>
        <span>
         <a >Inspecciones</a>
        </span>
     </li>
-    <li (click)="IrLick('entregas')" class="nav-list-item ">
+    <li *ngIf="funsion === '1'" (click)="IrLick('entregas')" class="nav-list-item ">
        <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="markunread_mailbox"></mat-icon>
        </i>
        <span>
         <a >Entregas</a>
        </span>
     </li>
-    <li (click)="IrLick('acciones')" class="nav-list-item ">
+    <li *ngIf="funsion === '1'" (click)="IrLick('acciones')" class="nav-list-item ">
        <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="check_box"></mat-icon>
        </i>
        <span>
         <a>Acciones</a>
        </span>
     </li>
-    <li (click)="IrLick('banios')" class="nav-list-item ">
+    <li *ngIf="funsion === '1'" (click)="IrLick('banios')" class="nav-list-item ">
        <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="wc"></mat-icon>
        </i>
        <span>
@@ -49,14 +49,14 @@
        <a>Locomotoras GMXT</a>
       </span>
    </li>
-    <li (click)="IrLick('iniciales-locos')" class="nav-list-item">
+    <li *ngIf="funsion === '1'" (click)="IrLick('iniciales-locos')" class="nav-list-item">
        <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="train"></mat-icon>
        </i>
        <span>
         <a>Locomotoras Externas</a>
        </span>
     </li>
-    <li (click)="IrLick('mantenedores')" class="nav-list-item">
+    <li *ngIf="funsion === '1'" (click)="IrLick('mantenedores')" class="nav-list-item">
        <i> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="subway"></mat-icon>
        </i>
        <span>

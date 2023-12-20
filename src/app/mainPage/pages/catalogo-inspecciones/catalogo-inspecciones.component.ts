@@ -9,57 +9,42 @@ import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
 import { TablasService } from '../../services/Tablas.service';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
-
 @Component({
   selector: 'app-catalogo-inspecciones',
   templateUrl: './catalogo-inspecciones.component.html',
   styleUrls: ['./catalogo-inspecciones.component.css']
 })
 export class CatalogoInspeccionesComponent implements AfterViewInit , OnInit{
- 
- 
   displayedColumns : string[] = ['acciones', 'tipo_inspeccion', 'desc_tipo_inspeccion' , 'tiempo_meta' , 'activo' , 'fecha_registro' , 'fecha_actualizacion'];
-
   private subscription: Subscription = new Subscription();
-  
   dataSource = new MatTableDataSource<any>();
-
   catalogoData: Inspecciones[] = []
-
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   constructor (private _catalogoServices: CatalogosService, private _habilitarServices:HabilitarService , private _tablasServices : TablasService , private _modalAuthService : ModalAuthService){
     this.cargarTabla()
   }
-
   ngOnInit(): void {
     this._modalAuthService.checkTokenExpiration()
     this.subscription = this._tablasServices.obserbableTabla('inspecciones').subscribe(() => {
-      console.log('cargue la tabla de inspecciones')
       this.cargarTabla()
     } )
   }
-
   cargarTabla(){
     this._catalogoServices.getDataCatalogos('inspecciones').subscribe(data =>{
       this.catalogoData = data.Catalog.inspecciones
       this.dataSource.data = this.catalogoData
-      console.log(this.catalogoData)
      })
   }
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Inspecciones por pagina: '
     this.dataSource.sort = this.sort
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
   nuevaIspeccion: Inspecciones = {
     id_tipo_inspeccion: 0,
     tipo_inspeccion: '',
@@ -69,16 +54,12 @@ export class CatalogoInspeccionesComponent implements AfterViewInit , OnInit{
     fecha_registro: '',
     fecha_actualizacion: ''
   };
-
   //modals
   openEditDialog(element : Inspecciones, TipoBoton : string): void {
     this._habilitarServices.openEditDialog('inspecciones', element , TipoBoton)
   }
-
-
     //cambio de estatus
     cambiarEstatus(acciones : Inspecciones , estatus : string): void {
-      console.log(acciones.id_tipo_inspeccion)
       Swal.fire({
         title: (acciones.activo === '0') ? "¿quieres habilitar esta accion?" : "¿quieres desahabilitar esta accion?",
         icon: "warning",
@@ -97,10 +78,8 @@ export class CatalogoInspeccionesComponent implements AfterViewInit , OnInit{
           acciones.activo = estatus
           const catalogo = 'inspecciones'
           this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
-            console.log(JSON.stringify(res));
             this.cargarTabla()
           },(error) => {
-            console.log(error)
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -110,8 +89,4 @@ export class CatalogoInspeccionesComponent implements AfterViewInit , OnInit{
         }
       });
     }
-  
-  
-
-
 }

@@ -2,11 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
-import { Empleado } from 'src/app/mainPage/interfaces/catalogos';
+import { Empleado, Funcione } from 'src/app/mainPage/interfaces/catalogos';
 import { Usuario } from 'src/app/mainPage/interfaces/usuarios';
 import { EmpleadosTablaService } from 'src/app/mainPage/services/EmpleadosTabla.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import { UsuarioService } from 'src/app/mainPage/services/Usuario.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
 import { CilService } from 'src/app/services/Cil.service';
 import { OperarioService } from 'src/app/services/Operario.service';
 import Swal from 'sweetalert2';
@@ -34,13 +35,15 @@ export class AddEmpleadosComponent {
 
   Empleadosforms: FormGroup
 
-  SelecionarRoles: string = 'SUPERVISOR,MAESTRO,MAYORDOMO,OPERARIO'
+  SelecionarRoles: string = ''
 
   SelecionarCiles: string = ''
 
   valorConvertido : number = 0
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService, private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService : CilService) {
+  funciones: Funcione[] = [] 
+
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService, private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService : CilService , private _catalogosService: CatalogosService) {
     const SoloNumeros = /^[0-9]*$/;
     this.Empleadosforms = this.fb.group({
       nombre_empl: ['', Validators.required],
@@ -50,11 +53,17 @@ export class AddEmpleadosComponent {
       id_empleado: ['', [Validators.required , Validators.maxLength(11) , Validators.pattern(SoloNumeros)]],
       Password: ['', Validators.required],
     })
+   
+    _catalogosService.getDataCatalogos('funciones').subscribe(data => {
+      this.funciones = data.Catalog.funciones;
+      const seleccionarFunciones = this.funciones.map(m => m.desc_funcion).join(',');
+      this.SelecionarRoles = seleccionarFunciones;
+    });
 
     this.dataEmpleado = data.element
 
     const funcion = _operarioService.decrypt(localStorage.getItem('funcion') ?? '')
-    console.log(funcion);
+   
     
     switch (funcion) {
       case '2':
@@ -64,8 +73,7 @@ export class AddEmpleadosComponent {
            this.SelecionarRoles = 'MAYORDOMO,OPERARIO'
         break;
     }
-    
-    console.log(this.dataEmpleado);
+
     
     this.SelecionarCiles = _operarioService.decrypt( localStorage.getItem('CILES') ?? '')
 
@@ -90,19 +98,13 @@ export class AddEmpleadosComponent {
       const NombreEmple: string = this.Empleadosforms.value.nombre_empl;
       const ApellidoEmple: string = this.Empleadosforms.value.apellido_empl;
 
-      switch (this.Empleadosforms.value.fk_funcion_empl) {
-        case 'SUPERVISOR':
-          this.valorConvertido = 1;
-          break;
-        case 'MAESTRO':
-          this.valorConvertido = 2;
-          break;
-        case 'MAYORDOMO':
-          this.valorConvertido = 3;
-          break;
-        case 'OPERARIO':
-          this.valorConvertido = 4;
-          break;
+      const funcion = this.funciones.find(m => m.desc_funcion.trim().toUpperCase() === this.Empleadosforms.value.fk_funcion_empl.trim().toUpperCase());
+
+      if (funcion) {
+        this.valorConvertido = funcion.id_funcion;
+      } else {
+        
+        // Puedes agregar más información de depuración si es necesario
       }
 
       const FuncionEmple : number =  this.valorConvertido;
@@ -119,10 +121,10 @@ export class AddEmpleadosComponent {
 
       if (this.data.TipoBoton == 'add') {
 
-        console.log(this.dataEmpleado);
+
         this._empleadosTablaService.agregarEmpleado(this.dataEmpleado).subscribe(
           (data) => {
-            console.log(JSON.stringify(data));
+      
             Swal.fire({
               title: 'Registro agregado!',
               icon: 'success',
@@ -132,23 +134,21 @@ export class AddEmpleadosComponent {
             this.close();
           },
           (error) => {
-            console.log(error);
+       
+            this._tablaService.TriggerTabla('empleados');
           }
         );
       } else if (this.data.TipoBoton == 'edit') {
         
-      } else {
-        // Handle other scenarios if needed
-      }
+      } 
     } else {
       this.Empleadosforms.markAllAsTouched();
     }
   }
 
   insertarUsuario(Empleado : Empleado , Usuario : Usuario){
-    console.log(Empleado , Usuario );
+
     this._usuariosService.CreateUsuario(Empleado , Usuario).subscribe(data => {
-      console.log(data); 
     })
   }
   

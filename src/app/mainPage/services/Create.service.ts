@@ -11,7 +11,7 @@ export class CreateService {
   constructor(private http: HttpClient) { }
 
   getCiles(): Observable<Catalogos> {
-    const apiUrl = `/server/getCatalogData?catalog=cil`;
+    const apiUrl = `/api/getCatalogData?catalog=cil`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
@@ -21,7 +21,7 @@ export class CreateService {
   cambiarEstatus(catalogo: string, element: any): Observable<any> {
     const body = this.getBody(catalogo, element)
 
-    const apiUrl = '/server/saveCatalogData';
+    const apiUrl = '/api/saveCatalogData';
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
@@ -29,7 +29,7 @@ export class CreateService {
   }
 
   private getBody(catalo: string, element: any): any {
-    console.log(element);
+    
     
     switch (catalo) {
       case 'cil':

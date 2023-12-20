@@ -9,29 +9,29 @@ import { OperarioService } from './Operario.service';
 })
 export class EmpleadosService {
 
-  private currentUser : number = 0;
+  //private currentUser : number = 0;
 
   //public funcionUser : number = 0;
 
   constructor(private http:HttpClient ,  private _operarioService : OperarioService) { 
 
-    this.getEmpleados().subscribe(data=> {
+    /*this.getEmpleados().subscribe(data=> {
       this.currentUser = data.Function
-    })
+    })*/
   }
 
   /*getEmpleadosFuncion() : Observable<number> {
     
     const NoEmpleado = localStorage.getItem('NoEmpleado');
 
-    const url = '/server/profile?id=' + NoEmpleado
+    const url = '/api/profile?id=' + NoEmpleado
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
   
     return this.http.get<Empleado>(url , {headers}).pipe(
       tap((data) => {
-        console.log(data);
+        
         
         this.setFuncion(data)
       }),
@@ -45,18 +45,12 @@ export class EmpleadosService {
     
     const NoEmpleado = this._operarioService.decrypt(localStorage.getItem('NoEmpleado') ?? '');
 
-    const url = '/server/profile?id=' + NoEmpleado
+    const url = '/api/profile?id=' + NoEmpleado
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
   
-    return this.http.get<Empleado>(url , {headers}).pipe(
-      tap((data) => {
-        localStorage.removeItem('funcion')
-        localStorage.setItem('funcion' , this._operarioService.encrypt(data.Function.toString()))
-        //this.setFuncion(data)
-      })
-    )
+    return this.http.get<Empleado>(url , {headers})
   }
 
   /*

@@ -13,7 +13,7 @@ export class UsuarioService {
   
   //obtener empleado
   getDataCatalogos(NoEmpleado:  number): Observable<Usuario> {
-    const apiUrl = `/server/profile?id=${NoEmpleado}`;
+    const apiUrl = `/api/profile?id=${NoEmpleado}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
@@ -23,8 +23,8 @@ export class UsuarioService {
 
   
   editUsuario( Empleado : Empleado , Usuario : Usuario): Observable<string>{
-    console.log(Empleado , Usuario );
-    const apiUrl = `server/updateUserInfo?`;
+    
+    const apiUrl = `api/updateUserInfo?`;
     const body = this.getBody(Empleado , Usuario )
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
@@ -46,8 +46,8 @@ export class UsuarioService {
 
 
   CreateUsuario( Empleado : Empleado , Usuario : Usuario): Observable<string>{
-    console.log(Empleado , Usuario );
-    const apiUrl = `server/updateUserInfo?`;
+    
+    const apiUrl = `api/updateUserInfo?`;
     const body = this.getBody(Empleado , Usuario )
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });

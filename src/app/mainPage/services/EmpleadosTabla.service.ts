@@ -13,7 +13,7 @@ export class EmpleadosTablaService {
 
   getDataCatalogos(): Observable<Catalogos> {
     const CIL = this._operarioService.decrypt( localStorage.getItem('CIL') ?? '')
-    const apiUrl = `/server/getCatalogData?catalog=empleados&cil=${CIL}`;
+    const apiUrl = `/api/getCatalogData?catalog=empleados&cil=${CIL}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
@@ -25,7 +25,7 @@ export class EmpleadosTablaService {
     const body = this.getBody(element)
 
     const CIL = this._operarioService.decrypt( localStorage.getItem('CIL') ?? '')
-    const apiUrl = `/server/saveCatalogData?catalog=empleados&cil=${CIL}`;
+    const apiUrl = `/api/saveCatalogData?catalog=empleados&cil=${CIL}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
@@ -70,7 +70,7 @@ export class EmpleadosTablaService {
     const body = this.getBodyAdd(element)
 
     const CIL = this._operarioService.decrypt( localStorage.getItem('CIL') ?? '')
-    const apiUrl = `/server/saveCatalogData?catalog=empleados&cil=${CIL}`;
+    const apiUrl = `/api/saveCatalogData?catalog=empleados&cil=${CIL}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 

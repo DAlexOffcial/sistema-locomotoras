@@ -2,23 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Acciones, Banio, Cil, Entregas, Funcione, InicialesLoco, Inspecciones, Locomotora, Mantenedore } from '../interfaces/catalogos';
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class CatalogosService {
-
   constructor(private http: HttpClient) { }
-  
   /*public getDataCil(catalogo: string): Observable<Catalogos> {
-
-    const apiUrl = '/server/getCatalogData?catalog=' + catalogo
-
+    const apiUrl = '/api/getCatalogData?catalog=' + catalogo
     const token = localStorage.getItem('token')
-    console.log(token)
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token })
-    console.log(headers)
     return this.http.post<Catalogos>(`${apiUrl}`, null, { headers }).pipe(
       map(data => ({
         ...data,
@@ -32,30 +24,22 @@ export class CatalogosService {
       }))
     )
   } */
-  
   // obtener catalogos y generar tablas 
-
   /*private dataCatalog: Subject<string> = new Subject<string>()
-  
   getCatlogo(catalogo : string) {
    this.dataCatalog.next(catalogo)
   }
-
   setCatalogo(){
-    console.log(this.dataCatalog)
     return this.dataCatalog
   }*/
-    
   getDataCatalogos(catalogo: string): Observable<any> {
-    const apiUrl = `/server/getCatalogData?catalog=${catalogo}`;
+    const apiUrl = `/api/getCatalogData?catalog=${catalogo}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
-
     return this.http.post<any>(apiUrl, null, { headers }).pipe(
       map(data => this.mapData(data, catalogo))
     );
   }
-
   private mapData(data: any, tipo: string): any {
     switch (tipo) {
       case 'cil':
@@ -81,7 +65,6 @@ export class CatalogosService {
         throw new Error(`Tipo de catálogo no válido: ${tipo}`);
     }
   }
-
   private mapCilData(data: any): any {
     return {
       ...data,
@@ -91,7 +74,6 @@ export class CatalogosService {
       }
     };
   }
-
   private mapInspeccionesData(data: any): any {
     return {
       ...data,
@@ -101,7 +83,6 @@ export class CatalogosService {
       }
     };
   }
-
   private mapEntregasData(data: any): any {
     return {
       ...data,
@@ -111,7 +92,6 @@ export class CatalogosService {
       }
     };
   }
-
   private mapAccionesData(data: any): any {
     return {
       ...data,
@@ -121,7 +101,6 @@ export class CatalogosService {
       }
     };
   }
-
   private mapBaniosData(data: any): any {
     return {
       ...data,
@@ -131,7 +110,6 @@ export class CatalogosService {
       }
     };    
   } 
-
   private mapInicialesLocoData(data: any): any {
     return {
       ...data,
@@ -150,7 +128,6 @@ export class CatalogosService {
       }
     };
   }
-
   private mapMantenedoresData(data: any): any {
     return {
       ...data,
@@ -160,7 +137,6 @@ export class CatalogosService {
       }
     };
   }
-
   private mapFuncionesData(data: any): any {
     return {
       ...data,

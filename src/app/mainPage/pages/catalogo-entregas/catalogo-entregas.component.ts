@@ -9,50 +9,38 @@ import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
 import { TablasService } from '../../services/Tablas.service';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
-
 @Component({
   selector: 'app-catalogo-entregas',
   templateUrl: './catalogo-entregas.component.html',
   styleUrls: ['./catalogo-entregas.component.css']
 })
 export class CatalogoEntregasComponent implements AfterViewInit , OnInit{
-
   private subscription: Subscription = new Subscription();
-   
   displayedColumns : string[] = ['acciones', 'desc_tipo_entrega', 'activo', 'fecha_registro' , 'fecha_actualizacion']
-
   dataSource = new MatTableDataSource<any>();
-
   catalogoData: Entregas [] = []
-
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices:HabilitarService , private _tablasServices : TablasService, private _modalAuthService:ModalAuthService){
      this.cargarTabla()
   }
   ngOnInit(): void {
     this._modalAuthService.checkTokenExpiration()
     this.subscription = this._tablasServices.obserbableTabla('entregas').subscribe(() => {
-      console.log('cargue la tabla de entregas')
       this.cargarTabla()
     } )
   }
-
   cargarTabla(){
     this._catalogoServices.getDataCatalogos('entregas').subscribe(data =>{
       this.catalogoData = data.Catalog.entregas
       this.dataSource.data = this.catalogoData
-      console.log(this.catalogoData)
      })
   }
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Entregas por pagina: '
     this.dataSource.sort = this.sort
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -65,14 +53,11 @@ export class CatalogoEntregasComponent implements AfterViewInit , OnInit{
     fecha_actualizacion: ''
   };
   //modals
-
   openEditDialog(element : Entregas , TipoBoton :  string): void {
     this._habilitarServices.openEditDialog('entregas', element , TipoBoton)
   }
-
     //cambio de estatus
     cambiarEstatus(acciones : Entregas , estatus : string): void {
-      console.log(acciones.id_tipo_entrega)
       Swal.fire({
         title: (acciones.activo === '0') ? "¿quieres habilitar esta accion?" : "¿quieres desahabilitar esta accion?",
         icon: "warning",
@@ -91,10 +76,8 @@ export class CatalogoEntregasComponent implements AfterViewInit , OnInit{
           acciones.activo = estatus
           const catalogo = 'entregas'
           this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
-            console.log(JSON.stringify(res));
             this.cargarTabla()
           },(error) => {
-            console.log(error)
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -104,5 +87,4 @@ export class CatalogoEntregasComponent implements AfterViewInit , OnInit{
         }
       });
     }
-
 }

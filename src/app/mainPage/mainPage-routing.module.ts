@@ -19,7 +19,6 @@ const routes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [getDashboardAccessGuard],
         children:[
             {
                 path: 'cil', component: CatalogoCliComponent,
@@ -27,7 +26,6 @@ const routes: Routes = [
                 data:{
                     allowedRoles: ['1']
                 },
-
             },
             {
                 path: 'inspecciones', component: CatalogoInspeccionesComponent ,
@@ -64,7 +62,7 @@ const routes: Routes = [
                 path: 'empleados', component: CatalogoEmpleadosComponent ,
                 canActivate:[getRoleGuardDos],
                 data:{
-                  allowedRoles: ['1' , '2' , '3']
+                  allowedRoles: ['1' , '2']
                 },
             },
             {
@@ -78,7 +76,7 @@ const routes: Routes = [
                 path: 'locomotoras', component: CatalogoLocomotorasComponent,
                 canActivate:[getRoleGuardDos],
                 data:{
-                  allowedRoles: ['1' , '2', '3']
+                  allowedRoles: ['1' , '2']
                 },
             },
             {

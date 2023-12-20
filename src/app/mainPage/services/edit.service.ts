@@ -31,7 +31,7 @@ export class HabilitarService {
   cambiarEstatus(catalogo: string, element: any): Observable<string> {
     const body = this.getBody(catalogo, element)
 
-    const apiUrl = '/server/saveCatalogData';
+    const apiUrl = '/api/saveCatalogData';
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
@@ -39,7 +39,7 @@ export class HabilitarService {
   }
 
   private getBody(catalo: string, element: any): any {
-    console.log(element);
+    
     
     switch (catalo) {
       case 'cil':

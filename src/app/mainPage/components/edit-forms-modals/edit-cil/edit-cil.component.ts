@@ -25,10 +25,10 @@ export class EditCilComponent {
       desc_cil: ['', Validators.required],
       PUESTO_TRABAJO: ['', Validators.required],
     })
-    console.log(data.TipoBoton);
+
 
     this.dataCil = data.element
-    console.log(this.dataCil.id_cil)
+
 
   }
 
@@ -39,22 +39,21 @@ export class EditCilComponent {
   }
 
   editForm() {
-    console.log(this.Cilforms.valid);
+  
     if (this.Cilforms.valid) {
       const DescCil : string = this.Cilforms.value.desc_cil;
       const PuestoTrabajo :string = this.Cilforms.value.PUESTO_TRABAJO;
-      console.log(DescCil, PuestoTrabajo);
+
       this.dataCil.desc_cil = DescCil.toUpperCase();
       this.dataCil.PUESTO_TRABAJO = PuestoTrabajo.toUpperCase();
 
       if (this.data.TipoBoton == 'add') {
         const IdCil = this.Cilforms.value.id_cil;
-        console.log(IdCil);
+   
         this.dataCil.id_cil = IdCil;
 
-          console.log(this.dataCil);
+ 
           this._createServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
-            console.log(JSON.stringify(data));
             Swal.fire({
               title: "Registro editado!",
               icon: "success"
@@ -63,11 +62,12 @@ export class EditCilComponent {
              this._tableService.TriggerTabla('cil')
             this.close();
           }, (error) => {
-            console.log(error);
+            this._tableService.TriggerTabla('cil')
+
           });
       } else if (this.data.TipoBoton == 'edit') {
         this._habiliatarServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
-          console.log(JSON.stringify(data));
+
           Swal.fire({
             title: "Registro editado!",
             icon: "success"
@@ -76,7 +76,8 @@ export class EditCilComponent {
           this._tableService.TriggerTabla('cil')
           this.close();
         }, (error) => {
-          console.log(error);
+          this._tableService.TriggerTabla('cil')
+ 
         });
       } else {
         this.Cilforms.markAllAsTouched();

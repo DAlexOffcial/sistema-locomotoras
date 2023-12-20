@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
 import { Cil } from 'src/app/interfaces/login';
-import { Empleado } from 'src/app/mainPage/interfaces/catalogos';
+import { Empleado, Funcione } from 'src/app/mainPage/interfaces/catalogos';
 import { Usuario } from 'src/app/mainPage/interfaces/usuarios';
-import { CreateService } from 'src/app/mainPage/services/Create.service';
 import { EmpleadosTablaService } from 'src/app/mainPage/services/EmpleadosTabla.service';
 import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import { UsuarioService } from 'src/app/mainPage/services/Usuario.service';
@@ -27,7 +26,7 @@ export class EditEmpleadosComponent {
 
   Empleadosforms: FormGroup
 
-  SelecionarRoles: string = 'SUPERVISOR,MAESTRO,MAYORDOMO,OPERARIO'
+  SelecionarRoles: string = ''
 
   SelecionarCiles: string = ''
 
@@ -35,7 +34,9 @@ export class EditEmpleadosComponent {
 
   Cil: Cil[] = []
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService ,private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService:  CilService) {
+  funciones: Funcione[] = [] 
+
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService ,private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService:  CilService , private _catalogosService: CatalogosService) {
     this.Empleadosforms = this.fb.group({
       nombre_empl: ['', Validators.required],
       apellido_empl: ['', Validators.required],
@@ -43,10 +44,15 @@ export class EditEmpleadosComponent {
       acceso_cil: ['', Validators.required]
     })
 
+    _catalogosService.getDataCatalogos('funciones').subscribe(data => {
+      this.funciones = data.Catalog.funciones;
+      const seleccionarFunciones = this.funciones.map(m => m.desc_funcion).join(',');
+      this.SelecionarRoles = seleccionarFunciones;
+    });
+
     this.dataEmpleado = data.element
     
     const funcion = _operarioService.decrypt(localStorage.getItem('funcion') ?? '')
-    console.log(funcion);
     
     switch (funcion) {
       case '2':
@@ -60,7 +66,6 @@ export class EditEmpleadosComponent {
 
     this._usuariosService.getDataCatalogos(this.dataEmpleado.id_empleado).subscribe(data => {
       this.dataUsuario = data
-      console.log(this.dataUsuario);
    })
  
     this.SelecionarCiles = _operarioService.decrypt(localStorage.getItem('CILES') ?? '')
@@ -85,20 +90,11 @@ export class EditEmpleadosComponent {
     
       const NombreEmple: string = this.Empleadosforms.value.nombre_empl;
       const ApellidoEmple: string = this.Empleadosforms.value.apellido_empl;
-      
-      switch (this.Empleadosforms.value.fk_funcion_empl) {
-        case 'SUPERVISOR':
-          this.valorConvertido = 1;
-          break;
-        case 'MAESTRO':
-          this.valorConvertido = 2;
-          break;
-        case 'MAYORDOMO':
-          this.valorConvertido = 3;
-          break;
-        case 'OPERARIO':
-          this.valorConvertido = 4;
-          break;
+
+      const funcion = this.funciones.find(m => m.desc_funcion.trim().toUpperCase() === this.Empleadosforms.value.fk_funcion_empl.trim().toUpperCase());
+
+      if (funcion) {
+        this.valorConvertido = funcion.id_funcion;
       }
       
       const FuncionEmple : number = this.valorConvertido
@@ -114,7 +110,7 @@ export class EditEmpleadosComponent {
       } else if (this.data.TipoBoton == 'edit') {        
         this._empleadosTablaService.cambiarEstatus(this.dataEmpleado).subscribe(
           (data) => {
-            console.log(JSON.stringify(data));
+
             Swal.fire({
               title: 'Registro editado!',
               icon: 'success',
@@ -124,21 +120,20 @@ export class EditEmpleadosComponent {
             this.close();
           },
           (error) => {
-            console.log(error);
+            this._tablaService.TriggerTabla('empleados');
+
           }
         );
-      } else {
-        // Handle other scenarios if needed
-      }
+      } 
     } else {
       this.Empleadosforms.markAllAsTouched();
     }
   }
 
   insertarUsuario(Empleado : Empleado , Usuario : Usuario){
-    console.log(Empleado , Usuario );
+
     this._usuariosService.editUsuario(Empleado , Usuario).subscribe(data => {
-      console.log(data);
+
       
     })
   }

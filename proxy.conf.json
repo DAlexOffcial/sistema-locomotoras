@@ -1,10 +1,10 @@
 {
-    "/server": {
+    "/api": {
       "target": "http://10.10.76.150/cil/api",
       "secure": false,
       "logLevel": "debug",
       "pathRewrite": {
-        "^/server": ""
+        "^/api": ""
       },
       "changeOrigin" : true
     }

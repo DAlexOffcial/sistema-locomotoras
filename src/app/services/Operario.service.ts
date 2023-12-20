@@ -15,13 +15,13 @@ export class OperarioService {
   }
 
   encrypt(data: string): string {
-    const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), this.key).toString();
+    const encryptedData  : string= CryptoJS.AES.encrypt(JSON.stringify(data), this.key).toString();
     return encryptedData;
   }
 
   decrypt(encryptedData: string): any {
     const decryptedBytes = CryptoJS.AES.decrypt(encryptedData, this.key);
     const decryptedData = JSON.parse(decryptedBytes.toString(CryptoJS.enc.Utf8));
-    return decryptedData;
+    return decryptedData; 
   }          
 }

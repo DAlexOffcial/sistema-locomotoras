@@ -30,7 +30,6 @@ export class PasswordEmpleadosComponent {
       contraseña2: ['', Validators.required],
     })
     this.dataEmpleado = data.element
-    console.log(this.dataEmpleado.id_empleado)
   }
 
   close() {
@@ -59,7 +58,6 @@ export class PasswordEmpleadosComponent {
       this.dataUsuario = data
 
       this._passwordService.getDataCatalogos(this.dataEmpleado.id_empleado , this.dataUsuario.Password , contra1 ).subscribe( data => {
-        console.log(data);
         this.mensaje = data.Message
         Swal.fire({
           text: this.mensaje,
@@ -68,7 +66,7 @@ export class PasswordEmpleadosComponent {
         
       },
       error => {
-        this.mensaje = error.Message
+        this.mensaje = error.error.Message
         Swal.fire({
           text: this.mensaje,
           icon: "error"
@@ -76,8 +74,6 @@ export class PasswordEmpleadosComponent {
       })
 
     })
-
-
     }else {
       this.Usuarioforms.markAllAsTouched();
     }

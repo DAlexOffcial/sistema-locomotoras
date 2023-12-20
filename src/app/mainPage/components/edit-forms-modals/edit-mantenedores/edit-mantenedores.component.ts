@@ -23,8 +23,7 @@ export class EditMantenedoresComponent {
       desc_mantenedor: ['', [Validators.required , Validators.maxLength(20)]],
     })
      this.dataMantenedor = data.element
-    console.log(this.dataMantenedor.id_mantenedor)
-    
+
   }
 
   close(){
@@ -36,14 +35,14 @@ export class EditMantenedoresComponent {
  editForm() {
   if (this.Mantenedorforms.valid) {
     const DescMantenedor = this.Mantenedorforms.value.desc_mantenedor;
-    console.log(DescMantenedor);
+
     this.dataMantenedor.desc_mantenedor = DescMantenedor;
 
     if (this.data.TipoBoton == 'add') {
-      console.log(this.dataMantenedor);
+
       this._createServices.cambiarEstatus('mantenedores', this.dataMantenedor).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
+
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
@@ -52,13 +51,14 @@ export class EditMantenedoresComponent {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('mantenedores');
+
         }
       );
     } else if (this.data.TipoBoton == 'edit') {
       this._habiliatarServices.cambiarEstatus('mantenedores', this.dataMantenedor).subscribe(
         (data) => {
-          console.log(JSON.stringify(data));
+
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
@@ -67,12 +67,11 @@ export class EditMantenedoresComponent {
           this.close();
         },
         (error) => {
-          console.log(error);
+          this._tablaService.TriggerTabla('mantenedores');
+
         }
       );
-    } else {
-      // Handle other scenarios if needed
-    }
+    } 
   } else {
     this.Mantenedorforms.markAllAsTouched();
   }
