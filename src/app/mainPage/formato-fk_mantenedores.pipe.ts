@@ -13,13 +13,13 @@ export class FormatoFK_mantenedoresPipe implements PipeTransform {
   constructor(private _catalogosService: CatalogosService) {
     this.dataLoaded = new Promise<boolean>((resolve) => {
       _catalogosService.getDataCatalogos('mantenedores').subscribe(data => {
-        this.mantenedores = data.Catalog.mantenedores;
+        this.mantenedores = data;
         resolve(true);
       });
     });
   }
 
-  transform(opcion: number): Promise<string> {
+  async transform(opcion: number): Promise<string> {
     return this.dataLoaded.then(() => {
       const mantenedor = this.mantenedores.find(item => item.id_mantenedor === opcion);
 

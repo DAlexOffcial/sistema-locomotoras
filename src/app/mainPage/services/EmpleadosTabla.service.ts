@@ -17,7 +17,7 @@ export class EmpleadosTablaService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
-    return this.http.post<Catalogos>(apiUrl, null, { headers })
+    return this.http.post<Catalogos>(apiUrl, {}, { headers })
   }
 
   cambiarEstatus( element: Empleado): Observable<string> {
@@ -77,7 +77,7 @@ export class EmpleadosTablaService {
     return this.http.post<string>(apiUrl, body, { headers })
   }
 
-  private getBodyAdd(element : Empleado) : any{
+  private getBodyAdd(element : Empleado) : object{
     return {
       "Id": "0",
       "Catalog": "empleados",

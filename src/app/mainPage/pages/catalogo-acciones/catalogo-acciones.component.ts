@@ -21,9 +21,7 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
 
   displayedColumns : string[] = ['acciones', 'desc_accion', 'activo' , 'fecha_registro' , 'fecha_actualizacion']
 
-  dataSource = new MatTableDataSource<any>();
-
-  catalogoData: Acciones[] = []
+  dataSource = new MatTableDataSource<Acciones>();
 
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,9 +40,7 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
 
   cargarTabla():void{
     this._catalogoServices.getDataCatalogos('acciones').subscribe(data =>{
-      this.catalogoData = data.Catalog.acciones
-      this.dataSource.data = this.catalogoData
-   
+      this.dataSource.data = data
      })
   }
 

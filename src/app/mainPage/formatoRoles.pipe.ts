@@ -14,13 +14,13 @@ export class FormatoRolesPipe implements PipeTransform {
     constructor(private _catalogoServices: CatalogosService) {
       this.dataLoaded = new Promise<boolean>((resolve) => {
         _catalogoServices.getDataCatalogos('funciones').subscribe(data => {
-          this.funciones = data.Catalog.funciones;
+          this.funciones = data;
           resolve(true);
         });
       });
     }
   
-    transform(opcion: number): Promise<string> {
+    async transform(opcion: number): Promise<string> {
       return this.dataLoaded.then(() => {
         const funcion = this.funciones.find(item => item.id_funcion === opcion);
   

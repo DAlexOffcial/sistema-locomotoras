@@ -20,9 +20,8 @@ import { OperarioService } from 'src/app/services/Operario.service';
 export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
   private subscription: Subscription = new Subscription();
   displayedColumns : string[] = [ 'acciones' , 'nombre_empl', 'apellido_empl', 'fk_funcion_empl', 'acceso_cil' , 'activo']
-  catalogoData: Empleado [] = []
   dataUsuarios!: Usuario
-  dataSource = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource<Empleado>();
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService, private _modalAuthService : ModalAuthService, private _operarioService : OperarioService ) {
@@ -40,8 +39,7 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
   }
   cargarTabla(){
     this._empleadosTablaService.getDataCatalogos().subscribe(data => {
-      this.catalogoData = data.Catalog.empleados
-      this.dataSource.data = this.catalogoData
+      this.dataSource.data = data.Catalog.empleados
      })
   }
   ngAfterViewInit() {

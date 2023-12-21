@@ -17,8 +17,8 @@ import { ModalAuthService } from 'src/app/services/modalAuth.service';
 export class CatalogoEntregasComponent implements AfterViewInit , OnInit{
   private subscription: Subscription = new Subscription();
   displayedColumns : string[] = ['acciones', 'desc_tipo_entrega', 'activo', 'fecha_registro' , 'fecha_actualizacion']
-  dataSource = new MatTableDataSource<any>();
-  catalogoData: Entregas [] = []
+  dataSource = new MatTableDataSource<Entregas>();
+
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices:HabilitarService , private _tablasServices : TablasService, private _modalAuthService:ModalAuthService){
@@ -32,8 +32,7 @@ export class CatalogoEntregasComponent implements AfterViewInit , OnInit{
   }
   cargarTabla(){
     this._catalogoServices.getDataCatalogos('entregas').subscribe(data =>{
-      this.catalogoData = data.Catalog.entregas
-      this.dataSource.data = this.catalogoData
+      this.dataSource.data = data
      })
   }
   ngAfterViewInit() {

@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 export class ModalAuthService {
   private token!: TokenData
   public timeoutId: any;
-  public tempo: any;
   constructor(private _operarioService: OperarioService, private _loginService: LoginService, private http: HttpClient, private router: Router) {
   }
   checkTokenExpiration() {
@@ -44,10 +43,17 @@ export class ModalAuthService {
       allowEscapeKey: false,
       confirmButtonText: "Reingresar",
       confirmButtonColor: "#455560",
-      preConfirm: () => {
-        if (this.tempo) {
-          clearTimeout(this.tempo);
-        }
+      timer: 10000
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        this.router.navigate(['/login']);
+      } else if (result.isConfirmed) {
+        this.Relogin()
+      }
+    });
+  }
+  /*
+    preConfirm: () => {
         this.Relogin()
       },
     })
@@ -55,7 +61,9 @@ export class ModalAuthService {
       this.router.navigate(['/login']);
       Swal.close();
     }, 10000);
-  }
+  */
+
+
   private Relogin() {
     const NoEmpleado: number = this._operarioService.decrypt((localStorage.getItem('NoEmpleado') ?? ''))
     this.getDataCatalogos(NoEmpleado).subscribe(data => {

@@ -17,7 +17,7 @@ import { AddCilComponent } from '../components/edit-forms-modals/add-cil/add-cil
 import { AddEmpleadosComponent } from '../components/edit-forms-modals/add-empleados/add-empleados.component';
 import { PasswordEmpleadosComponent } from '../components/edit-forms-modals/password-empleados/password-empleados.component';
 import { Usuario } from '../interfaces/usuarios';
-import { Empleado } from '../interfaces/catalogos';
+import { Cil, Empleado } from '../interfaces/catalogos';
 
 
 @Injectable({
@@ -38,7 +38,7 @@ export class HabilitarService {
     return this.http.post<string>(apiUrl, body, { headers })
   }
 
-  private getBody(catalo: string, element: any): any {
+  private getBody(catalo: string, element: any): object {
     
     
     switch (catalo) {
@@ -219,7 +219,7 @@ export class HabilitarService {
 
   
   //modals
-  openAddDialogCil( element: any , TipoBoton: string){
+  openAddDialogCil( element: Cil , TipoBoton: string){
     this.matDialog.open(AddCilComponent, {
       width: '50%',
       height: 'auto',

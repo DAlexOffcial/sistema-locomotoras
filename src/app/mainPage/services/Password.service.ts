@@ -14,7 +14,8 @@ export class PasswordService {
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
     return this.http.patch<Mensaje>(apiUrl, body ,{ headers })
   }
-  getBody(NoEmpleado: number , contraseñaActual : string , NuevaContaseña : string): any{
+
+  getBody(NoEmpleado: number , contraseñaActual : string , NuevaContaseña : string): object{
     return {
       "Username": NoEmpleado,
       "Password": contraseñaActual,

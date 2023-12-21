@@ -18,19 +18,17 @@ export class CreateService {
     return this.http.post<Catalogos>(apiUrl, null, { headers })
   }
 
-  cambiarEstatus(catalogo: string, element: any): Observable<any> {
+  cambiarEstatus(catalogo: string, element: any): Observable<string> {
     const body = this.getBody(catalogo, element)
 
     const apiUrl = '/api/saveCatalogData';
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
 
-    return this.http.post<any>(apiUrl, body, { headers })
+    return this.http.post<string>(apiUrl, body, { headers })
   }
 
-  private getBody(catalo: string, element: any): any {
-    
-    
+  private getBody(catalo: string, element: any): object {
     switch (catalo) {
       case 'cil':
         return {

@@ -27,7 +27,6 @@ export class AddCilComponent {
     })
 
     this.dataCil = data.element
-
   }
 
   close() {
