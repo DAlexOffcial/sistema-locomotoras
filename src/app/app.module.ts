@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SharedModule } from './shared/shared.module';
-import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { LoginService } from './services/login.service';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -21,14 +20,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { ModalAuthService } from './services/modalAuth.service';
 import {MatDialogModule} from '@angular/material/dialog';
+import { choseCilModule } from './components/escoger-cil/escojer-cil.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    RecoverPasswordComponent,
-    EscogerCilComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +41,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatFormFieldModule,
     FormsModule,
     MatIconModule,  
-    MatDialogModule
+    MatDialogModule,
+    choseCilModule
   ],
   providers: [
     LoginService,

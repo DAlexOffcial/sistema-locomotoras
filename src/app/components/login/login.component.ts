@@ -66,8 +66,4 @@ export class LoginComponent {
     }
   }
 
-  IrLick(): void {
-    this.router.navigateByUrl('recover')
-  }
-
 }

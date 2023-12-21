@@ -22,7 +22,7 @@ export class EscogerCilComponent implements OnInit {
     Function: 0,
     Access: '',
     //Status: false,
-    Status: true,
+    Status: false,
     RecordDate: '',
     UpdateDate: ''
   }
@@ -36,23 +36,23 @@ export class EscogerCilComponent implements OnInit {
   constructor(private _CILService :CilService , private _empleadosService: EmpleadosService, private router: Router, private _operarioService : OperarioService ,private _modalAuthService : ModalAuthService) {
     localStorage.removeItem("CIL");
     localStorage.removeItem("CILES");
-    this.getEmpleado()
+  
   }
 
   ngOnInit(): void {
+    this.getEmpleado()
     this._modalAuthService.checkTokenExpiration()
   }
 
   getEmpleado(){
     this._empleadosService.getEmpleados().subscribe(data => {
       this.empleado = data
-
+       
       this._CILService.getDataCatalogos().subscribe((data) => {
         this.cilArrayTodos = data.filter(cil => this.empleado.Access.split(',').includes(cil.id_cil));
         if(this.cilArrayTodos.length === 1 && this.empleado.Status){
           this.enviarDirecto()            
         }
-
       });
 
       if(this.empleado.Access === 'TODAS'){

@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
-import { EscogerCilComponent } from './components/escoger-cil/escoger-cil.component';
 import { isAuthenticatedGuard } from './guards/login.guard.guard';
 import { getDashboardAccessGuard } from './guards/GetRole1.guard';
-
 
 const routes: Routes = [
   { 
@@ -15,10 +12,8 @@ const routes: Routes = [
     path: 'login' , component: LoginComponent 
   },
   { 
-    path: 'recover' , component: RecoverPasswordComponent
-  },
-  { 
-    path: 'chose-cil' , component: EscogerCilComponent,
+    path: 'chose-cil' , 
+    loadChildren:() => import('./components/escoger-cil/escojer-cil.module').then(m => m.choseCilModule),
     canActivate: [isAuthenticatedGuard , getDashboardAccessGuard]
   },
   { 
