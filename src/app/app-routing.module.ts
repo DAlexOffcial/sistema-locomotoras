@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { isAuthenticatedGuard } from './guards/login.guard.guard';
 import { getDashboardAccessGuard } from './guards/GetRole1.guard';
+import { hasCiles } from './guards/HasCiles.guard';
 
 const routes: Routes = [
   { 
@@ -19,7 +20,7 @@ const routes: Routes = [
   { 
     path: 'dashboard' , 
     loadChildren: () => import('./mainPage/mainPage.module').then(m => m.mainPageModule ) ,
-    canActivate: [isAuthenticatedGuard]
+    canActivate: [isAuthenticatedGuard , hasCiles]
   },
   { 
     path: '**' , redirectTo: 'login' , pathMatch: 'full'

@@ -17,7 +17,7 @@ export class ModalAuthService {
   constructor(private _operarioService: OperarioService, private _loginService: LoginService, private http: HttpClient, private router: Router) {
   }
   checkTokenExpiration() {
-    // Cancelar cualquier temporizador existente antes de configurar uno nuevo
+    
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
@@ -26,7 +26,7 @@ export class ModalAuthService {
       const currentTime = Math.floor(Date.now() / 1000) + 10  
       const expirationTime = this.token.exp;
       const timeRemaining = expirationTime - currentTime;
-      if (timeRemaining <= 1800 && timeRemaining > 0 || timeRemaining <= 0) {  // Menos de 30 minutos y mayor que cero
+      if (timeRemaining <= 1800 && timeRemaining > 0 || timeRemaining <= 0) { 
         this.timeoutId = setTimeout(() => {
           if (window.location.pathname !== '/login') {
             this.showTokenExpirationModal();
@@ -35,6 +35,7 @@ export class ModalAuthService {
       }
     }
   }
+  
   private showTokenExpirationModal() {  
     Swal.fire({
       title: "¿Quieres volver a iniciar sesión?",
@@ -52,17 +53,6 @@ export class ModalAuthService {
       }
     });
   }
-  /*
-    preConfirm: () => {
-        this.Relogin()
-      },
-    })
-    this.tempo = setTimeout(() => {
-      this.router.navigate(['/login']);
-      Swal.close();
-    }, 10000);
-  */
-
 
   private Relogin() {
     const NoEmpleado: number = this._operarioService.decrypt((localStorage.getItem('NoEmpleado') ?? ''))

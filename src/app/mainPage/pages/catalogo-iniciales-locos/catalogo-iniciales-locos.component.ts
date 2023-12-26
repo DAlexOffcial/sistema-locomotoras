@@ -7,7 +7,6 @@ import { InicialesLoco } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
-import { TablasService } from '../../services/Tablas.service';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
 @Component({
   selector: 'app-catalogo-iniciales-locos',
@@ -20,12 +19,12 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
   dataSource = new MatTableDataSource<InicialesLoco>();
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService , private _modalAuthService: ModalAuthService){
+  constructor (private _catalogoServices: CatalogosService ,  private _habilitarServices: HabilitarService , private _modalAuthService: ModalAuthService){
     this.cargarTabla()
   }
   ngOnInit(): void {
     this._modalAuthService.checkTokenExpiration()
-    this.subscription = this._tablasServices.obserbableTabla('iniciales_locos').subscribe(() => {
+    this.subscription = this._habilitarServices.obserbableTabla('iniciales_locos').subscribe(() => {
       this.cargarTabla()
     } )
   }
@@ -73,7 +72,7 @@ export class CatalogoInicialesLocosComponent implements AfterViewInit , OnInit{
         //va al servicio
         acciones.activo = estatus
         const catalogo = 'iniciales_locos'
-        this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
+        this._catalogoServices.editarCatalogo(catalogo , acciones).subscribe(res => {
           this.cargarTabla()
         },(error) => {
           Swal.fire({

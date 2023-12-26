@@ -7,7 +7,6 @@ import { Acciones } from '../../interfaces/catalogos';
 import { HabilitarService } from '../../services/edit.service';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { TablasService } from '../../services/Tablas.service';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
 
 @Component({
@@ -26,13 +25,13 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor (private _catalogoServices: CatalogosService,  private _habilitarServices: HabilitarService , private _tablasServices : TablasService , private _modalAuthService :ModalAuthService){
+  constructor (private _catalogoServices: CatalogosService,  private _habilitarServices: HabilitarService , private _modalAuthService :ModalAuthService){
     this.cargarTabla()
   }
 
   ngOnInit(): void {
       this._modalAuthService.checkTokenExpiration()
-      this.subscription = this._tablasServices.obserbableTabla('acciones').subscribe(() => {
+      this.subscription = this._habilitarServices.obserbableTabla('acciones').subscribe(() => {
 
       this.cargarTabla()
     } )
@@ -88,7 +87,7 @@ export class CatalogoAccionesComponent implements AfterViewInit, OnInit {
         //va al servicio
         acciones.activo = estatus
         const catalogo = 'acciones'
-        this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
+        this._catalogoServices.editarCatalogo(catalogo , acciones).subscribe(res => {
       
           this.cargarTabla()
         },(error) => {

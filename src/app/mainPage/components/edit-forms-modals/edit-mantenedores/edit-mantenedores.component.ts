@@ -2,9 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Mantenedore } from 'src/app/mainPage/interfaces/catalogos';
-import { CreateService } from 'src/app/mainPage/services/Create.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
 import { HabilitarService } from 'src/app/mainPage/services/edit.service';
-import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +17,7 @@ export class EditMantenedoresComponent {
  
   Mantenedorforms: FormGroup
 
-  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService , private _createServices:CreateService , private _tablaService: TablasService){
+  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService , private _catalogosService : CatalogosService ){
     this.Mantenedorforms = this.fb.group({
       desc_mantenedor: ['', [Validators.required , Validators.maxLength(20)]],
     })
@@ -40,34 +39,34 @@ export class EditMantenedoresComponent {
 
     if (this.data.TipoBoton == 'add') {
 
-      this._createServices.cambiarEstatus('mantenedores', this.dataMantenedor).subscribe(
+      this._catalogosService.crearCatalogo('mantenedores', this.dataMantenedor).subscribe(
         (data) => {
 
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
           });
-          this._tablaService.TriggerTabla('mantenedores');
+          this._habiliatarServices.TriggerTabla('mantenedores');
           this.close();
         },
         (error) => {
-          this._tablaService.TriggerTabla('mantenedores');
+          this._habiliatarServices.TriggerTabla('mantenedores');
 
         }
       );
     } else if (this.data.TipoBoton == 'edit') {
-      this._habiliatarServices.cambiarEstatus('mantenedores', this.dataMantenedor).subscribe(
+      this._catalogosService.editarCatalogo('mantenedores', this.dataMantenedor).subscribe(
         (data) => {
 
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
           });
-          this._tablaService.TriggerTabla('mantenedores');
+          this._habiliatarServices.TriggerTabla('mantenedores');
           this.close();
         },
         (error) => {
-          this._tablaService.TriggerTabla('mantenedores');
+          this._habiliatarServices.TriggerTabla('mantenedores');
 
         }
       );

@@ -2,9 +2,9 @@ import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Cil } from 'src/app/mainPage/interfaces/catalogos';
-import { CreateService } from 'src/app/mainPage/services/Create.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
+
 import { HabilitarService } from 'src/app/mainPage/services/edit.service';
-import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
 
@@ -20,7 +20,7 @@ export class EditCilComponent {
   Cilforms: FormGroup
 
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _createServices: CreateService, private _tableService : TablasService) {
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _catalogosService: CatalogosService) {
     this.Cilforms = this.fb.group({
       desc_cil: ['', Validators.required],
       PUESTO_TRABAJO: ['', Validators.required],
@@ -53,30 +53,30 @@ export class EditCilComponent {
         this.dataCil.id_cil = IdCil;
 
  
-          this._createServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
+          this._catalogosService.crearCatalogo('cil', this.dataCil).subscribe(data => {
             Swal.fire({
               title: "Registro editado!",
               icon: "success"
             });
              // llamar a la tabla 
-             this._tableService.TriggerTabla('cil')
+             this._habiliatarServices.TriggerTabla('cil')
             this.close();
           }, (error) => {
-            this._tableService.TriggerTabla('cil')
+            this._habiliatarServices.TriggerTabla('cil')
 
           });
       } else if (this.data.TipoBoton == 'edit') {
-        this._habiliatarServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
+        this._catalogosService.editarCatalogo('cil', this.dataCil).subscribe(data => {
 
           Swal.fire({
             title: "Registro editado!",
             icon: "success"
           });
           //llamar a la tabla 
-          this._tableService.TriggerTabla('cil')
+          this._habiliatarServices.TriggerTabla('cil')
           this.close();
         }, (error) => {
-          this._tableService.TriggerTabla('cil')
+          this._habiliatarServices.TriggerTabla('cil')
  
         });
       } else {

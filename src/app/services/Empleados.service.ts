@@ -9,38 +9,11 @@ import { OperarioService } from './Operario.service';
 })
 export class EmpleadosService {
 
-  //private currentUser : number = 0;
-
-  //public funcionUser : number = 0;
 
   constructor(private http:HttpClient ,  private _operarioService : OperarioService) { 
 
-    /*this.getEmpleados().subscribe(data=> {
-      this.currentUser = data.Function
-    })*/
   }
 
-  /*getEmpleadosFuncion() : Observable<number> {
-    
-    const NoEmpleado = localStorage.getItem('NoEmpleado');
-
-    const url = '/api/profile?id=' + NoEmpleado
-
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
-  
-    return this.http.get<Empleado>(url , {headers}).pipe(
-      tap((data) => {
-        
-        
-        this.setFuncion(data)
-      }),
-      map((data)=> {
-        return data.Function
-      })
-    )
-  }*/
-  
   getEmpleados() : Observable<Empleado> {
     
     const NoEmpleado = this._operarioService.decrypt(localStorage.getItem('NoEmpleado') ?? '');
@@ -52,15 +25,5 @@ export class EmpleadosService {
   
     return this.http.get<Empleado>(url , {headers})
   }
-
-  /*
-
-  getFuncion() {
-    return this.currentUser
-  }
-
-  setFuncion(data : Empleado){
-     this.currentUser = data.Function
-  }*/
 
 }

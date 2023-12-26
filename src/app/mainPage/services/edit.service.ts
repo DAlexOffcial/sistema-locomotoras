@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -16,8 +15,11 @@ import { EditEntregasComponent } from '../components/edit-forms-modals/edit-entr
 import { AddCilComponent } from '../components/edit-forms-modals/add-cil/add-cil.component';
 import { AddEmpleadosComponent } from '../components/edit-forms-modals/add-empleados/add-empleados.component';
 import { PasswordEmpleadosComponent } from '../components/edit-forms-modals/password-empleados/password-empleados.component';
-import { Usuario } from '../interfaces/usuarios';
+
 import { Cil, Empleado } from '../interfaces/catalogos';
+import { BehaviorSubject, Observable} from 'rxjs';
+import { filter } from 'rxjs/operators'
+import { TriggerPayload } from '../interfaces/TriggerPayload';
 
 
 @Injectable({
@@ -26,197 +28,6 @@ import { Cil, Empleado } from '../interfaces/catalogos';
 export class HabilitarService {
 
   constructor(private http: HttpClient, private matDialog: MatDialog) { }
-
-
-  cambiarEstatus(catalogo: string, element: any): Observable<string> {
-    const body = this.getBody(catalogo, element)
-
-    const apiUrl = '/api/saveCatalogData';
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
-
-    return this.http.post<string>(apiUrl, body, { headers })
-  }
-
-  private getBody(catalo: string, element: any): object {
-    
-    
-    switch (catalo) {
-      case 'cil':
-        return {
-          "Id": element.id_cil,
-          "Catalog": "cil",
-          "CatalogConcepts": [
-            {
-              "Key": "id_cil",
-              "Value": element.id_cil
-            },
-            {
-              "Key": "desc_cil",
-              "Value": element.desc_cil
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            },
-            {
-              "Key": "PUESTO_TRABAJO",
-              "Value": element.PUESTO_TRABAJO 
-            }
-          ]
-        };
-      case 'inspecciones':
-        return {
-          "Id": element.id_tipo_inspeccion,
-          "Catalog": "inspecciones",
-          "CatalogConcepts": [
-            {
-              "Key": "id_tipo_inspeccion",
-              "Value": element.id_tipo_inspeccion
-            },
-            {
-              "Key": "tipo_inspeccion",
-              "Value": element.tipo_inspeccion
-            },
-            {
-              "Key": "desc_tipo_inspeccion",
-              "Value": element.desc_tipo_inspeccion
-            },
-            {
-              "Key": "tiempo_meta",
-              "Value": element.tiempo_meta
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            }
-          ]
-        };
-      case 'entregas':
-        return {
-          "Id": element.id_tipo_entrega,
-          "Catalog": "entregas",
-          "CatalogConcepts": [
-            {
-              "Key": "id_tipo_entrega",
-              "Value": element.id_tipo_entrega
-            },
-            {
-              "Key": "desc_tipo_entrega",
-              "Value": element.desc_tipo_entrega
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            }
-          ]
-        };
-      case 'acciones':
-        return {
-          "Id": element.id_accion,
-          "Catalog": "acciones",
-          "CatalogConcepts": [
-            {
-              "Key": "id_accion",
-              "Value": element.id_accion
-            },
-            {
-              "Key": "desc_accion",
-              "Value": element.desc_accion
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            }
-          ]
-        };
-
-      case 'banios':
-        return {
-          "Id": element.id_banio,
-          "Catalog": "banios",
-          "CatalogConcepts": [
-            {
-              "Key": "id_banio",
-              "Value": element.id_banio
-            },
-            {
-              "Key": "desc_banio",
-              "Value": element.desc_banio
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            }
-          ]
-        };
-      case 'iniciales_locos':
-        return {
-          "Id": element.id_inicial_loco,
-          "Catalog": "iniciales_locos",
-          "CatalogConcepts": [
-            {
-              "Key": "id_inicial_loco",
-              "Value": element.id_inicial_loco
-            },
-            {
-              "Key": "desc_inicial_loco",
-              "Value": element.desc_inicial_loco
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            }
-          ]
-        };
-      case 'locomotoras':
-        return {
-          "Id": element.id_loco,
-          "Catalog": "locomotoras",
-          "CatalogConcepts": [
-            {
-              "Key": "id_loco",
-              "Value": element.id_loco
-            },
-            {
-              "Key": "desc_loco",
-              "Value": element.desc_loco
-            },
-            {
-              "Key": "fk_mantenedor",
-              "Value": element.fk_mantenedor
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            }
-          ]
-        };
-      case 'mantenedores':
-        return {
-          "Id": element.id_mantenedor,
-          "Catalog": "mantenedores",
-          "CatalogConcepts": [
-            {
-              "Key": "id_mantenedor",
-              "Value": element.id_mantenedor
-            },
-            {
-              "Key": "desc_mantenedor",
-              "Value": element.desc_mantenedor
-            },
-            {
-              "Key": "activo",
-              "Value": element.activo
-            }
-          ]
-        };
-      // Agrega más casos según sea necesario para otros tipos de información
-      default:
-        throw new Error(`Tipo de catálogo no válido: ${catalo}`);
-    }
-  }
-
   
   //modals
   openAddDialogCil( element: Cil , TipoBoton: string){
@@ -246,7 +57,6 @@ export class HabilitarService {
     })
   }
 
-  
   openEditDialog(catalogo: string , element: any , TipoBoton: string): void {
     switch (catalogo) {
       case 'cil':
@@ -325,5 +135,18 @@ export class HabilitarService {
         throw new Error(`Tipo de catálogo no válido: ${catalogo}`);
     }
 
+  }
+
+  //recargar tablas 
+  private tablaSubject = new BehaviorSubject<TriggerPayload | null>(null);
+
+  TriggerTabla(OrigenTabla: string){
+    this.tablaSubject.next({OrigenTabla})
+  }
+  
+  obserbableTabla(OrigenTabla : string) : Observable<TriggerPayload | null > {
+    return this.tablaSubject.asObservable().pipe(
+     filter((payload) => payload !== null && payload.OrigenTabla === OrigenTabla)
+    )
   }
 }

@@ -5,10 +5,9 @@ import { map } from 'rxjs';
 import { Cil } from 'src/app/interfaces/login';
 import { Empleado, Funcione } from 'src/app/mainPage/interfaces/catalogos';
 import { Usuario } from 'src/app/mainPage/interfaces/usuarios';
-import { EmpleadosTablaService } from 'src/app/mainPage/services/EmpleadosTabla.service';
-import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import { UsuarioService } from 'src/app/mainPage/services/Usuario.service';
 import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
+import { HabilitarService } from 'src/app/mainPage/services/edit.service';
 import { CilService } from 'src/app/services/Cil.service';
 import { OperarioService } from 'src/app/services/Operario.service';
 import Swal from 'sweetalert2';
@@ -36,7 +35,7 @@ export class EditEmpleadosComponent {
 
   funciones: Funcione[] = [] 
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: TablasService, private _empleadosTablaService :EmpleadosTablaService ,private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService:  CilService , private _catalogosService: CatalogosService) {
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: HabilitarService,private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService:  CilService , private _catalogosService: CatalogosService) {
     this.Empleadosforms = this.fb.group({
       nombre_empl: ['', Validators.required],
       apellido_empl: ['', Validators.required],
@@ -45,7 +44,7 @@ export class EditEmpleadosComponent {
     })
 
     _catalogosService.getDataCatalogos('funciones').subscribe(data => {
-      this.funciones = data.Catalog.funciones;
+      this.funciones = data;
       const seleccionarFunciones = this.funciones.map(m => m.desc_funcion).join(',');
       this.SelecionarRoles = seleccionarFunciones;
     });
@@ -108,7 +107,7 @@ export class EditEmpleadosComponent {
       if (this.data.TipoBoton == 'add') {
 
       } else if (this.data.TipoBoton == 'edit') {        
-        this._empleadosTablaService.cambiarEstatus(this.dataEmpleado).subscribe(
+        this._catalogosService.editarEmpleado(this.dataEmpleado).subscribe(
           (data) => {
 
             Swal.fire({

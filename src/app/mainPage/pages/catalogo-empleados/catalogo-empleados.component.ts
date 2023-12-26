@@ -1,17 +1,16 @@
-import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
-import { EmpleadosTablaService } from '../../services/EmpleadosTabla.service';
+import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { Empleado } from '../../interfaces/catalogos';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { TablasService } from '../../services/Tablas.service';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { UsuarioService } from '../../services/Usuario.service';
 import { Usuario } from '../../interfaces/usuarios';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
 import { OperarioService } from 'src/app/services/Operario.service';
+import { CatalogosService } from '../../services/catalogos.service';
 @Component({
   selector: 'app-catalogo-empleados',
   templateUrl: './catalogo-empleados.component.html',
@@ -24,7 +23,7 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
   dataSource = new MatTableDataSource<Empleado>();
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private _empleadosTablaService : EmpleadosTablaService , private _tablasServices : TablasService , private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService, private _modalAuthService : ModalAuthService, private _operarioService : OperarioService ) {
+  constructor(private _habilitarServices:HabilitarService, private _usuarioService : UsuarioService, private _modalAuthService : ModalAuthService, private _operarioService : OperarioService , private _catalogoServices: CatalogosService ) {
     this.cargarTabla()
   }
   isButtonEnabled(rolEmpleado: Empleado): boolean {
@@ -33,12 +32,12 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
   }
   ngOnInit(): void {
       this._modalAuthService.checkTokenExpiration()
-      this.subscription = this._tablasServices.obserbableTabla('empleados').subscribe(() => {
+      this.subscription = this._habilitarServices.obserbableTabla('empleados').subscribe(() => {
       this.cargarTabla()
     } )
   }
   cargarTabla(){
-    this._empleadosTablaService.getDataCatalogos().subscribe(data => {
+    this._catalogoServices.getDataCatalogosEmpleado().subscribe(data => {
       this.dataSource.data = data.Catalog.empleados
      })
   }
@@ -89,7 +88,7 @@ export class CatalogoEmpleadosComponent implements OnInit , AfterViewInit{
         });
         //va al servicio
         acciones.activo = estatus
-        this._empleadosTablaService.cambiarEstatus(acciones).subscribe(res => {
+        this._catalogoServices.editarEmpleado(acciones).subscribe(res => {
           this.cargarTabla()
           this._usuarioService.getDataCatalogos(acciones.id_empleado).subscribe(data =>{
              this.dataUsuarios = data

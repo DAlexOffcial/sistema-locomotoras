@@ -18,12 +18,6 @@ export class CilService {
     return this.http.post<Catalogos>(apiUrl, null, { headers }).pipe(
       map(data => data.Catalog.cil)
     );
-
-
-    
-    /*.pipe(  
-      map(data => data.Catalog.cil.map(cil => cil.id_cil).join(','))
-    );*/
   }
 
 }

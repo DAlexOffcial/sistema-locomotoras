@@ -3,9 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Locomotora, Mantenedore } from 'src/app/mainPage/interfaces/catalogos';
 import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
-import { CreateService } from 'src/app/mainPage/services/Create.service';
 import { HabilitarService } from 'src/app/mainPage/services/edit.service';
-import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,13 +23,13 @@ export class EditLocomotorasComponent {
 
   mantenedores: Mantenedore[] = []
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _createServices: CreateService, private _tablaService: TablasService, private _catalogosService: CatalogosService) {
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _catalogosService: CatalogosService) {
     this.Locomotoraforms = this.fb.group({
       desc_loco: ['', [Validators.required, Validators.maxLength(9)]],
       fk_mantenedor: ['', [Validators.required]],
     })
     _catalogosService.getDataCatalogos('mantenedores').subscribe(data => {
-      this.mantenedores = data.Catalog.mantenedores;
+      this.mantenedores = data;
       const seleccionarMantenedor = this.mantenedores.map(m => m.desc_mantenedor).join(',');
       this.SeleccionarMantenedor = seleccionarMantenedor;
     })
@@ -64,34 +62,34 @@ export class EditLocomotorasComponent {
 
       if (this.data.TipoBoton == 'add') {
         
-        this._createServices.cambiarEstatus('locomotoras', this.dataLocomotora).subscribe(
+        this._catalogosService.crearCatalogo('locomotoras', this.dataLocomotora).subscribe(
           (data) => {
 
             Swal.fire({
               title: 'Registro agregadowww!',
               icon: 'success',
             });
-            this._tablaService.TriggerTabla('locomotoras');
+            this._habiliatarServices.TriggerTabla('locomotoras');
             this.close();
           },
           (error) => {
-            this._tablaService.TriggerTabla('locomotoras');
+            this._habiliatarServices.TriggerTabla('locomotoras');
     
           }
         );
       } else if (this.data.TipoBoton == 'edit') {
-        this._habiliatarServices.cambiarEstatus('locomotoras', this.dataLocomotora).subscribe(
+        this._catalogosService.editarCatalogo('locomotoras', this.dataLocomotora).subscribe(
           (data) => {
 
             Swal.fire({
               title: 'Registro editado!',
               icon: 'success',
             });
-            this._tablaService.TriggerTabla('locomotoras');
+            this._habiliatarServices.TriggerTabla('locomotoras');
             this.close();
           },
           (error) => {
-            this._tablaService.TriggerTabla('locomotoras');
+            this._habiliatarServices.TriggerTabla('locomotoras');
   
           }
         );

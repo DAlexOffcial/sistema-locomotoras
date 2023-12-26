@@ -2,9 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Entregas } from 'src/app/mainPage/interfaces/catalogos';
-import { CreateService } from 'src/app/mainPage/services/Create.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
+
 import { HabilitarService } from 'src/app/mainPage/services/edit.service';
-import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +18,7 @@ export class EditEntregasComponent {
  
   Entregasforms: FormGroup
 
-  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService , private _createServices:CreateService , private _tablaService: TablasService){
+  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService , private _catalogosService:CatalogosService ){
     this.Entregasforms = this.fb.group({
       desc_tipo_entrega: ['', Validators.required],
     })
@@ -39,34 +39,34 @@ export class EditEntregasComponent {
 
     if (this.data.TipoBoton == 'add') {
 
-      this._createServices.cambiarEstatus('entregas', this.dataEntregas).subscribe(
+      this._catalogosService.crearCatalogo('entregas', this.dataEntregas).subscribe(
         (data) => {
 
           Swal.fire({
             title: 'Registro agregado!',
             icon: 'success',
           });
-          this._tablaService.TriggerTabla('entregas');
+          this._habiliatarServices.TriggerTabla('entregas');
           this.close();
         },
         (error) => {
-          this._tablaService.TriggerTabla('entregas');
+          this._habiliatarServices.TriggerTabla('entregas');
 
         }
       );
     } else if (this.data.TipoBoton == 'edit') {
-      this._habiliatarServices.cambiarEstatus('entregas', this.dataEntregas).subscribe(
+      this._catalogosService.editarCatalogo('entregas', this.dataEntregas).subscribe(
         (data) => {
 
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
           });
-          this._tablaService.TriggerTabla('entregas');
+          this._habiliatarServices.TriggerTabla('entregas');
           this.close();
         },
         (error) => {
-          this._tablaService.TriggerTabla('entregas');
+          this._habiliatarServices.TriggerTabla('entregas');
 
         }
       );

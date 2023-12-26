@@ -5,7 +5,6 @@ import { Cil } from '../../interfaces/catalogos';
 import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
-import { TablasService } from '../../services/Tablas.service';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { ModalAuthService } from 'src/app/services/modalAuth.service';
@@ -20,12 +19,12 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
   dataSource = new MatTableDataSource<Cil>();
   @ViewChild(MatPaginator, {static :true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor (private _catalogoServices: CatalogosService , private _habilitarServices: HabilitarService , private _tablaService : TablasService , private _modalAuthService : ModalAuthService){
+  constructor (private _catalogoServices: CatalogosService , private _habilitarServices: HabilitarService  , private _modalAuthService : ModalAuthService){
     this.cargarTabla()
   }
   ngOnInit(): void {
     this._modalAuthService.checkTokenExpiration()
-     this.subscription = this._tablaService.obserbableTabla('cil').subscribe(() => {
+     this.subscription = this._habilitarServices.obserbableTabla('cil').subscribe(() => {
       this.cargarTabla()
      })
   }
@@ -82,7 +81,7 @@ export class CatalogoCliComponent implements AfterViewInit , OnInit{
           //va al servicio
           acciones.activo = estatus
           const catalogo = 'cil'
-          this._habilitarServices.cambiarEstatus(catalogo , acciones).subscribe(res => {
+          this._catalogoServices.editarCatalogo(catalogo , acciones).subscribe(res => {
             this.cargarTabla()
           },(error) => {
             Swal.fire({

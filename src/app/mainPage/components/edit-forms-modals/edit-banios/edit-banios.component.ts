@@ -2,9 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Banio } from 'src/app/mainPage/interfaces/catalogos';
-import { CreateService } from 'src/app/mainPage/services/Create.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
+
 import { HabilitarService } from 'src/app/mainPage/services/edit.service';
-import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +18,7 @@ export class EditBaniosComponent {
  
   Banioforms: FormGroup
 
-  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService, private _createServices:CreateService , private _tablaService: TablasService){
+  constructor(private dialog: MatDialog , private fb: FormBuilder , @Inject(MAT_DIALOG_DATA) public data: any , private _habiliatarServices : HabilitarService, private _catalogosService:CatalogosService){
     this.Banioforms = this.fb.group({
       desc_banio: ['', [Validators.required , Validators.maxLength(20)]],
     })
@@ -37,32 +37,32 @@ export class EditBaniosComponent {
     this.dataBanio.desc_banio = DescBanio.toUpperCase();
 
     if (this.data.TipoBoton == 'add') {
-      this._createServices.cambiarEstatus('banios', this.dataBanio).subscribe(
+      this._catalogosService.crearCatalogo('banios', this.dataBanio).subscribe(
         (data) => {
           Swal.fire({
             title: 'Registro agregado!',
             icon: 'success',
           });
-          this._tablaService.TriggerTabla('banios');
+          this._habiliatarServices.TriggerTabla('banios');
           this.close();
         },
         (error) => {
-          this._tablaService.TriggerTabla('banios');
+          this._habiliatarServices.TriggerTabla('banios');
         }
       );
     } else if (this.data.TipoBoton == 'edit') {
-      this._habiliatarServices.cambiarEstatus('banios', this.dataBanio).subscribe(
+      this._catalogosService.editarCatalogo('banios', this.dataBanio).subscribe(
         (data) => {
 
           Swal.fire({
             title: 'Registro editado!',
             icon: 'success',
           });
-          this._tablaService.TriggerTabla('banios');
+          this._habiliatarServices.TriggerTabla('banios');
           this.close();
         },
         (error) => {
-          this._tablaService.TriggerTabla('banios');
+          this._habiliatarServices.TriggerTabla('banios');
         }
       );
     } 

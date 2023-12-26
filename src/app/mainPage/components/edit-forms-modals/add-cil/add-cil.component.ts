@@ -2,9 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Cil } from 'src/app/mainPage/interfaces/catalogos';
-import { CreateService } from 'src/app/mainPage/services/Create.service';
+import { CatalogosService } from 'src/app/mainPage/services/catalogos.service';
+
 import { HabilitarService } from 'src/app/mainPage/services/edit.service';
-import { TablasService } from 'src/app/mainPage/services/Tablas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +19,7 @@ export class AddCilComponent {
   Cilforms: FormGroup
 
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _createServices: CreateService, private _tableService : TablasService) {
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _catalogosService: CatalogosService) {
     this.Cilforms = this.fb.group({
       id_cil:['', Validators.required],
       desc_cil: ['', Validators.required],
@@ -47,31 +47,31 @@ export class AddCilComponent {
       if (this.data.TipoBoton == 'add') {
         const IdCil = this.Cilforms.value.id_cil;
 
-          this._createServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
+          this._catalogosService.crearCatalogo('cil', this.dataCil).subscribe(data => {
   
             Swal.fire({
               title: "Registro agregado!",
               icon: "success"
             });
              // llamar a la tabla 
-             this._tableService.TriggerTabla('cil')
+             this._habiliatarServices.TriggerTabla('cil')
             this.close();
           }, (error) => {
-            this._tableService.TriggerTabla('cil')
+            this._habiliatarServices.TriggerTabla('cil')
 
           });
       } else if (this.data.TipoBoton == 'edit') {
-        this._habiliatarServices.cambiarEstatus('cil', this.dataCil).subscribe(data => {
+        this._catalogosService.editarCatalogo('cil', this.dataCil).subscribe(data => {
 
           Swal.fire({
             title: "Registro editado!",
             icon: "success"
           });
           //llamar a la tabla 
-          this._tableService.TriggerTabla('cil')
+          this._habiliatarServices.TriggerTabla('cil')
           this.close();
         }, (error) => {
-          this._tableService.TriggerTabla('cil')
+          this._habiliatarServices.TriggerTabla('cil')
 
         });
       } else {

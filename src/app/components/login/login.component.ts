@@ -31,8 +31,6 @@ export class LoginComponent {
       NoEmpleado: ['', Validators.required],
       Password: ['', Validators.required],
     })
-
-    
   }
 
   login() {

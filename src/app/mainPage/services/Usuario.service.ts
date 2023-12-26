@@ -20,8 +20,6 @@ export class UsuarioService {
     return this.http.get<Usuario>(apiUrl, { headers })
   }
 
-
-  
   editUsuario( Empleado : Empleado , Usuario : Usuario): Observable<string>{
     
     const apiUrl = `api/updateUserInfo?`;

@@ -18,8 +18,6 @@ export class LoginService {
   }
   guardarNoEmpleado(NoEmpleado : string) :void{
     NoEmpleado = this._operarioService.encrypt(NoEmpleado)
-    /*NoEmpleado = this._operarioService.decrypt(NoEmpleado)
-    */
     localStorage.removeItem("NoEmpleado");
     localStorage.setItem('NoEmpleado' , NoEmpleado )
   }
