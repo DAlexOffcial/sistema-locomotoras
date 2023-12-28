@@ -12,7 +12,6 @@ import { SharedModule } from './shared/shared.module';
 import { LoginService } from './services/login.service';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { EscogerCilComponent } from './components/escoger-cil/escoger-cil.component';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';

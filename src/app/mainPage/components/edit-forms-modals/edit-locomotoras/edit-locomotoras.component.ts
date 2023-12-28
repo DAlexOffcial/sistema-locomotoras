@@ -47,16 +47,11 @@ export class EditLocomotorasComponent {
   editForm() {
     if (this.Locomotoraforms.valid) {
       const DescLoco: string = this.Locomotoraforms.value.desc_loco;
-   
-
       const mantenedor = this.mantenedores.find(m => m.desc_mantenedor.trim().toUpperCase() === this.Locomotoraforms.value.fk_mantenedor.trim().toUpperCase());
-
       if (mantenedor) {
         this.valorConvertido = mantenedor.id_mantenedor;
       } 
-
       const FK_Mantenedor: number = this.valorConvertido
-
       this.dataLocomotora.desc_loco = DescLoco;
       this.dataLocomotora.fk_mantenedor = FK_Mantenedor;
 
@@ -77,27 +72,44 @@ export class EditLocomotorasComponent {
     
           }
         );
-      } else if (this.data.TipoBoton == 'edit') {
-        this._catalogosService.editarCatalogo('locomotoras', this.dataLocomotora).subscribe(
-          (data) => {
-
-            Swal.fire({
-              title: 'Registro editado!',
-              icon: 'success',
-            });
-            this._habiliatarServices.TriggerTabla('locomotoras');
-            this.close();
-          },
-          (error) => {
-            this._habiliatarServices.TriggerTabla('locomotoras');
-  
-          }
-        );
       } else {
-        // Handle other scenarios if needed
+        this.Locomotoraforms.markAllAsTouched();
       }
-    } else {
-      this.Locomotoraforms.markAllAsTouched();
+    } else if (this.data.TipoBoton == 'edit') {
+      const DescLoco: string = this.Locomotoraforms.value.desc_loco;
+      const mantenedor = this.mantenedores.find(m => m.desc_mantenedor.trim().toUpperCase() === this.Locomotoraforms.value.fk_mantenedor.trim().toUpperCase());
+      if (mantenedor) {
+        this.valorConvertido = mantenedor.id_mantenedor;
+      } 
+      const FK_Mantenedor: number = this.valorConvertido
+
+      if(DescLoco === ''){
+      this.dataLocomotora.desc_loco
+      }else{
+      this.dataLocomotora.desc_loco = DescLoco;
+      }
+
+      if(!FK_Mantenedor){
+        this.dataLocomotora.fk_mantenedor
+      }else{
+      this.dataLocomotora.fk_mantenedor = FK_Mantenedor;
+      }
+
+      this._catalogosService.editarCatalogo('locomotoras', this.dataLocomotora).subscribe(
+        (data) => {
+
+          Swal.fire({
+            title: 'Registro editado!',
+            icon: 'success',
+          });
+          this._habiliatarServices.TriggerTabla('locomotoras');
+          this.close();
+        },
+        (error) => {
+          this._habiliatarServices.TriggerTabla('locomotoras');
+
+        }
+      );
     }
   }
 

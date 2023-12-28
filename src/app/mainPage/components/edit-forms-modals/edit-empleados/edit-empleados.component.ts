@@ -37,32 +37,32 @@ export class EditEmpleadosComponent {
 
   constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _tablaService: HabilitarService,private _usuariosService: UsuarioService , private _operarioService : OperarioService , private _cilService:  CilService , private _catalogosService: CatalogosService) {
     this.Empleadosforms = this.fb.group({
-      nombre_empl: ['', Validators.required],
-      apellido_empl: ['', Validators.required],
-      fk_funcion_empl: ['', Validators.required],
-      acceso_cil: ['', Validators.required]
+      nombre_empl: [''],
+      apellido_empl: [''],
+      fk_funcion_empl: [''],
+      acceso_cil: ['']
     })
 
     _catalogosService.getDataCatalogos('funciones').subscribe(data => {
       this.funciones = data;
       const seleccionarFunciones = this.funciones.map(m => m.desc_funcion).join(',');
       this.SelecionarRoles = seleccionarFunciones;
+
+      const funcion = _operarioService.decrypt(localStorage.getItem('funcion') ?? '')
+    
+      switch (funcion) {
+        case '2':
+            this.SelecionarRoles = 'MAESTRO,MAYORDOMO,OPERARIO'
+          break;
+        case '3':
+             this.SelecionarRoles = 'MAYORDOMO,OPERARIO'
+          break;
+      }
+      
     });
 
     this.dataEmpleado = data.element
-    
-    const funcion = _operarioService.decrypt(localStorage.getItem('funcion') ?? '')
-    
-    switch (funcion) {
-      case '2':
-          this.SelecionarRoles = 'MAESTRO,MAYORDOMO,OPERARIO'
-        break;
-      case '3':
-           this.SelecionarRoles = 'MAYORDOMO,OPERARIO'
-        break;
-    }
-    
-
+        
     this._usuariosService.getDataCatalogos(this.dataEmpleado.id_empleado).subscribe(data => {
       this.dataUsuario = data
    })
@@ -98,11 +98,29 @@ export class EditEmpleadosComponent {
       
       const FuncionEmple : number = this.valorConvertido
       const AccesoCil: string[] = this.Empleadosforms.value.acceso_cil;
-    
+
+      if(NombreEmple.trim() === ''){
+        this.dataEmpleado.nombre_empl 
+      }else{
       this.dataEmpleado.nombre_empl = NombreEmple.toUpperCase();
+      }
+
+      if(ApellidoEmple.trim() === ''){
+        this.dataEmpleado.apellido_empl
+      }else{
       this.dataEmpleado.apellido_empl = ApellidoEmple.toUpperCase();
+      }
+       
+      if(FuncionEmple === 0){
+        this.dataEmpleado.fk_funcion_empl
+      }else{
       this.dataEmpleado.fk_funcion_empl = FuncionEmple
+      }
+      if(AccesoCil[0] === undefined){   
+        this.dataEmpleado.acceso_cil
+      }else{
       this.dataEmpleado.acceso_cil = AccesoCil.toString()
+      }
 
       if (this.data.TipoBoton == 'add') {
 
@@ -133,7 +151,12 @@ export class EditEmpleadosComponent {
 
     this._usuariosService.editUsuario(Empleado , Usuario).subscribe(data => {
 
+    }, error => {
       
+      Swal.fire({
+        title: 'Hubo un error al incertar el usario',
+        icon: 'error',
+      });
     })
   }
 }

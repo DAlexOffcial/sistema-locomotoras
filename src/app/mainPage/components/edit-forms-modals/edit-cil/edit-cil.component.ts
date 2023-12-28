@@ -22,14 +22,11 @@ export class EditCilComponent {
 
   constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _habiliatarServices: HabilitarService, private _catalogosService: CatalogosService) {
     this.Cilforms = this.fb.group({
-      desc_cil: ['', Validators.required],
-      PUESTO_TRABAJO: ['', Validators.required],
+      desc_cil: [''],
+      PUESTO_TRABAJO: [''],
     })
 
-
     this.dataCil = data.element
-
-
   }
 
   close() {
@@ -41,11 +38,20 @@ export class EditCilComponent {
   editForm() {
   
     if (this.Cilforms.valid) {
+
       const DescCil : string = this.Cilforms.value.desc_cil;
       const PuestoTrabajo :string = this.Cilforms.value.PUESTO_TRABAJO;
-
+      
+      if(DescCil.trim() === ''){
+        this.dataCil.desc_cil
+      }else{
       this.dataCil.desc_cil = DescCil.toUpperCase();
+      }
+      if(PuestoTrabajo.trim() === ''){
+        this.dataCil.PUESTO_TRABAJO
+      }else{
       this.dataCil.PUESTO_TRABAJO = PuestoTrabajo.toUpperCase();
+      }
 
       if (this.data.TipoBoton == 'add') {
         const IdCil = this.Cilforms.value.id_cil;

@@ -27,7 +27,7 @@
         <div class="row mt-3">
             <div class="form-group col-md-6">
                 <label for="campo1" class="">Acceso a cil</label>
-                <mat-select placeholder="Selecciona los accesos a ciles" formControlName="acceso_cil" class="form-control mt-1" multiple>
+                <mat-select [placeholder]="dataEmpleado.acceso_cil" formControlName="acceso_cil" class="form-control mt-1" multiple>
                     <mat-option *ngFor="let cil of SelecionarCiles.split(',')" [value]="cil">{{ cil }}</mat-option>
                 </mat-select>
                 <div *ngIf="Empleadosforms.get('acceso_cil')!.hasError('required') && Empleadosforms.get('acceso_cil')!.touched" class="text-danger">
