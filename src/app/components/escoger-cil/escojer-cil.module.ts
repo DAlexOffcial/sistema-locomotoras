@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { LoginService } from 'src/app/services/login.service';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 import { choseCilRouter } from './choseCil-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';

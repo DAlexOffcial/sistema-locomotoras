@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 @Component({
   selector: 'app-catalogo-cli',
   templateUrl: './catalogo-cli.component.html',

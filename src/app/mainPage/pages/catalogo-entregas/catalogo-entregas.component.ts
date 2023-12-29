@@ -7,7 +7,7 @@ import { Entregas } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 @Component({
   selector: 'app-catalogo-entregas',
   templateUrl: './catalogo-entregas.component.html',

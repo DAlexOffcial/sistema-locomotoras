@@ -17,7 +17,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
-import { ModalAuthService } from './services/modalAuth.service';
+import { ModalAuthService } from './services/AuthExpiration.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { choseCilModule } from './components/escoger-cil/escojer-cil.module';
 

@@ -7,7 +7,7 @@ import { InicialesLoco } from '../../interfaces/catalogos';
 import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { Subscription } from 'rxjs';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 @Component({
   selector: 'app-catalogo-iniciales-locos',
   templateUrl: './catalogo-iniciales-locos.component.html',

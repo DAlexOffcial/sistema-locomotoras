@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../interfaces/usuarios';
+import { Mensaje, Usuario } from '../interfaces/usuarios';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Empleado } from 'src/app/mainPage/interfaces/catalogos';
 
@@ -20,6 +20,7 @@ export class UsuarioService {
     return this.http.get<Usuario>(apiUrl, { headers })
   }
 
+  // editar empleado
   editUsuario( Empleado : Empleado , Usuario : Usuario): Observable<string>{
     
     const apiUrl = `api/updateUserInfo?`;
@@ -42,7 +43,7 @@ export class UsuarioService {
     }
   }
 
-
+   // crear usuario
   CreateUsuario( Empleado : Empleado , Usuario : Usuario): Observable<string>{
     
     const apiUrl = `api/updateUserInfo?`;
@@ -51,6 +52,23 @@ export class UsuarioService {
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
   
     return this.http.put<string>(apiUrl, body, { headers }); 
+  }
+  
+  //cambiar contraseña 
+  CambiarContraseña( NoEmpleado: number , contraseñaActual : string , NuevaContaseña : string): Observable<Mensaje> {
+    const body = this.getBodyPassword(NoEmpleado , contraseñaActual ,NuevaContaseña  )
+    const apiUrl = `/api/updatePassword`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+    return this.http.patch<Mensaje>(apiUrl, body ,{ headers })
+  }
+
+  getBodyPassword(NoEmpleado: number , contraseñaActual : string , NuevaContaseña : string): object{
+    return {
+      "Username": NoEmpleado,
+      "Password": contraseñaActual,
+      "ConfirmPassword":  NuevaContaseña
+    }
   }
 
 }

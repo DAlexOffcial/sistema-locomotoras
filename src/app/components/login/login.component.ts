@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/services/Empleados.service';
 import { OperarioService } from 'src/app/services/Operario.service';
 import { LoginService } from 'src/app/services/login.service';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 import Swal from 'sweetalert2';
 
 @Component({

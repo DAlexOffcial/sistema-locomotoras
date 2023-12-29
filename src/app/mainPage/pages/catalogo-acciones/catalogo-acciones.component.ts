@@ -7,7 +7,7 @@ import { Acciones } from '../../interfaces/catalogos';
 import { HabilitarService } from '../../services/edit.service';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 
 @Component({
   selector: 'app-catalogo-acciones',

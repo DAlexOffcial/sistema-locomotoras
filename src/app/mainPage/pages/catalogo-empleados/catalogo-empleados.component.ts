@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { HabilitarService } from '../../services/edit.service';
 import { UsuarioService } from '../../services/Usuario.service';
 import { Usuario } from '../../interfaces/usuarios';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 import { OperarioService } from 'src/app/services/Operario.service';
 import { CatalogosService } from '../../services/catalogos.service';
 @Component({

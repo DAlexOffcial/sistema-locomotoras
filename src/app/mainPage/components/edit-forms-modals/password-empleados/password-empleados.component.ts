@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Empleado } from 'src/app/mainPage/interfaces/catalogos';
 import { Usuario } from 'src/app/mainPage/interfaces/usuarios';
-import { PasswordService } from 'src/app/mainPage/services/Password.service';
 import { UsuarioService } from 'src/app/mainPage/services/Usuario.service';
 import Swal from 'sweetalert2';
 
@@ -24,7 +23,7 @@ export class PasswordEmpleadosComponent {
 
   mensaje: string = '' 
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _usuariosService: UsuarioService , private _passwordService: PasswordService) {
+  constructor(private dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _usuariosService: UsuarioService) {
     this.Usuarioforms = this.fb.group({
       contraseña1: ['', Validators.required],
       contraseña2: ['', Validators.required],
@@ -57,7 +56,7 @@ export class PasswordEmpleadosComponent {
     this._usuariosService.getDataCatalogos(this.dataEmpleado.id_empleado).subscribe( data => {
       this.dataUsuario = data
 
-      this._passwordService.getDataCatalogos(this.dataEmpleado.id_empleado , this.dataUsuario.Password , contra1 ).subscribe( data => {
+      this._usuariosService.CambiarContraseña(this.dataEmpleado.id_empleado , this.dataUsuario.Password , contra1 ).subscribe( data => {
         this.mensaje = data.Message
         Swal.fire({
           text: this.mensaje,

@@ -5,7 +5,7 @@ import { Cil } from 'src/app/interfaces/login';
 import { CilService } from 'src/app/services/Cil.service';
 import { EmpleadosService } from 'src/app/services/Empleados.service';
 import { OperarioService } from 'src/app/services/Operario.service';
-import { ModalAuthService } from 'src/app/services/modalAuth.service';
+import { ModalAuthService } from 'src/app/services/AuthExpiration.service';
 
 @Component({
   selector: 'app-escoger-cil',
