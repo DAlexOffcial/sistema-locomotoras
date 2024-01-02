@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.9.
 
+## Ejecución 
+
+Para ejecutar el proyecto de se debe abrir la terminal en la carpeta Servicio-Locomotoras y ejecutar npm run start:proxy
+
+## Proxy 
+
+el Proxy es la parte del programa que se encarga de ultilizar la api 
+ 
+## Seguridad de la llave para encriptar la informacion 
+
+en la carpeta environment la cual tiene dos archivos uno para producion y otro para desarrollo  estos archivos buscan en variables de windows que es la llave con la que se encriptara la informacion 
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
